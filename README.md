@@ -10,7 +10,7 @@ María Rabanales
 * CSS
 * JavaScript
 
-##
+## Consideraciones:
 
 
 
