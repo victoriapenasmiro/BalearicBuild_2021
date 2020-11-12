@@ -1,7 +1,14 @@
 # BalearicBuild_2021
 Repositorio proyecto P2 + Pc2.
 
+## Autores:
+Maria Victoria Peñas
+María Rabanales
 
+## Lenguajes:
+* HTML
+* CSS
+* JavaScript
 
 
 
