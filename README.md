@@ -12,6 +12,7 @@ Repositorio proyecto P2 + Pc2.
 * HTML
 * CSS
 * JavaScript
+* Markdown
 
 ## Objetivos:
 //TODO completar
@@ -28,18 +29,41 @@ El tema subyacente del juego es la corrupción urbanística prevalente en las Is
 //TODO completar
 
 ### Fuentes:
-//TODO completar
+* Hemos descargado la [tipografía Corleone](https://www.dafont.com/es/corleone.font) para utilizar en los titulos H1 y H2 y en el logo, así como en algunos elementos puntuales del juego. El motivo principal por el cual hemos seleccionado esta tipografía es porqué hemos querido basarnos en el estilo de [EL PADRINO](https://www.filmaffinity.com/es/film809297.html), ya que el juego trata de mafia y corrupción. No hemos optado utilizar la misma tipografía para todos los encabezados, porqué sino queda muy agresivo a la vista.
+
+Esta tipografía se ha cargado en el css general, y no en el head de cada página con el objetivo de utilizarlo en todas las pantallas.
+
+* La fuente de los textos que no son encabezados, hemos seleccionado una tipografía de [Google Fonts, Open Sans](https://fonts.google.com/specimen/Open+Sans). El motivo es porqué queríamos una tipografía bastante limpia, clara y de fácil lectura.
+
+### Responsive:
+Hemos establecido los siguientes criterios para el diseño responsive:
+* Versión Móvil: max-width: 799px
+* Versión Desktop: min-width: 800px
+
+Actualmente los dispositivos móviles abarcan desde los 320px hasta los 799px aproximadamente. Uno de los dispositivos con pantalla más pequeña utilizada actualmente es el iphone 5(width 320px). A partir de 800px, suelen ser tablets en formato landscape, y normalmente suelen visualizarse como en la versión desktop.
+
+Por otro lado, debido a la longitud de nuestro menú para resoluciones inferiores a 800px, necesitamos un menú de navegación colpasado, ya que no cabe todo en la misma linea.
+
 
 ## Modificaciones de sketch a wireframe y a prototipo:
-Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.
+1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.
 
-También modificamos algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+2. También modificamos algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+
 //TODO completar
 
 ### Links de webs de juegos similares:
 * https://www.wesnoth.org/
 * http://www.freeciv.org/
 * https://play0ad.com/
+
+### Problemas encontrados:
+
+* Uno de las dificultades que nos hemos encontrado ha sido trabajar con las pseudoclases *:first-child, :nth-child(), :last-child*, no conseguíamos seleccionar los elementos que esperábamos y finalmente, enocntramos que la mejor opción es utilizar las siguientes para evitar estos problema *:first-of-type,:nth-of-type(), :last-of-type*.
+
+    * fuentes:
+        * [Stackoverrun](https://stackoverrun.com/es/q/1070889)
+        * [esthersola.com](https://www.esthersola.com/nth-child-css-ejemplos-practicos/)
 
 ## Desarrollo de código:
 //TODO completar

@@ -1,0 +1,355 @@
+@font-face {
+  font-family: "Corleone";
+  src: url("Corleone.TTF");
+}
+
+:root {
+  --main-color: #8e231b;
+  --main-dark: #5b0000;
+  --secondary: #000000;
+  --secondary-light: #212121;
+  --surface: #dddddd;
+  --error: #8e651b;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: Corleone, sans-serif;
+  font-weight: 400;
+}
+
+h3 {
+  font-family: Open Sans, sans-serif;
+  font-size: 1.5rem;
+}
+
+h4,
+h5,
+h6 {
+  font-family: Open Sans, sans-serif;
+  font-size: 1rem;
+}
+
+h1 {
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+h2 {
+  letter-spacing: 2px;
+}
+
+p,
+li,
+a {
+  font-family: Open Sans, sans-serif;
+  font-size: 1rem;
+}
+
+hr {
+    color: var(--surface);
+}
+
+header {
+  grid-area: header;
+  background-color: var(--main-color);
+  padding: 10px;
+}
+
+main {
+  grid-area: main;
+  padding: 20px;
+}
+
+aside {
+  grid-area: right;
+  text-align: center;
+  background-color: var(--secondary);
+  color: white;
+}
+
+aside:not(div:last-of-type){
+    padding: 20px;
+}
+
+aside ul {
+  text-align: left !important; /* TODO, en este caso solo quiero alinear a la izquierda un componente del aside, creo que es justificable utilizar impoprtant */
+}
+
+aside > div:last-of-type {
+    background-color: var(--surface);
+    padding: 10px;
+    margin-top: 20px;
+    color: var(--secondary);
+}
+
+footer {
+  grid-area: footer;
+  padding: 10px;
+  background-color: var(--main-dark);
+  color: white;
+}
+
+footer a {
+    color: white;
+}
+
+nav a:hover {
+  font-weight: 800;
+}
+
+nav a:not(:nth-last-of-type(2)) {
+  margin-right: 1.5%;
+  padding-right: 1.5%;
+}
+
+button {
+  margin: 0 auto;
+  margin-bottom: 25px;
+  display: block;
+  padding: 10px;
+  width: 200px;
+  border-radius: 5px;
+}
+
+main > section:first-of-type > div:nth-of-type(2) > button {
+  display: flex;
+  align-items: center;
+}
+
+.fas,
+.fab,
+.far {
+  margin-right: 8px;
+}
+
+.fa-github,
+.fa-envelope,
+.fa-facebook,
+.fa-twitter,
+.fa-instagram {
+    color: white;
+}
+
+.active {
+  text-decoration: underline;
+  font-weight: 800;
+}
+
+.grid-container {
+  display: grid;
+}
+
+/*responsive design tablet + desktop*/
+@media screen and (min-width: 800px) {
+  .grid-container {
+    grid-template-areas:
+      "header header header header"
+      "main main main right"
+      "footer footer footer footer";
+  }
+
+  h1 {
+    font-size: 4.5rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  header {
+    display: flex;
+  }
+
+  aside {
+    width: 350px;
+    height: fit-content;
+  }
+
+  aside > div > div {
+    display: flex;
+    padding-top: 20px;
+    padding-right: 110px;
+    padding-left: 110px;
+  }
+
+  aside > div > div > :last-child {
+    margin-left: auto;
+}
+
+aside > hr {
+    margin: 50px;
+}
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    height: fit-content;
+    align-self: center;
+  }
+
+  nav a {
+    font-family: Open Sans, sans-serif;
+    float: left;
+    display: block;
+    font-size: 1.25rem;
+    text-decoration: none;
+    color: white;
+  }
+
+  nav > a:last-of-type {
+    display: none;
+  }
+
+  nav a:not(:nth-last-of-type(2)) {
+    border-right: 1px solid white;
+  }
+
+  main > section:first-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  main > section:first-child > div:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  main > section:first-child > div:last-child > button {
+    align-self: center;
+  }
+
+  main > section:nth-of-type(2) > div:first-of-type {
+    display: grid;
+    grid-template-areas:
+      "h2 h2 img"
+      "p p img";
+  }
+
+  main > section:nth-of-type(2) > div > h2 {
+    grid-area: h2;
+    margin: 0;
+  }
+
+  main > section:nth-of-type(2) > div > p:first-of-type {
+    grid-area: p;
+  }
+
+  main > section:nth-of-type(2) > div > img {
+    grid-area: img;
+    width: 300px;
+  }
+
+  main > section:nth-of-type(2) > div:first-of-type > img,
+  main > section:nth-of-type(2) > div:nth-of-type(3) > img {
+    padding-left: 20px;
+  }
+
+  main > section:nth-of-type(2) > div:nth-of-type(2) {
+    display: grid;
+    grid-template-areas:
+      "img h2 h2"
+      "img p p"
+      "p2 p2 p2";
+    margin-top: 30px;
+  }
+
+  main > section:nth-of-type(2) > div:nth-of-type(2) > p:last-of-type,
+  main > section:nth-of-type(2) > div:nth-of-type(3) > p:last-of-type {
+    grid-area: p2;
+  }
+
+  main > section:nth-of-type(2) > div:nth-of-type(2) > img,
+  main > section:nth-of-type(2) > div:last-of-type > img {
+    padding-right: 20px;
+  }
+
+  main > section:nth-of-type(2) > div:nth-of-type(3) {
+    display: grid;
+    grid-template-areas:
+      "p p img"
+      "p2 p2 p2";
+  }
+
+  main > section:nth-of-type(2) > div:last-of-type {
+    display: grid;
+    grid-template-areas: "img p p";
+    margin-bottom: 30px;
+  }
+
+  footer{
+    display: flex;
+    text-align: right;
+    height: 100%;
+    align-items: center;
+  }
+
+  footer > div:last-of-type {
+    right: 10px;
+    position: absolute;
+    height: 50px;
+  }
+
+  footer i {
+     margin-left: 15px;
+   }
+
+}
+
+/*responsive design mobile*/
+@media screen and (max-width: 799px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .grid-container {
+    grid-template-areas:
+      "header"
+      "main"
+      "right"
+      "footer";
+  }
+
+  nav > a:nth-last-of-type(2) {
+    display: none;
+  }
+
+  nav a:not(:last-of-type) {
+    border-right: 1px solid white;
+  }
+
+  main > section {
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  main > section:first-of-type > div:last-of-type > button:last-of-type {
+    display: none;
+  }
+
+  main > section:nth-of-type(2) > div > img {
+    width: 100%;
+  }
+
+  main > section:nth-of-type(2) > div:first-of-type > h2 {
+    text-align: center;
+  }
+
+  main > section:nth-of-type(2) > div:last-of-type {
+    display: none;
+  }
+}
