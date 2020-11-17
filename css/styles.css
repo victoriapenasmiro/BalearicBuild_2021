@@ -51,7 +51,7 @@ a {
 }
 
 hr {
-    color: var(--surface);
+  color: var(--surface);
 }
 
 header {
@@ -72,8 +72,8 @@ aside {
   color: white;
 }
 
-aside:not(div:last-of-type){
-    padding: 20px;
+aside:not(div:last-of-type) {
+  padding: 20px;
 }
 
 aside ul {
@@ -81,10 +81,10 @@ aside ul {
 }
 
 aside > div:last-of-type {
-    background-color: var(--surface);
-    padding: 10px;
-    margin-top: 20px;
-    color: var(--secondary);
+  background-color: var(--surface);
+  padding: 10px;
+  margin-top: 20px;
+  color: var(--secondary);
 }
 
 footer {
@@ -95,7 +95,7 @@ footer {
 }
 
 footer a {
-    color: white;
+  color: white;
 }
 
 nav a:hover {
@@ -116,11 +116,6 @@ button {
   border-radius: 5px;
 }
 
-main > section:first-of-type > div:nth-of-type(2) > button {
-  display: flex;
-  align-items: center;
-}
-
 .fas,
 .fab,
 .far {
@@ -132,7 +127,7 @@ main > section:first-of-type > div:nth-of-type(2) > button {
 .fa-facebook,
 .fa-twitter,
 .fa-instagram {
-    color: white;
+  color: white;
 }
 
 .active {
@@ -179,11 +174,11 @@ main > section:first-of-type > div:nth-of-type(2) > button {
 
   aside > div > div > :last-child {
     margin-left: auto;
-}
+  }
 
-aside > hr {
+  aside > hr {
     margin: 50px;
-}
+  }
 
   nav {
     display: flex;
@@ -224,6 +219,11 @@ aside > hr {
 
   main > section:first-child > div:last-child > button {
     align-self: center;
+  }
+
+  main > section:first-of-type > div:nth-of-type(2) > button {
+    display: flex;
+    align-items: center;
   }
 
   main > section:nth-of-type(2) > div:first-of-type {
@@ -284,7 +284,7 @@ aside > hr {
     margin-bottom: 30px;
   }
 
-  footer{
+  footer {
     display: flex;
     text-align: right;
     height: 100%;
@@ -298,9 +298,8 @@ aside > hr {
   }
 
   footer i {
-     margin-left: 15px;
-   }
-
+    margin-left: 15px;
+  }
 }
 
 /*responsive design mobile*/
@@ -321,6 +320,8 @@ aside > hr {
       "footer";
   }
 
+  /* TODO diseño MENU MOVIL */
+
   nav > a:nth-last-of-type(2) {
     display: none;
   }
@@ -337,8 +338,14 @@ aside > hr {
     margin-bottom: 0;
   }
 
-  main > section:first-of-type > div:last-of-type > button:last-of-type {
+  main > section:first-of-type > div:last-of-type > button:first-of-type,
+  main > section:first-of-type > div:nth-of-type(2) > button > i {
     display: none;
+  }
+
+  main > section:first-of-type > div:nth-of-type(2) > button {
+    display: inline;
+    margin-top: 20px;
   }
 
   main > section:nth-of-type(2) > div > img {
@@ -352,4 +359,15 @@ aside > hr {
   main > section:nth-of-type(2) > div:last-of-type {
     display: none;
   }
+
+  footer {
+      text-align: center;
+      padding: 20px;
+  }
+
+  /* TODO diseño ASIDE */
+  footer > div {
+      margin-top: 25px;
+  }
+
 }
