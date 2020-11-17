@@ -21,6 +21,8 @@ El proceso de diseño de esta web ha partido de 'sketches', tanto para desktop c
 //TODO completar
 
 ### Paleta de colores:
+La paleta de colores se puede encontrar en la carpeta docs //TODO añadir link
+
 El tema subyacente del juego es la corrupción urbanística prevalente en las Islas Baleares. Inicialmente planteamos tres ideas para la paleta de colores:
 * Basada en las fotos habituales del paisaje 'salvaje' de las islas: verdes, marrones, con algún toque azul de mar de fondo.
 * Basada en la imagen de 'construcciones de verano' de la zona de playa: paleta de base marinera, con azul, rojo y blanco.
@@ -28,6 +30,7 @@ El tema subyacente del juego es la corrupción urbanística prevalente en las Is
 //TODO completar
 
 ### Fuentes:
+La selección de fuentes se puede encontrar en la carpeta docs //TODO añadir link
 //TODO completar
 
 ## Modificaciones de sketch a wireframe y a prototipo:
@@ -45,5 +48,5 @@ También modificamos algún título concreto, como el de la pantalla de personaj
 //TODO completar
 
 ## Releases:
-* Versión 1.0: 16 de noviembre de 2021
+* [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
 //TODO completar

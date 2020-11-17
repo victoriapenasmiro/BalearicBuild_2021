@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sólo botón de top</title>
+
+    <script>
+      /* Estos scripts se incluyen ya cargado el html; así al principio no se pueden cargar los eventListeners */
+      var botonTop = document.getElementById("botonTop");
+
+      //Función para que al hacer click vuelva al principio:
+      botonTop.addEventListener("click", function () {
+        volverArriba();
+      });
+
+      function volverArriba() {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }
+
+      window.onscroll = function () {
+        controlarBotonTop();
+      };
+
+      //Función para mostrar/ocultar el botón:
+      function controlarBotonTop() {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          // or porque depende del navegador: .body para safari, resto para demás
+          botonTop.style.display = "block";
+        } else {
+          botonTop.style.display = "none";
+        }
+      }
+    </script>
+
+    <style>
+      html {
+        scroll-behavior: smooth; /* para que haga la vuelta 'suave' */
+      }
+
+      #botonTop {
+        display: none; /* empieza siempre oculto */
+        position: fixed;
+        bottom: 30px; /* posición de prueba; adáptalo cuando lo unifiques */
+        right: 30px;
+        z-index: 99; /* así queda siempre superpuesto */
+      }
+    </style>
+  </head>
+
+  <body>
+    <button id="botonTop" title="VOLVER ARRIBA">VOLVER ARRIBA</button>
+  </body>
+</html>
