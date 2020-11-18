@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BalearicBuilding - JUEGO</title>
-</head>
-<body>
-    
-</body>
+
+    <!-- Styles-->
+    <link rel="stylesheet" type="text/css" href="css/styles_juego.css" />
+
+    <!-- Scripts -->
+    <script src="js/main.js" type="module"></script>
+  </head>
+
+  <!-- Apariencias temporales y de desarrollo -->
+  <body onload="iniciar()">
+    <main>
+      <!-- Barra superior: -->
+      <div>
+        <div>$$ <span id="juegoDinero"></span></div>
+        <div>
+          <span id="juegoNickname">, <span id="juegoTitulo"></span></span>
+        </div>
+      </div>
+
+      <!-- Zona central: -->
+      <div id="juegoTablero">
+        <canvas id="tablero"></canvas>
+      </div>
+
+      <!-- Barras inferiores: -->
+      <div>
+        <div id="juegoInferiorIzq"></div>
+        <div id="juegoInferiorCentro"></div>
+        <div id="juegoInferiorDcha"></div>
+      </div>
+    </main>
+  </body>
 </html>
