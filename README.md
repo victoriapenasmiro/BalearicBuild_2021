@@ -5,8 +5,34 @@ Repositorio proyecto P2 + Pc2.
 * Maria Victoria Peñas
 * María Rabanales
 
-## Flujo de trabajo:
-//TODO completar
+## Flujo de trabajo - GIT:
+Se establece el siguiente proceso de trabajo con GIT:
+
+Se va a trabajar mediante ramas. Se creará una rama por funcionalidad. El proceso será el siguiente:
+
+Crear una rama, desarrollar funcionalidad, al finalizar merge a master. El flujo será:
+1. De master, crear una rama.
+~~~
+    git branch nombrerama
+    git checkout nombrerama
+~~~
+2. Desarrollar y commitear sobre esa rama.
+~~~
+    git add .
+    git commit -m ”comentarios” 3. Subir esa rama al repositorio.
+    git push --all
+~~~
+4. Hacer merge de esa rama a master.
+~~~
+    git checkout master
+    git merge nombrerama
+~~~
+5. Hacer pull de master en local (para tener los últimos cambios descargados).
+~~~
+    git checkout master git pull
+    git push
+~~~
+6. Volver al paso 1 para desarrollar otra cosa.
 
 ## Lenguajes:
 * HTML
