@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BalearicBuilding - JUEGO</title>
 
+    <!-- FontAwesome: -->
+    <script src="https://kit.fontawesome.com/268508325e.js" crossorigin="anonymous" ></script>
+
     <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="css/styles_juego.css" />
 
     <!-- Scripts -->
     <script src="js/main.js" type="module"></script>
+    
   </head>
 
   <!-- Apariencias temporales y de desarrollo -->
-  <body onload="iniciar()">
+  <body>
     <main>
       <!-- Barra superior: -->
       <div>
-        <div>$$ <span id="juegoDinero"></span></div>
+        <div>$$<span id="juegoDinero"></span></div>
         <div>
-          <span id="juegoNickname">, <span id="juegoTitulo"></span></span>
+          <span id="juegoNickname"></span>, <span id="juegoBadge"></span>
         </div>
       </div>
 
@@ -30,8 +34,17 @@
 
       <!-- Barras inferiores: -->
       <div>
-        <div id="juegoInferiorIzq"></div>
-        <div id="juegoInferiorCentro"></div>
+        <div id="juegoInferiorIzq">
+          <span title="subornar!" id="soborno" class="far fa-money-bill-alt"></span>
+          <span title="moure!" id="traslado" class="fas fa-arrows-alt"></span>
+          <span title="demolir!" id="demolicion" class="fas fa-trash"></span>
+        </div>
+        <div id="juegoInferiorCentro">
+          <button type="button" id="xibiu">xibiu</button>
+          <button disabled type="button" id="casa">casa</button>
+          <button disabled type="button" id="xalet">xalet</button>
+          <button disabled type="button" id="hotel">hotel</button>
+        </div>
         <div id="juegoInferiorDcha"></div>
       </div>
     </main>
