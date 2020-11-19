@@ -61,6 +61,8 @@ header {
   background-color: var(--main-color);
   padding: 0.8rem;
   position: relative;
+  box-shadow: 0 0.8rem 0.5rem -0.5rem var(--secondary-light);
+  box-sizing: border-box;
 }
 
 main {
@@ -99,9 +101,11 @@ aside img:hover {
 
 footer {
   grid-area: footer;
-  padding: 10px;
+  padding: 1rem;
   background-color: var(--main-dark);
   color: white;
+  box-shadow: 0rem -0.8rem 0.5rem -0.5rem var(--secondary-light);
+  box-sizing: border-box;
 }
 
 nav a {
