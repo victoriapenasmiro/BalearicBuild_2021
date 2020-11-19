@@ -12,6 +12,10 @@
   --error: #8e651b;
 }
 
+html {
+  scroll-behavior: smooth; /* para que haga la vuelta 'suave' */
+}
+
 body {
   margin: 0;
 }
@@ -55,35 +59,42 @@ hr {
 header {
   grid-area: header;
   background-color: var(--main-color);
-  padding: 10px;
+  padding: 0.8rem;
   position: relative;
 }
 
 main {
   grid-area: main;
-  padding: 20px;
+  padding: 1.8rem;
 }
 
-aside {
+#asidePrincipal {
   grid-area: right;
   text-align: center;
   background-color: var(--secondary);
   color: white;
 }
 
-aside:not(div:last-of-type) {
-  padding: 20px;
-}
-
-aside ul {
+#asidePrincipal ul {
   text-align: left !important; /* TODO, en este caso solo quiero alinear a la izquierda un componente del aside, creo que es justificable utilizar impoprtant */
 }
 
 aside > div:last-of-type {
   background-color: var(--surface);
-  padding: 10px;
-  margin-top: 20px;
+  padding: 0.1rem;
+  margin-top: 0.5rem;
   color: var(--secondary);
+  text-align: center;
+}
+aside img {
+  width: 60%;
+  border-radius: 50%;
+  border: 3px solid var(--main-dark);
+  transition: transform 2.5s ease-in-out;
+}
+
+aside img:hover {
+  transform: rotate(360deg);
 }
 
 footer {
@@ -104,7 +115,7 @@ nav a:hover {
   font-weight: 800;
 }
 
-aside > hr {
+#asidePrincipal > hr {
   margin: 50px;
 }
 
@@ -141,16 +152,22 @@ a > i {
   display: grid;
 }
 
-html {
-  scroll-behavior: smooth; /* para que haga la vuelta 'suave' */
-}
-
 #botonTop {
   display: none; /* empieza siempre oculto */
   position: fixed;
-  bottom: 30px; /* posición de prueba; adáptalo cuando lo unifiques */
-  right: 30px;
+  bottom: 3.3rem;
+  right: 0.3rem;
   z-index: 99; /* así queda siempre superpuesto */
+  color: white;
+  background-color: var(--main-dark);
+  box-sizing: border-box;
+  font-size: 80%;
+  width: auto;
+}
+
+#botonTop:hover {
+  color: white;
+  background-color: var(--secondary);
 }
 
 /*responsive design tablet + desktop*/
@@ -178,19 +195,28 @@ html {
     display: none;
   }
 
+  main,
   aside {
+    margin: 2vw;
+    box-sizing: border-box;
+  }
+
+  main p{
+    text-align: justify;
+  }
+
+  #asidePrincipal {
     width: 350px;
+    padding: 0.1rem 2.5rem 2.5rem 2.5rem;
     height: fit-content;
+    box-sizing: border-box;
   }
 
-  aside > div > div {
+  #asidePrincipal > div > div {
     display: flex;
-    padding-top: 20px;
-    padding-right: 110px;
-    padding-left: 110px;
   }
 
-  aside > div > div > :last-child {
+  #asidePrincipal > div > div > :last-child {
     margin-left: auto;
   }
 

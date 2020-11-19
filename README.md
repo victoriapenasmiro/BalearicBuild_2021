@@ -38,7 +38,9 @@ Crear una rama, desarrollar funcionalidad, al finalizar merge a master. El flujo
 * HTML
 * CSS
 * JavaScript
+* Canvas
 * Markdown
+* JQuery (marginal)
 
 ## Objetivos:
 //TODO completar
@@ -74,6 +76,26 @@ Por otro lado, debido a la longitud de nuestro menú para resoluciones inferiore
 
 La selección de fuentes se puede encontrar en la carpeta docs //TODO añadir link
 //TODO completar
+
+### Transiciones:
+#### Aviso de cookies:
+//TODO hacer y completar
+
+#### Fotos giratorias:
+La segunda transición se encuentra en el elemento 'aside' de la homepage y afecta a las fotografías de las colaboradoras de este proyecto. Cuando se pasa el ratón por encima de cada fotografía, esta gira y tarda en hacer una rotación completa un tiempo de 2.5 segundos. Como las fotografías se han redondeado, el efecto resultante resulta muy agradable. Cuando se aparta el ratón, la foto hace el giro en sentido contrario hasta volver a su posición inicial.
+
+Esto se ha logrado con el siguiente fragmento de código:
+
+aside img {
+  ...
+  border-radius: 50%;
+  transition: transform 2.5s ease-in-out;
+}
+
+aside img:hover {
+  transform: rotate(360deg);
+}
+
 
 ## Modificaciones de sketch a wireframe y a prototipo:
 1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.

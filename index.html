@@ -18,42 +18,26 @@
     <!-- prettier-ignore -->
     <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
 
+    <!--Header y footer: TODO ver si pasamos el doc.ready al archivo .js -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(() => {
+        $("header").load("header.html");
+        $("footer").load("footer.html");
+      });
+    </script>
+
     <!-- scripts -->
     <script src="js/scripts.js"></script>
   </head>
   <body>
     <div class="grid-container">
-      <header>
-        <img
-          src="https://www.adslzone.net/app/uploads/2019/04/borrar-fondo-imagen.jpg"
-          alt=""
-          width="120"
-        />
-        <div>
-          <a href="#" class="icon">
-            <i class="fa fa-bars fa-2x"></i>
-            <i class="fas fa-times fa-2x"></i>
-          </a>
-        </div>
-        <nav id="menu">
-          <div id="optionsMenu">
-            <!-- revisar links TODO -->
-            <a href="/" class="active">HOME</a>
-            <a href="/jugar">Jugar</a>
-            <a href="/personajes">Personajes</a>
-            <a href="#">eSports</a>
-            <a href="#">Forum</a>
-            <!-- desktop -->
-            <a href="mailto:contacto@balearicbuil.com">
-              CONTACTO <i class="far fa-envelope"></i
-            ></a>
-            <!-- movil -->
-            <a href="mailto:contacto@balearicbuil.com">
-              <i class="far fa-envelope"></i
-            ></a>
-          </div>
-        </nav>
-      </header>
+      <header></header>
+      <button id="botonTop" title="VOLVER ARRIBA">VOLVER ARRIBA  ▲</button>
       <main>
         <section>
           <div>
@@ -153,70 +137,74 @@
         </section>
       </main>
       <aside>
-        <h2>Colaboradores</h2>
-        <h3><i>Vicky</i></h3>
-        <img
-          src="https://www.adslzone.net/app/uploads/2019/04/borrar-fondo-imagen.jpg"
-          alt=""
-          width="120"
-        />
-        <p>Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
-        <div>
-          <h4>
-            RANKINGS
-            <i class="fas fa-minus-square"></i>
-            <i class="fas fa-plus-square"></i>
-          </h4>
-          <ul>
-            <li>Dinero máximo: 10.000$$</li>
-            <li>Mejor personaje: lorem ipsum</li>
-            <li>Edificio más construido: lorem</li>
-            <li>Mejor título: lorem ipsum</li>
-            <li>Mejor mapa: lorem</li>
-          </ul>
+        <div id="asidePrincipal">
+          <h2>Colaboradores</h2>
+          <h3><i>Vicky</i></h3>
+          <img
+            src="images/colaborador1.png"
+            alt="Colaborador: Vicky"
+          />
+          <p>Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
           <div>
-            <a
-              href="https://github.com/victoriapenasmiro/BalearicBuild_2021"
-              target="_blank"
-              ><i class="fab fa-github fa-2x"></i
-            ></a>
-            <a href="mailto:contacto@balearicbuil.com"
-              ><i class="far fa-envelope fa-2x"></i
-            ></a>
+            <h4>
+              RANKINGS
+              <i class="fas fa-minus-square"></i>
+              <i class="fas fa-plus-square"></i>
+            </h4>
+            <ul>
+              <li>Dinero máximo: 10.000$$</li>
+              <li>Mejor personaje: lorem ipsum</li>
+              <li>Edificio más construido: lorem</li>
+              <li>Mejor título: lorem ipsum</li>
+              <li>Mejor mapa: lorem</li>
+            </ul>
+            <div>
+              <a
+                href="https://github.com/victoriapenasmiro/BalearicBuild_2021"
+                target="_blank"
+                ><i class="fab fa-github fa-2x"></i
+              ></a>
+              <a href="mailto:contacto@balearicbuil.com"
+                ><i class="far fa-envelope fa-2x"></i
+              ></a>
+            </div>
           </div>
-        </div>
-        <hr />
-        <h3><i>María</i></h3>
-        <img
-          src="https://www.adslzone.net/app/uploads/2019/04/borrar-fondo-imagen.jpg"
-          alt=""
-          width="120"
-        />
-        <!-- TODO esto debería ser un caption, he modificado la label, pero no pilla los CSS
+          <hr />
+          <h3><i>María</i></h3>
+          <img
+            src="images/colaborador2.png"
+            alt="Colaborador: María"
+          />
+          <!-- TODO esto debería ser un caption, he modificado la label, pero no pilla los CSS
         en todo caso cambiar font-size directamente a los elementos -->
-        <p>Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
-        <div>
-          <h4>
-            RANKINGS
-            <i class="fas fa-minus-square"></i>
-            <i class="fas fa-plus-square"></i>
-          </h4>
-          <ul>
-            <li>Dinero máximo: 30.000$$</li>
-            <li>Mejor personaje: lorem ipsum</li>
-            <li>Edificio más construido: lorem</li>
-            <li>Mejor título: lorem ipsum</li>
-            <li>Mejor mapa: lorem</li>
-          </ul>
+          <p>
+            Comenzó jugando a Los Sims de pequeña, pasó a crear mods simples en
+            Python, y acabó programando un juego entero. ¿Cómo ha llegado a
+            pasar esto?
+          </p>
           <div>
-            <a
-              href="https://github.com/victoriapenasmiro/BalearicBuild_2021"
-              target="_blank"
-              ><i class="fab fa-github fa-2x"></i
-            ></a>
-            <a href="mailto:contacto@balearicbuil.com"
-              ><i class="far fa-envelope fa-2x"></i
-            ></a>
+            <h4>
+              RANKINGS
+              <i class="fas fa-minus-square"></i>
+              <i class="fas fa-plus-square"></i>
+            </h4>
+            <ul>
+              <li>Dinero máximo: 30.000$$</li>
+              <li>Mejor personaje: lorem ipsum</li>
+              <li>Edificio más construido: lorem</li>
+              <li>Mejor título: lorem ipsum</li>
+              <li>Mejor mapa: lorem</li>
+            </ul>
+            <div>
+              <a
+                href="https://github.com/victoriapenasmiro/BalearicBuild_2021"
+                target="_blank"
+                ><i class="fab fa-github fa-2x"></i
+              ></a>
+              <a href="mailto:contacto@balearicbuil.com"
+                ><i class="far fa-envelope fa-2x"></i
+              ></a>
+            </div>
           </div>
         </div>
         <div>
@@ -224,25 +212,7 @@
           version v1.0
         </div>
       </aside>
-      <footer>
-        <!-- TODO añadir links -->
-        <a href="mailto:contacto@balearicbuil.com"
-          ><i class="far fa-envelope fa-2x"></i
-        ></a>
-        <i class="fab fa-facebook fa-2x"></i>
-        <i class="fab fa-twitter fa-2x"></i>
-        <i class="fab fa-instagram fa-2x"></i>
-        <a
-          href="https://github.com/victoriapenasmiro/BalearicBuild_2021"
-          target="_blank"
-          ><i class="fab fa-github fa-2x"></i
-        ></a>
-        <div>
-          <a href="#">política de cookies</a>
-          <p>Copyright ©2020 CSFP Francesc de Borja Moll</p>
-        </div>
-      </footer>
+      <footer></footer>
     </div>
-    <button id="botonTop" title="VOLVER ARRIBA">VOLVER ARRIBA</button>
   </body>
 </html>

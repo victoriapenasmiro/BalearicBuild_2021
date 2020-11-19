@@ -1,6 +1,4 @@
 window.onload = function () {
-  //TODO si se te ocurre una opción mejor de hacerlo de forma automatizada ...
-  // Si hay que hacerlo con eventlistener, según revisado en la practica anterior con Toni, es así
   //resaltamos active del elemento seleccionado del menu
   document
     .getElementById("menu")
