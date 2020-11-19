@@ -10,8 +10,8 @@ Se establece el siguiente proceso de trabajo con GIT:
 
 Se va a trabajar mediante ramas. Se creará una rama por funcionalidad. El proceso será el siguiente:
 
-Crear una rama, desarrollar funcionalidad, al finalizar merge a master. El flujo será:
-1. De master, crear una rama.
+Crear una rama, desarrollar funcionalidad, al finalizar merge a main. El flujo será:
+1. De main, crear una rama.
 ~~~
     git branch nombrerama
     git checkout nombrerama
@@ -22,14 +22,15 @@ Crear una rama, desarrollar funcionalidad, al finalizar merge a master. El flujo
     git commit -m ”comentarios” 3. Subir esa rama al repositorio.
     git push --all
 ~~~
-4. Hacer merge de esa rama a master.
+4. Hacer merge de esa rama a main y resolver conflictos
 ~~~
-    git checkout master
+    git checkout main
     git merge nombrerama
 ~~~
-5. Hacer pull de master en local (para tener los últimos cambios descargados).
+5. Hacer pull de main en local (para tener los últimos cambios descargados).
 ~~~
-    git checkout master git pull
+    git checkout main 
+    git pull
     git push
 ~~~
 6. Volver al paso 1 para desarrollar otra cosa.
@@ -96,7 +97,9 @@ La selección de fuentes se puede encontrar en la carpeta docs //TODO añadir li
         * [esthersola.com](https://www.esthersola.com/nth-child-css-ejemplos-practicos/)
 
 ## Desarrollo de código:
-//TODO completar
+
+#### Slider / Carrusel pantalla de personajes:
+Para programar el carrusel de la página de personajes con animación, nos hemos basa en [este tutorial de w3schools](https://www.w3schools.com/howto/howto_js_slideshow.asp)
 
 ## Releases:
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
