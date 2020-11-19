@@ -67,7 +67,11 @@ header {
 
 main {
   grid-area: main;
-  padding: 1.8rem;
+}
+
+iframe {
+  border: none;
+  box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
 }
 
 #asidePrincipal {
@@ -88,6 +92,13 @@ aside > div:last-of-type {
   color: var(--secondary);
   text-align: center;
 }
+
+aside > div:last-of-type:hover {
+  background-color: var(--main-dark);
+  color: white;
+  cursor: none;
+}
+
 aside img {
   width: 60%;
   border-radius: 50%;
@@ -119,17 +130,25 @@ nav a:hover {
   font-weight: 800;
 }
 
-#asidePrincipal > hr {
-  margin: 50px;
-}
-
 button {
+  background-color: var(--main-dark);
+  border: 2px solid var(--secondary);
+  color: white;
   margin: 0 auto;
   margin-bottom: 25px;
   display: block;
-  padding: 10px;
+  padding: 0.6rem;
+  font-size: medium;
   width: 200px;
-  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
+}
+
+button:hover {
+  background-color: var(--secondary-light);
+  border: 2px solid var(--main-dark);
+  color: white;
+  cursor: pointer;
 }
 
 .fas,
@@ -163,7 +182,7 @@ a > i {
   right: 0.3rem;
   z-index: 99; /* así queda siempre superpuesto */
   color: white;
-  background-color: var(--main-dark);
+  background-color: var(--secondary-light);
   box-sizing: border-box;
   font-size: 80%;
   width: auto;
@@ -183,8 +202,13 @@ a > i {
       "footer footer footer footer";
   }
 
+  /* TODO que quede el navbar a la izquierda bien */
   header {
     display: flex;
+  }
+
+  header > img {
+    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);  /* TODO: pensar y hacer un logo en condiciones */
   }
 
   h1 {
@@ -201,18 +225,42 @@ a > i {
 
   main,
   aside {
-    margin: 2vw;
+    margin-top: 8vh;
+    margin-bottom: 8vh;
     box-sizing: border-box;
+  }
+
+  main {
+    margin-left: 4vw;
+    margin-right: 1.5vw;
+  }
+
+  aside {
+    margin-left: 1.5vw;
+    margin-right: 4vw;
   }
 
   main p{
     text-align: justify;
   }
 
+  aside h2 {
+    text-decoration: underline;
+    text-decoration-color: var(--main-color);
+  }
+
+  aside hr {
+    border: none;
+    height: 5px;
+    background-color: var(--main-color);
+    margin-top: 1.7rem;
+  }
+
   #asidePrincipal {
     width: 350px;
     padding: 0.1rem 2.5rem 2.5rem 2.5rem;
     height: fit-content;
+    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
     box-sizing: border-box;
   }
 
@@ -230,6 +278,7 @@ a > i {
     width: 80%;
     align-self: center;
     padding-right: 6%;
+    box-sizing: border-box;
   }
 
   nav > div:last-of-type,
@@ -252,10 +301,27 @@ a > i {
     padding-right: 2.5%;
   }
 
+  /* cambios hechos sin wireframe porq no queda bien; consultar mañana con Vicky */
+  main > hr {
+    display: none;
+  }
+
+  /* TODO: que iframe sea responsive, porque llevo horas peleando y nada */
+  iframe {
+    width: 560px;
+    height: 315px;
+  }
+
   main > section:first-child {
+    background-color: var(--surface);
+    border: solid 3px var(--secondary-light);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    padding: 5%;
+    margin-bottom: 3%;
+    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
+    box-sizing: border-box;
   }
 
   main > section:first-child > div:last-child {
@@ -273,33 +339,49 @@ a > i {
     align-items: center;
   }
 
-  main > section:nth-of-type(2) > div:first-of-type {
+  main > section:last-child {
+    background-color: var(--surface);
+    border: solid 3px var(--secondary-light);
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: -4%;
+    padding-bottom: -2%;
+    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
+    box-sizing: border-box;
+  }
+
+  main > section:last-child > h1{
+    text-decoration: underline;
+    text-decoration-color: var(--main-color);
+  }
+
+  main > section:last-child > div:first-of-type {
     display: grid;
     grid-template-areas:
       "h2 h2 img"
       "p p img";
   }
 
-  main > section:nth-of-type(2) > div > h2 {
+  main > section:last-child > div > h2 {
     grid-area: h2;
     margin: 0;
   }
 
-  main > section:nth-of-type(2) > div > p:first-of-type {
+  main > section:last-child > div > p:first-of-type {
     grid-area: p;
   }
 
-  main > section:nth-of-type(2) > div > img {
+  main > section:last-child > div > img {
     grid-area: img;
     width: 300px;
   }
 
-  main > section:nth-of-type(2) > div:first-of-type > img,
-  main > section:nth-of-type(2) > div:nth-of-type(3) > img {
+  main > section:last-child > div:first-of-type > img,
+  main > section:last-child > div:nth-of-type(3) > img {
     padding-left: 20px;
   }
 
-  main > section:nth-of-type(2) > div:nth-of-type(2) {
+  main > section:last-child > div:nth-of-type(2) {
     display: grid;
     grid-template-areas:
       "img h2 h2"
@@ -308,24 +390,24 @@ a > i {
     margin-top: 30px;
   }
 
-  main > section:nth-of-type(2) > div:nth-of-type(2) > p:last-of-type,
-  main > section:nth-of-type(2) > div:nth-of-type(3) > p:last-of-type {
+  main > section:last-child > div:nth-of-type(2) > p:last-of-type,
+  main > section:last-child > div:nth-of-type(3) > p:last-of-type {
     grid-area: p2;
   }
 
-  main > section:nth-of-type(2) > div:nth-of-type(2) > img,
-  main > section:nth-of-type(2) > div:last-of-type > img {
+  main > section:last-child > div:nth-of-type(2) > img,
+  main > section:last-child > div:last-of-type > img {
     padding-right: 20px;
   }
 
-  main > section:nth-of-type(2) > div:nth-of-type(3) {
+  main > section:last-child > div:nth-of-type(3) {
     display: grid;
     grid-template-areas:
       "p p img"
       "p2 p2 p2";
   }
 
-  main > section:nth-of-type(2) > div:last-of-type {
+  main > section:last-child > div:last-of-type {
     display: grid;
     grid-template-areas: "img p p";
     margin-bottom: 30px;
@@ -336,6 +418,7 @@ a > i {
     text-align: right;
     height: 100%;
     align-items: center;
+    box-sizing: border-box;
   }
 
   footer > div:last-of-type {
@@ -347,6 +430,20 @@ a > i {
   footer i {
     margin-left: 15px;
   }
+
+  footer a {
+    text-decoration: none;
+    color: white;
+  }
+
+  footer a:hover{
+    color: var(--secondary-light);
+  }
+
+  footer a:visited {
+    color: var(--secondary);
+  }
+
 
   .fa-minus-square,
   .fa-plus-square {
@@ -371,6 +468,11 @@ a > i {
       "main"
       "right"
       "footer";
+  }
+
+  iframe {
+    width: 560px;
+    height: 315px;
   }
 
   /*diseño MENU MOVIL */
