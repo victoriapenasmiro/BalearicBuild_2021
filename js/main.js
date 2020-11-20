@@ -1,4 +1,4 @@
-import { juego } from "./modules/juego.js";
+import { Juego } from "./modules/juego.js";
 import { dibujarTablero } from "./modules/canvas.js";
 
 /**
@@ -16,6 +16,7 @@ function construir(tipo) {
  * Inicio del juego.
  */
 window.onload = function () {
+  var juego = new Juego("Pep", 500);
   //TODO: coger lo que recibo para parámetros y meterlo por constructor
   dibujarTablero();
   juego.iniciar();
