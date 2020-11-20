@@ -146,6 +146,10 @@ function controlarBotonTop() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     // o porque depende del navegador: .body para safari, resto para demás
     botonTop.style.display = "block";
+
+    if (screen.width < 800){
+      botonTop.firstChild.data = ""; //oculto el texto del button en móvil
+    }
   } else {
     botonTop.style.display = "none";
   }

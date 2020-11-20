@@ -59,6 +59,13 @@ El tema subyacente del juego es la corrupción urbanística prevalente en las Is
 * Basada en la corrupción en cierta manera 'mafiosa': paleta tradicional de películas y series sobre la Mafia como 'El Padrino' o 'El Precio del Poder (Scarface)', en negros, grises, rojos y blancos.
 //TODO completar
 
+### Accesibility:
+
+* Pantalla Inicio - Home: Los textos tienen un adecuado contraste con su background.
+* Pantalla Personajes:
+* Pantalla Login:
+
+
 ### Fuentes:
 * Hemos descargado la [tipografía Corleone](https://www.dafont.com/es/corleone.font) para utilizar en los titulos H1 y H2 y en el logo, así como en algunos elementos puntuales del juego. El motivo principal por el cual hemos seleccionado esta tipografía es porqué hemos querido basarnos en el estilo de [EL PADRINO](https://www.filmaffinity.com/es/film809297.html), ya que el juego trata de mafia y corrupción. No hemos optado utilizar la misma tipografía para todos los encabezados, porqué sino queda muy agresivo a la vista.
 
@@ -74,6 +81,10 @@ Hemos establecido los siguientes criterios para el diseño responsive:
 Actualmente los dispositivos móviles abarcan desde los 320px hasta los 799px aproximadamente. Uno de los dispositivos con pantalla más pequeña utilizada actualmente es el iphone 5(width 320px). A partir de 800px, suelen ser tablets en formato landscape, y normalmente suelen visualizarse como en la versión desktop.
 
 Por otro lado, debido a la longitud de nuestro menú para resoluciones inferiores a 800px, necesitamos un menú de navegación colpasado, ya que no cabe todo en la misma linea.
+
+#### Ampliaciones responsive: //TODO lo dejamos aquí?
+* Hemos adaptado el video de la Home en resoluciones intermedias para ipads, de forma que el video no se corta.
+
 
 La selección de fuentes se puede encontrar en la carpeta docs //TODO añadir link
 //TODO completar
@@ -102,6 +113,8 @@ aside img:hover {
 1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.
 
 2. También modificamos algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+
+3. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un underline.
 
 //TODO completar
 
