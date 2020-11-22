@@ -1,5 +1,8 @@
 export var tiempoRenta = 10000;       //cada 10 segundos
 
+export var filasJuego = 15;
+export var columnasJuego = 30;
+
 //TODO: todo esto no sería mejor en constantes??? DECIDIR/CAMBIAR
 
 export var costeXibiu = 500;

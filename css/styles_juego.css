@@ -1,6 +1,11 @@
-* {
-    box-sizing: border-box;
-}
+:root {
+    --main-color: #8e231b;
+    --main-dark: #5b0000;
+    --secondary: #000000;
+    --secondary-light: #212121;
+    --surface: #dddddd;
+    --error: #8e651b;
+  }
 
 :root{
     background: black;
@@ -34,14 +39,16 @@ main > div:nth-child(2) {
     margin: 0 auto;
     margin-bottom: 0.5%;
     background-color: rgb(223, 223, 223);
+    cursor: pointer;
     box-sizing: border-box;
 }
 
-#eventoDinero { /* TODO arreglar esto */
+#eventoDinero { /* TODO arreglar esto, no son los looks que tocan */
     position: fixed;
     z-index: 99;
-    color: white;
-    background: purple;
+    color: black;
+    background: white;
+    border: 2px solid var(--main-color);
     top: 8%;
     left: 1.5%;
 }
@@ -60,7 +67,7 @@ main > div:nth-child(2) {
     border: 3px solid white;
     color: black;
     text-transform: uppercase;
-    background-color: rebeccapurple;
+    background-color: var(--main-color);
     cursor: grab;
     box-sizing: border-box;
 }
