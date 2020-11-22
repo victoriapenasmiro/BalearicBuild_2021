@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BalearicBuilding - INICIAR JUEGO</title>
-</head>
-<body>
-    
-</body>
+
+    <!-- Styles-->
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+    <!-- tipografías -->
+    <!-- prettier-ignore -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
+    </style>
+
+    <!--Fontawesome-->
+    <!-- prettier-ignore -->
+    <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
+
+    <!--Header y footer: TODO ver si pasamos el doc.ready al archivo .js -->
+    <!-- prettier-ignore -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(() => {
+        $("header").load("header.html");
+        $("footer").load("footer.html");
+      });
+    </script>
+
+    <!-- scripts TODO poner el específico -->
+    <script src="js/scripts.js"></script>
+  </head>
+  <body>
+    <div class="grid-container">
+      <header></header>
+      <button id="botonTop" title="VOLVER ARRIBA">
+        VOLVER ARRIBA <i class="fas fa-arrow-up"></i>
+      </button>
+      <main>
+        <div id="pantallaOpciones">
+          <h1>Empezar juego</h1>
+          <p>A continuación puedes elegir tus opciones para empezar a jugar.</p>
+
+          <form>
+            <label for="nickname">Nickname:</label><br />
+            <input type="text" id="nickname" name="nickname" /><br />
+            <br />
+            Personaje:
+            <br />
+            Mapa:
+            <br />
+            Dificultades económicas:
+            <input
+              type="radio"
+              id="dificultadFacil"
+              name="dificultad"
+              value="dificultadFacil"
+            />
+            <label for="dificultadFacil">político profesional ($$$$$)</label
+            ><br />
+            <input
+              type="radio"
+              id="dificultadDificil"
+              name="dificultad"
+              value="dificultadDificil"
+            />
+            <label for="dificultadDificil">estudiante de FP ($)</label><br />
+            <input type="submit" value="GAME START!">
+          </form>
+        </div>
+      </main>
+      <aside>
+        <div id="asidePrincipal">
+          <h2>¿Cómo elijo mapa?</h2>
+          <p>
+            Elegir mapa puede ser una tarea complicada. Para facilitártelo, aquí
+            tienes un resumen rápido de los mapas disponibles... o, si lo
+            prefieres, puedes dejarlo al azar. Alea iacta est!
+          </p>
+
+          <hr />
+          <h3><i>Palma Ciutat</i></h3>
+          <p>
+            100% construible: ni 'zona de playa', ni 'terrenos protegidos', ni
+            tonterías. ¡A especular!
+          </p>
+
+          <img src="images/logosimple.png" alt="Screen de mapa" />
+        </div>
+        <div>
+          <i class="fas fa-ghost"></i>
+          version 1.0
+        </div>
+      </aside>
+      <footer></footer>
+    </div>
+  </body>
 </html>
