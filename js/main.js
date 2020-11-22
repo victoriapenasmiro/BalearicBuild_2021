@@ -1,4 +1,4 @@
-import { Juego } from "./modules/juego.js";
+import { juego } from "./modules/juego.js";
 import { dibujarTablero } from "./modules/canvas.js";
 
 /**
@@ -8,15 +8,17 @@ import { dibujarTablero } from "./modules/canvas.js";
 function construir(tipo) {
   //TODO: controles de lo q no se puede construir, sea por falta de dinero o por instrucciones
   juego.construcciones.push(tipo);
+  document.getElementById("tablero").style.cursor = "grabbing";
+  //TODO : q si clico fuera me avise
   juego.cobrarConstruccion(tipo);
   juego.comprobarBadges();
+  //devuelvo el cursor a su version original document.getElementById("tablero").cursor = "pointer";
 }
 
 /**
  * Inicio del juego.
  */
 window.onload = function () {
-  var juego = new Juego("Pep", 500);
   //TODO: coger lo que recibo para parámetros y meterlo por constructor
   dibujarTablero();
   juego.iniciar();

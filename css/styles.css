@@ -366,7 +366,8 @@ i.fa-arrow-up{
     align-items: center;
   }
 
-  main > section:last-child {
+  main > section:last-child,
+  #pantallaOpciones {
     background-color: var(--surface);
     border: solid 3px var(--secondary-light);
     padding-left: 5%;
@@ -377,7 +378,8 @@ i.fa-arrow-up{
     box-sizing: border-box;
   }
 
-  main > section:last-child > h1 {
+  main > section:last-child > h1,
+  #pantallaOpciones > h1 {
     text-decoration: underline;
     text-decoration-color: var(--main-color);
   }

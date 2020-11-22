@@ -36,6 +36,7 @@ juego.sobornar = function () {
   juego.badge = "Benefactor Social";
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
+  mostrarEventosDinero("soborno -" + costeSoborno);
   manejarInactivos();
 };
 
@@ -43,15 +44,19 @@ juego.cobrarConstruccion = function (tipo) {
   switch (tipo) {
     case "xibiu":
       juego.dinero -= costeXibiu;
+      mostrarEventosDinero("compra xibiu -" + costeXibiu);
       break;
     case "casa":
       juego.dinero -= costeCasa;
+      mostrarEventosDinero("compra casa -" + costeCasa);
       break;
     case "xalet":
       juego.dinero -= costeXalet;
+      mostrarEventosDinero("compra xalet -" + costeXalet);
       break;
     case "hotel":
       juego.dinero -= costeHotel;
+      mostrarEventosDinero("compra hotel -" + costeHotel);
       break;
   }
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
@@ -74,27 +79,52 @@ function actualizar() {
 
 function contabilizarGanancias() {
   let ganancias = 0;
-  //TODO: la información; q me aparezca un texto q scrollee al hacer la suma, estilo el loot del Witcher
+  let infoGanancias = "";
   juego.construcciones.forEach((element) => {
     switch (element) {
       case "xibiu":
         ganancias += rentaXibiu;
+        infoGanancias += ("renta xibiu +" + rentaXibiu + "<br>");
         break;
       case "casa":
         ganancias += rentaCasa;
+        infoGanancias += ("renta casa +" + rentaCasa + "<br>");
         break;
       case "xalet":
         ganancias += rentaXalet;
+        infoGanancias += ("renta xalet +" + rentaXalet + "<br>");
         break;
       case "hotel":
         ganancias += rentaHotel;
+        infoGanancias += ("renta hotel +" + rentaHotel + "<br>");
         break;
     }
   });
+  mostrarEventosDinero(infoGanancias);
   return ganancias;
 }
 
-//esto lo puedo mover fuera??? TODO comprobar
+/**
+ * Muestra info de los cambios de $$ por pantalla
+ */
+function mostrarEventosDinero(texto) {
+  let infoDinero = document.getElementById("eventoDinero");
+  infoDinero.innerHTML = texto;
+  infoDinero.style.display = "block";
+  ocultarEventosDinero();
+}
+
+/**
+ * Me hace ocultar automático de los cambios de $$
+ */
+function ocultarEventosDinero() {
+  setTimeout(() => document.getElementById("eventoDinero").style.display = "none", 5000);
+}
+
+/**
+ * Activa o desactiva automáticamente los diferentes botones segun si hay dinero para hacerlos.
+ */
+//TODO esto funcionaba con botones, ahora no tiene sentido; pensar cómo manejar inactivos
 function manejarInactivos() {
     if (juego.dinero < costeXibiu) {
         document.getElementById("xibiu").disabled = true;
