@@ -11,12 +11,9 @@ export function dibujarTablero() {
   let canvas = document.getElementById("tablero");
   // así lo hago dependiente del tamaño de la ventana ORIGINAL: primero calculo y luego transfiero
   var viewportAnchura = window.innerWidth;
-  console.log("vw: " + viewportAnchura);
-  let tableroAnchura = Number((viewportAnchura * 70) / 100);
-  console.log("ancho: " + tableroAnchura);
+  let tableroAnchura = Number((viewportAnchura * 70) / 100);    //TODO FINAL ver si 70% va bien en toda resolucion
   repeticion = tableroAnchura / columnasJuego;
   let tableroAltura = Number(repeticion * filasJuego);
-  console.log("alto: " + tableroAltura);
   canvasDiv.style.width = tableroAnchura + "px";
   canvasDiv.style.height = tableroAltura + "px";
   canvas.style.width = "100%";
@@ -29,12 +26,12 @@ export function dibujarTablero() {
   // https://stackoverflow.com/questions/7545863/canvas-distorts-drawing-how-do-i-get-the-scale-factor-between-the-set-size-and
   // https://stackoverflow.com/questions/59939839/difference-between-coordinates-in-pixels-and-coordinates-in-canvas-html
 
-  // así dibujo los recuadros; funciona pero queda borrosa.
+  // así dibujo los recuadros; funciona pero queda borrosa TODO
   let ctx = canvas.getContext("2d");
   ctx.strokeStyle = "black";
   for (let i = 0; i < tableroAnchura; i += repeticion) {
     for (let j = 0; j < tableroAltura; j += repeticion) {
-      ctx.strokeRect(i, j, i + repeticion, j + repeticion);
+      ctx.strokeRect(i, j, repeticion, repeticion);
     }
   }
   ctx.closePath();
@@ -50,6 +47,7 @@ export function borrarTablero() {
 
   let ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, tableroAnchura, tableroAltura);
+  ctx.closePath();
 }
 
 /**
@@ -57,11 +55,16 @@ export function borrarTablero() {
  */
 
 export function generarArrayTablero() {
+  //Lo ideal aquí sería generar un array bidimensional, pero no son nativos de javascript
   let arrayTablero = [];
-  for (let i = 1; i <= filasJuego; i++) {
-    for (let j = 1; j <= columnasJuego; j++) {
-      let nuevaCasilla = [i, j, null, null, null];    //lectura: posición fila, posición columna, tipo, origen del tipo, terreno
-      arrayTablero.push(nuevaCasilla);
+  for (let i = 0; i < filasJuego; i++) {
+    arrayTablero[i] = [];
+    for (let j = 0; j < columnasJuego; j++) {
+      let casilla = new Object();
+      casilla.tipo = null;
+      casilla.origenTipo = null;
+      casilla.terreno = null;
+      arrayTablero[i][j] = casilla;
     }
   }
   return arrayTablero;
@@ -112,4 +115,5 @@ export function pintarConstruccion(tipo, fila, columna) {
       ctx.drawImage(img, (fila * repeticion), (columna * repeticion), (repeticion * 4), (repeticion * 4));
       break;
   }
+  ctx.closePath();
 }

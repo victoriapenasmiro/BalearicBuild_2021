@@ -1,5 +1,5 @@
 import { juego } from "./modules/juego.js";
-import { dibujarTablero, tomarPosicionClick } from "./modules/canvas.js";
+import { dibujarTablero } from "./modules/canvas.js";
 
 /**
  * Inicio del juego.

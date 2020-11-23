@@ -16,6 +16,8 @@ import {
   costeHotel,
   rentaHotel,
   costeSoborno,
+  filasJuego,
+  columnasJuego,
 } from "./configuracion.js";
 
 export var juego = new Object();
@@ -83,13 +85,15 @@ juego.comprobarBadges = function () {
 function actualizar() {
   juego.dinero += contabilizarGanancias();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
-  document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
   // borrarTablero();
   // dibujarTablero();
   manejarInactivos();
 }
 
+/**
+ * Calcula la suma de rentas.
+ */
 function contabilizarGanancias() {
   let ganancias = 0;
   let infoGanancias = "";
@@ -113,6 +117,11 @@ function contabilizarGanancias() {
         break;
     }
   });
+  //aquí meto el sonido
+  if (ganancias != 0) {
+    let sonidoDinero = new sound("src/sound/cash.mp3");
+    sonidoDinero.play();
+  }
   mostrarEventosDinero(infoGanancias);
   return ganancias;
 }
@@ -158,12 +167,14 @@ juego.elegirConstruccion = function (tipo) {
       coste = costeHotel;
       break;
   }
-  let costeMaximo = document.getElementById("juegoDinero").innerHTML;
-  if (coste <= costeMaximo) {     //con esto controlo q no haga nada si no hay pasta
-    this.construcciones.push(tipo);
-    this.tipoSeleccionado = tipo;
-    document.getElementById("tablero").style.cursor = "grabbing";
-  }
+  /*
+  let costeMaximo = document.getElementById("juegoDinero").innerHTML; //TODO ver si la quito porq ya esta el control
+  if (coste <= costeMaximo) {
+    */
+  //con esto controlo q no haga nada si no hay pasta
+  this.tipoSeleccionado = tipo;
+  document.getElementById("tablero").style.cursor = "grabbing";
+  /* } */
 };
 
 /**
@@ -171,46 +182,123 @@ juego.elegirConstruccion = function (tipo) {
  */
 juego.construir = function () {
   if (this.tipoSeleccionado != null) {
-    let posicion = tomarPosicionClick();
-    //TODO : q si clico fuera me avise
-    //TODO: q me compruebe si puedo construir donde clico
-    pintarConstruccion(this.tipoSeleccionado, posicion[0], posicion[1]);
-    this.actualizarTablero(this.tipoSeleccionado, posicion[0], posicion[1]); //TODO
-    this.cobrarConstruccion(this.tipoSeleccionado);
-    this.comprobarBadges();
-    //devuelvo el cursor a su version original
-    document.getElementById("tablero").style.cursor = "pointer";
-    //TODO q al reimprimir me reimprima también las construcciones
-    this.tipoSeleccionado = null;
+    let posicion = tomarPosicionClick(); //TODO mirar event
+    if (this.comprobarSiConstruible(posicion)) {
+      this.construcciones.push(this.tipoSeleccionado);
+      let sonidoConstruccion = new sound("src/sound/build.wav");
+      sonidoConstruccion.play();
+      pintarConstruccion(this.tipoSeleccionado, posicion[0], posicion[1]);
+      this.actualizarTablero(this.tipoSeleccionado, posicion[0], posicion[1]);
+      this.cobrarConstruccion(this.tipoSeleccionado);
+      this.comprobarBadges();
+      //devuelvo el cursor a su version original
+      document.getElementById("tablero").style.cursor = "pointer";
+      //TODO q al reimprimir me reimprima también las construcciones
+      this.tipoSeleccionado = null;
+    } else {
+      let sonidoProhibido = new sound("src/sound/forbidden.wav");
+      sonidoProhibido.play();
+    }
   }
 };
 
 /**
- * Añade la construcción recién creada al array para poder repintarla.
+ * Comprueba si donde pulso con el ratón se puede construir.
+ * Confirma que la casilla exista y que no haya nada previamente construido
+ */
+juego.comprobarSiConstruible = function (posicion) {
+  let x = 0;
+  let y = 0;
+  switch (this.tipoSeleccionado) {
+    case "xibiu":
+    case "casa":
+      x = 2;
+      y = 2;
+      break;
+    case "xalet":
+      x = 3;
+      y = 2;
+      break;
+    case "hotel":
+      x = 4;
+      y = 4;
+      break;
+  }
+  for (let i = posicion[0]; i < posicion[0] + x; i++) {
+    if (i >= columnasJuego) {
+      //si se sale del tablero no puedo construir
+      return false;
+    } else {
+      for (let j = posicion[1]; j < posicion[1] + y; j++) {
+        if (j >= filasJuego) {
+          return false;
+        } else if (this.tablero[i][j].tipo != null) {     //TODO en algunas condiciones aqui me da uncaught error
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+};
+
+/**
+ * Añade el origen de la construcción recién creada al array para poder repintarla.
  * @param {String} tipo
  * @param {int} fila
  * @param {int} columna
  */
 juego.actualizarTablero = function (tipo, fila, columna) {
-  //TODO, necesario para operaciones
+  // busco la casilla a la que afecta el origen del tipo:
+  for (let i = 0; i < filasJuego; i++) {
+    if (i == fila) {
+      for (let j = 0; j < columnasJuego; j++) {
+        if (j == columna) {
+          this.actualizarTableroEntorno(tipo, i, j);
+        }
+      }
+    }
+  }
+};
 
+/**
+ * Actualiza el array en sí.
+ * @param {*} tipo
+ * @param {*} fila
+ * @param {*} columna
+ */
+juego.actualizarTableroEntorno = function (tipo, fila, columna) {
+  let x = 0;
+  let y = 0;
   switch (tipo) {
     case "xibiu":
-      //TODO
-      break;
     case "casa":
+      x = 2;
+      y = 2;
       break;
     case "xalet":
+      x = 3;
+      y = 2;
       break;
     case "hotel":
+      x = 4;
+      y = 4;
       break;
+  }
+  for (let i = fila; i < fila + x; i++) {
+    for (let j = columna; j < columna + y; j++) {
+      this.tablero[i][j].tipo = tipo;
+      if (i == fila && j == columna) {
+        this.tablero[i][j].origenTipo = true;
+      } else {
+        this.tablero[i][j].origenTipo = false;
+      }
+    }
   }
 };
 
 /**
  * Activa o desactiva automáticamente los diferentes botones segun si hay dinero para hacerlos.
  */
-//TODO esto funcionaba con botones, ahora no tiene sentido; pensar cómo manejar inactivos
 function manejarInactivos() {
   if (juego.dinero < costeXibiu) {
     document.getElementById("xibiu").style.backgroundColor = "black";
@@ -250,4 +338,23 @@ function manejarInactivos() {
     document.getElementById("hotel").style.cursor = "grab";
   }
   //no manejo soborno/traslado/construccion; funcionaran diferente?? TODO pensar
+}
+
+/**
+ * Controla sonidos; ver w3s.
+ * @param {*} src
+ */
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function () {
+    this.sound.play();
+  };
+  this.stop = function () {
+    this.sound.pause();
+  };
 }
