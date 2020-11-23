@@ -18,47 +18,25 @@
     <!-- prettier-ignore -->
     <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
 
-    <!--Header y footer: TODO ver si pasamos el doc.ready al archivo .js -->
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      $(document).ready(() => {
-        $("header").load("header.html");
-        $("footer").load("footer.html");
-      });
-    </script>
+    <!--JQuery únicamente para importar Header y footer-->
+    <!-- prettier-ignore -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
     <!-- scripts -->
-    <script src="js/scripts.js"></script>
-    <script src="js/scripts_pjs.js"></script>
+    <script type="text/javascript" src="js/scripts.js" defer></script><!--no carga siempre, depende del DOM, he probado con defer y asyncr sin éxito-->
+    <script type="text/javascript" src="js/scripts_pjs.js" defer></script>
+
   </head>
   <body>
     <header></header>
-    <button id="botonTop" title="VOLVER ARRIBA">VOLVER ARRIBA ▲</button>
-    <!-- TODO esto es main pero por temas de .css no lo hago -->
+    <!-- TODO esto es main pero por temas de .css no lo hago --> <!--no entiendo este comentario - @maria ??-->
     <div id="personajesMain">
       <div id="carrusel">
-        <div class="slideshow-container">
-          <div class="mySlides fade">
-            <img src="https://www.regalosfrikis.com/wp-content/uploads/2017/05/regalos-frikis-figura-funko-pop-de-vito-corleone.jpg" alt="PJ" />
-            <img src="https://www.regalosfrikis.com/wp-content/uploads/2017/05/regalos-frikis-figura-funko-pop-de-vito-corleone.jpg" alt="PJ" />
-            <img src="https://www.regalosfrikis.com/wp-content/uploads/2017/05/regalos-frikis-figura-funko-pop-de-vito-corleone.jpg" alt="PJ" />
-            <img src="https://www.regalosfrikis.com/wp-content/uploads/2017/05/regalos-frikis-figura-funko-pop-de-vito-corleone.jpg" alt="PJ" />
-          </div>
-
-          <div class="mySlides fade">
-            <img src="https://i.pinimg.com/originals/bd/01/67/bd016754dd2e2fe000efdaba771aff23.png" alt="PJ" />
-            <img src="https://i.pinimg.com/originals/bd/01/67/bd016754dd2e2fe000efdaba771aff23.png" alt="PJ" />
-            <img src="https://i.pinimg.com/originals/bd/01/67/bd016754dd2e2fe000efdaba771aff23.png" alt="PJ" />
-            <img src="https://i.pinimg.com/originals/bd/01/67/bd016754dd2e2fe000efdaba771aff23.png" alt="PJ" />
-          </div>
+        <div id="slideshow-container">
         </div>
         <br />
 
-        <div style="text-align: center">
+        <div id="dots" style="text-align: center">
           <span class="dot"></span>
           <span class="dot"></span>
         </div>
@@ -67,7 +45,8 @@
       <div id="personajes">
         <h1>Balearic Builders</h1>
         <div id="personajesVista">
-          <div id="personajesLista">blah blah TODO</div>
+          <div id="personajesLista">
+          </div>
           <div id="personajeSeleccion">
               <div>Nombre</div>
               <div><img src="images/pj.png" alt="PJ" /></div>

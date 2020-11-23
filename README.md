@@ -98,6 +98,7 @@ La segunda transición se encuentra en el elemento 'aside' de la homepage y afec
 
 Esto se ha logrado con el siguiente fragmento de código:
 
+~~~
 aside img {
   ...
   border-radius: 50%;
@@ -107,6 +108,20 @@ aside img {
 aside img:hover {
   transform: rotate(360deg);
 }
+~~~
+
+#### transición de .5s sobre hover fotos thumbnail
+Se ha implementado una transición en el hover de las imagenes en formato thumbnail de la pantalla de personajes:
+
+~~~
+.overlay {
+  transition: .5s ease;
+}
+
+#personajesLista > div:hover .overlay {
+  opacity: 0.5;
+}
+~~~
 
 
 ## Modificaciones de sketch a wireframe y a prototipo:
@@ -130,6 +145,8 @@ aside img:hover {
     * fuentes:
         * [Stackoverrun](https://stackoverrun.com/es/q/1070889)
         * [esthersola.com](https://www.esthersola.com/nth-child-css-ejemplos-practicos/)
+
+<!-- * En las pantallas dónde cargamos más de un js, hemos tenido que utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, ya que sino no se cargan completamente los scripts -->
 
 ## Desarrollo de código:
 

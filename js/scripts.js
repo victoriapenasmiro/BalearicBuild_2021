@@ -1,23 +1,24 @@
 window.onload = function () {
+  
   //resaltamos active del elemento seleccionado del menu
   document
-    .getElementById("menu")
+    .getElementById("optionsMenu")
     .getElementsByTagName("a")[0]
     .addEventListener("click", addActiveClass);
   document
-    .getElementById("menu")
+    .getElementById("optionsMenu")
     .getElementsByTagName("a")[1]
     .addEventListener("click", addActiveClass);
   document
-    .getElementById("menu")
+    .getElementById("optionsMenu")
     .getElementsByTagName("a")[2]
     .addEventListener("click", addActiveClass);
   document
-    .getElementById("menu")
+    .getElementById("optionsMenu")
     .getElementsByTagName("a")[3]
     .addEventListener("click", addActiveClass);
   document
-    .getElementById("menu")
+    .getElementById("optionsMenu")
     .getElementsByTagName("a")[4]
     .addEventListener("click", addActiveClass);
 
@@ -89,6 +90,11 @@ window.onload = function () {
     .addEventListener("click", menuMobile);
 };
 
+$(document).ready(() => {
+  $("header").load("header.html");
+  $("footer").load("footer.html");
+});
+
 /**
  * Función que ejecuta el menu en móviles
  */
@@ -116,7 +122,7 @@ function menuMobile() {
  *
  */
 function addActiveClass() {
-  let options = document.getElementById("menu").getElementsByTagName("a");
+  let options = document.getElementById("optionsMenu").getElementsByTagName("a");
 
   /* Cuando obtenemos los items desde getElementsByTagName
     es necesario convertirlos a Array para poder tratarlos con 

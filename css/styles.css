@@ -45,7 +45,13 @@ h6 {
   font-size: 1rem;
 }
 
-p,
+p {
+  font-family: Open Sans, sans-serif;
+  font-size: 1rem;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 li {
   font-family: Open Sans, sans-serif;
   font-size: 1rem;
@@ -86,6 +92,7 @@ iframe {
   background-color: var(--secondary);
   color: white;
   padding-bottom: 8vh;
+  padding-top: 5vh;
 }
 
 #asidePrincipal ul {
@@ -504,7 +511,7 @@ i.fa-arrow-up{
   /* FIN MENU MÓVIL */
 
   h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 0;
   }
 

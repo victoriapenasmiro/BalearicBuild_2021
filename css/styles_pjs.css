@@ -1,28 +1,27 @@
 /* TODO eventualmente esto unificarlo */
 /* SLIDER: */
-:root {
-  --main-color: #8e231b;
-  --main-dark: #5b0000;
-  --secondary: #000000;
-  --secondary-light: #212121;
-  --surface: #dddddd;
-  --error: #8e651b;
-}
+
 
 .mySlides {
   display: none;
-  height: 350px;
   background-color: var(--main-color);
   justify-content: space-around;
   align-items: center;
+  padding: 5%;
 }
 
-img {
-  width: 150px;
+.mySlides div {
+  text-align: center;
+}
+
+.mySlides img,
+#personajeSeleccion img{/*TODO eliminar y añadir la fotos con tamaño adecuado, 150 en desktop, 100 en mobile*/
+  width: 150px; /*TODO en móvil deberian ser 100px*/
+  height: 150px; /*DEBERIAN SER CUADRADAS*/
 }
 
 /* Slideshow container */
-.slideshow-container {
+#slideshow-container {
   max-width: 1000px;
   position: relative;
   margin: auto;
@@ -36,13 +35,13 @@ img {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: var(--surface);
+  background-color: var(--main-color);
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
 }
 
-.active {
+.active-dot {
   background-color: var(--secondary-light);
 }
 
@@ -99,6 +98,41 @@ img {
       flex-direction: column;
   }
 
+  #personajesVista > div {
+    width: 50%;
+  }
+  
+  #personajesLista {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    border-right: 1px solid var(--secondary);
+    align-items: center;
+  }
+
+  /*Transición al pasar el ratón sobre la imagen*/
+  #personajesLista > div {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: var(--main-dark);
+  }
+  
+  #personajesLista > div:hover .overlay {
+    opacity: 0.5;
+  }
+
   /* OTROS APARTADOS: */
   #personajes h1 {
     text-decoration: underline;
@@ -108,4 +142,29 @@ img {
 
 /*responsive design mobile*/
 @media screen and (max-width: 799px) {
+  #personajesLista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    justify-items: center;
+    padding: 2rem;
+    order: 2;
+  }
+
+  #personajesVista {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #personajeSeleccion {
+    order: 1;
+    margin-top: 2rem;
+  }
+
 }
+
+#personajeSeleccion {
+  text-align: center;
+}
+
+
