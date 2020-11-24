@@ -27,6 +27,7 @@ window.onload = function () {
       personaje.name = personajes[i].name;
       personaje.motto = personajes[i].motto;
       personaje.img = personajes[i].img;
+
       slider += //TODO crear un método para pintar la imagen
         '<div><img src="' +
         personaje.img +
@@ -59,9 +60,9 @@ window.onload = function () {
 
       //TODO crear un método para pintar las fotos thumbnail
       let gridImg =
-        '<div id="personaje' +
+        '<div onclick="seleccionarPersonaje(' +
         personaje.id +
-        '" ><img src="' +
+        ')"><img src="' +
         personaje.img +
         '"alt="' +
         personaje.name +
@@ -78,34 +79,35 @@ window.onload = function () {
     showSlides();
   });
 
-  if(document.readyState === "complete"){//TODO en teoria con el codigo anterior ya se ha generado los elementos de HTML, pero no los reconce
+  //TODO he metido un onclick en la contrucción de los div, ¿seria valido?
+  /*   if(document.readyState === "complete"){//TODO en teoria con el codigo anterior ya se ha generado los elementos de HTML, pero no los reconce
     // Fully loaded!
     //window.addEventListener("load", function(event) { tampoco funciona
     document
       .getElementById("personaje1") //este elemento me lo crea en el código anterior
-      .addEventListener(click, seleccionarPersonaje);
+      .addEventListener("click", seleccionarPersonaje);
     document
       .getElementById("personaje2")
-      .addEventListener(click, seleccionarPersonaje);
+      .addEventListener("click", seleccionarPersonaje);
     document
       .getElementById("personaje3")
-      .addEventListener(click, seleccionarPersonaje);
+      .addEventListener("click", seleccionarPersonaje);
     document
       .getElementById("personaje4")
-      .addEventListener(click, seleccionarPersonaje);
+      .addEventListener("click", seleccionarPersonaje);
     document
       .getElementById("personaje5")
-      .addEventListener(click, seleccionarPersonaje);
+      .addEventListener("click", seleccionarPersonaje);
     document
       .getElementById("personaje6")
-      .addEventListener(click, seleccionarPersonaje);
+      .addEventListener("click", seleccionarPersonaje);
     document
       .getElementById("personaje7")
-      .addEventListener(click, seleccionarPersonaje);
+      .addEventListener("click", seleccionarPersonaje);
     document
       .getElementById("personaje8")
-      .addEventListener(click, seleccionarPersonaje);
-}
+      .addEventListener("click", seleccionarPersonaje);
+} */
 };
 
 /**
@@ -154,7 +156,19 @@ function showSlides() {
 /**
  * Función para mostrar el personaje seleccionado
  */
-function seleccionarPersonaje() {
-  console.log("hola");
-  //TODO, de momento no recupero el divs creados con la carga del JSON, abro issue al profesor
+function seleccionarPersonaje(id) {
+  let img,nombre,motto;
+
+  personajes.forEach(personaje => {
+    if (personaje.id == id){
+      img = personaje.img;
+      nombre = personaje.name;
+      motto = personaje.motto;
+    }
+  });
+
+  document.getElementById("personajeSeleccion").getElementsByTagName("div")[0].innerHTML = "<p>" + nombre + "</p>";
+  document.getElementById("personajeSeleccion").getElementsByTagName("div")[1].innerHTML = "<img src=\"" + img + "\" alt=\"" + nombre + "\" />";
+  document.getElementById("personajeSeleccion").getElementsByTagName("div")[2].innerHTML = "<p>" + motto + "</p>";
+
 }

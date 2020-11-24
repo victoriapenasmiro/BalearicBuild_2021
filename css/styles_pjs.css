@@ -71,6 +71,10 @@
   }
 }
 
+#personajeSeleccion {
+  text-align: center;
+}
+
 /*responsive design tablet + desktop*/
 @media screen and (min-width: 800px) {
   /* MAIN: */
@@ -160,11 +164,7 @@
     order: 1;
     margin-top: 2rem;
   }
-
 }
 
-#personajeSeleccion {
-  text-align: center;
-}
 
 
