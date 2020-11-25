@@ -5,36 +5,6 @@ Repositorio proyecto P2 + Pc2.
 * Maria Victoria Peñas
 * María Rabanales
 
-## Flujo de trabajo - GIT:
-Se establece el siguiente proceso de trabajo con GIT:
-
-Se va a trabajar mediante ramas. Se creará una rama por funcionalidad. El proceso será el siguiente:
-
-Crear una rama, desarrollar funcionalidad, al finalizar merge a main. El flujo será:
-1. De main, crear una rama.
-~~~
-    git branch nombrerama
-    git checkout nombrerama
-~~~
-2. Desarrollar y commitear sobre esa rama.
-~~~
-    git add .
-    git commit -m ”comentarios” 3. Subir esa rama al repositorio.
-    git push --all
-~~~
-4. Hacer merge de esa rama a main y resolver conflictos
-~~~
-    git checkout main
-    git merge nombrerama
-~~~
-5. Hacer pull de main en local (para tener los últimos cambios descargados).
-~~~
-    git checkout main 
-    git pull
-    git push
-~~~
-6. Volver al paso 1 para desarrollar otra cosa.
-
 ## Lenguajes:
 * HTML
 * CSS
@@ -44,32 +14,78 @@ Crear una rama, desarrollar funcionalidad, al finalizar merge a main. El flujo s
 * JQuery (marginal)
 
 ## Objetivos:
-//TODO completar
+El objetivo central de este proyecto es desarrollar un sistema de páginas web en torno a un juego de estrategia online llamado BalearicBuilding.
+
+Como sub-objetivos podemos destacar:
+
+* La ampliación y mejora de nuestros conocimientos de programación en los diferentes lenguajes, haciendo énfasis en el proceso de optimización y eficiencia en las funciones.
+* El desarrollo de habilidades de trabajo en equipo, con intención de hacer varias sesiones de *pair programming* a través de herramientas online.
+* La mejora de nuestra agilidad al 'picar' código.
+* El desarrollo de nuestra familiariedad con el proceso de búsqueda de resolución de problemas y conflictos al programar, aprendiendo tanto a buscar como a analizar los resultados obtenidos con rapidez y en profundidad.
+* El fomento de nuestra creatividad e inspiración a la hora no sólo de diseñar el aspecto físico del proyecto, sino también del código.
+
+## Flujo de trabajo - GIT:
+Desde el primer momento se ha visto importante establecer un proceso de trabajo común para facilitar el trabajo en equipo y evitar 'machacar' código. Así, se ha establecido el siguiente proceso de trabajo con GIT:
+
+> Se va a trabajar mediante ramas. Se creará una rama por funcionalidad. El proceso será el siguiente:
+> Crear una rama, desarrollar funcionalidad, al finalizar merge a main. El flujo será:
+> 1. De main, crear una rama.
+> ~~~
+>     git branch nombrerama
+>     git checkout nombrerama
+> ~~~
+> 2. Desarrollar y commitear sobre esa rama.
+> ~~~
+>     git add .
+>     git commit -m ”comentarios” 3. Subir esa rama al repositorio.
+>     git push --all
+> ~~~
+> 4. Hacer merge de esa rama a main y resolver conflictos
+> ~~~
+>     git checkout main
+>     git merge nombrerama
+> ~~~
+> 5. Hacer pull de main en local (para tener los últimos cambios descargados).
+> ~~~
+>     git checkout main 
+>     git pull
+>     git push
+> ~~~
+> 6. Volver al paso 1 para desarrollar otra cosa.
 
 ## Diseño:
 El proceso de diseño de esta web ha partido de 'sketches', tanto para desktop como para móvil, ideados en común durante las horas de clase. Obtenido el visto bueno desarrollamos los diferentes wireframes con la herramienta MOCKPLUS, muy completa y adecuada para desarrollar proyectos en equipo.
-//TODO completar
+
+Se ha buscado un diseño limpio, con una paleta de colores muy definida y contrastada, fondos blancos y claros y ángulos rectos. Todas las páginas tienen un formato común con cabecera-cuerpo-pie; para facilitar el trabajo tanto la cabecera como el pie se importan desde archivos separados.
+
+La cabecera incluye el menú o barra de navegación, que en resolución móvil se oculta bajo el tradicional icono de 'desplegar menú' con un diseño de tres líneas. El menú incluye los siguientes elementos: home, jugar, personajes, eSports, forum y contacto. Sólo las tres primeras opciones tienen, en principio, correspondencia en las páginas creadas; las demás se basan en los usos habituales en el sector.
+
+Para las resoluciones grandes se ha trabajado (en la medida de lo posible) con una distribución del cuerpo en 'main' y 'aside'; 'main' se coloca a la izquierda, para facilitar la lectura a simple vista, y el 'aside' a la derecha. Este último se muestra en contraste, con letras claras sobre fondo oscuro, para separarlo visualmente del resto del contenido.
+
+Dado que en el cuerpo de algunas páginas (por ejemplo, en 'homepage') hay mucho contenido, y no se quiere apabullar a los usuarios en móvil con tanta información, desde el primer momento se tuvo en cuenta que parte de este contenido debía ocultarse en resoluciones pequeñas. A título de ejemplo, la gran cantidad de capturas de pantalla del juego que se muestran en el 'homepage' en resoluciones grandes se reducen a unas pocas en resolución móvi.
 
 ### Paleta de colores:
-La paleta de colores se puede encontrar en la carpeta docs //TODO añadir link
+La paleta de colores se puede encontrar en la carpeta src/docs ([aquí](https://github.com/victoriapenasmiro/BalearicBuild_2021/blob/main/src/docs/paletadecolor.png)), siguiendo las instrucciones de la práctica.
 
 El tema subyacente del juego es la corrupción urbanística prevalente en las Islas Baleares. Inicialmente planteamos tres ideas para la paleta de colores:
 * Basada en las fotos habituales del paisaje 'salvaje' de las islas: verdes, marrones, con algún toque azul de mar de fondo.
 * Basada en la imagen de 'construcciones de verano' de la zona de playa: paleta de base marinera, con azul, rojo y blanco.
 * Basada en la corrupción en cierta manera 'mafiosa': paleta tradicional de películas y series sobre la Mafia como 'El Padrino' o 'El Precio del Poder (Scarface)', en negros, grises, rojos y blancos.
-//TODO completar
 
-### Accesibility:
+Finalmente nos hemos decidido por la tercera opción: el contraste entre los tonos es fuerte y la 'imagen' que transmite esta combinación de colores está muy arraigada en el imaginario colectivo para temas de mafia y corrupción, con lo que enlaza apropiadamente con la temática del juego. Al combinar blanco y negro con un color cálido como el rojo, la página web da impresión de actividad y dinamismo, muy cercana al estilo del juego y alejada de la tranquilidad y pasividad de los tonos fríos.
 
-* Pantalla Inicio - Home: Los textos tienen un adecuado contraste con su background.
-* Pantalla Personajes:
-* Pantalla Login:
+La principal dificultad con esta paleta ha sido decidir un tono de error: como el color principal es de base roja, el tono de contraste y error no podía ser también rojo, ya que no destacaría sobre el resto de la página. Con la ayuda de herramientas de teoría del color como Paletton optamos por elegir un color de base ocre/dorada para remarcar los contrastes: es un tono cálido que destaca suficientemente, y resulta visualmente atractivo.
 
+### Accesibilidad:
+* Pantalla Inicio - Home: los textos tienen un adecuado contraste con su color de fondo, al ser en negro sobre gris claro o en blanco sobre negro, dependiendo del elemento.
+* Pantalla Personajes: sigue el diseño de la pantalla de inicio.
+* Pantalla Login: sigue el diseño de la pantalla de inicio.
+* Pantalla de Juego: //TODO completar
 
 ### Fuentes:
-* Hemos descargado la [tipografía Corleone](https://www.dafont.com/es/corleone.font) para utilizar en los titulos H1 y H2 y en el logo, así como en algunos elementos puntuales del juego. El motivo principal por el cual hemos seleccionado esta tipografía es porqué hemos querido basarnos en el estilo de [EL PADRINO](https://www.filmaffinity.com/es/film809297.html), ya que el juego trata de mafia y corrupción. No hemos optado utilizar la misma tipografía para todos los encabezados, porqué sino queda muy agresivo a la vista.
+* Hemos descargado la [tipografía Corleone](https://www.dafont.com/es/corleone.font) para utilizar en los titulos H1 y H2 y en el logo, así como en algunos elementos puntuales del juego. El motivo principal por el cual hemos seleccionado esta tipografía es que hemos querido basarnos en el estilo de [EL PADRINO](https://www.filmaffinity.com/es/film809297.html), ya que el juego trata de mafia y corrupción. No hemos optado utilizar la misma tipografía para todos los encabezados, porqué sino queda muy agresivo a la vista.
 
-Esta tipografía se ha cargado en el css general, y no en el head de cada página con el objetivo de utilizarlo en todas las pantallas.
+Esta tipografía se ha cargado en el css general, y no en la cabecera de cada página con el objetivo de utilizarlo en todas las pantallas.
 
 * La fuente de los textos que no son encabezados, hemos seleccionado una tipografía de [Google Fonts, Open Sans](https://fonts.google.com/specimen/Open+Sans). El motivo es porqué queríamos una tipografía bastante limpia, clara y de fácil lectura.
 
@@ -80,14 +96,9 @@ Hemos establecido los siguientes criterios para el diseño responsive:
 
 Actualmente los dispositivos móviles abarcan desde los 320px hasta los 799px aproximadamente. Uno de los dispositivos con pantalla más pequeña utilizada actualmente es el iphone 5(width 320px). A partir de 800px, suelen ser tablets en formato landscape, y normalmente suelen visualizarse como en la versión desktop.
 
-Por otro lado, debido a la longitud de nuestro menú para resoluciones inferiores a 800px, necesitamos un menú de navegación colpasado, ya que no cabe todo en la misma linea.
+Por otro lado, como ya se ha señalado en el apartado de diseño, debido a la longitud de nuestro menú para resoluciones inferiores a 800px ha sido necesario generar un menú de navegación colpasado, ya que no cabe todo en la misma linea.
 
-#### Ampliaciones responsive: //TODO lo dejamos aquí?
-* Hemos adaptado el video de la Home en resoluciones intermedias para ipads, de forma que el video no se corta.
-
-
-La selección de fuentes se puede encontrar en la carpeta docs //TODO añadir link
-//TODO completar
+Cabe destacar que hemos realizado algunas ampliaciones en el desarrollo responsive de la página: hemos adaptado el video (tomado de youtube) de la Homepage en resoluciones intermedias para ipads, de forma que el video no se corta en ningún momento.
 
 ### Transiciones:
 #### Aviso de cookies:
@@ -110,8 +121,8 @@ aside img:hover {
 }
 ~~~
 
-#### transición de .5s sobre hover fotos thumbnail
-Se ha implementado una transición en el hover de las imagenes en formato thumbnail de la pantalla de personajes:
+#### Transición de thumbnails:
+Se ha implementado una transición en el hover de las imagenes en formato thumbnail de la pantalla de personajes. Esta transición transcurre durante 0.5 segundos y únicamente al hacer 'hover' sobre fotos de thumbnail.
 
 ~~~
 .overlay {
@@ -123,36 +134,104 @@ Se ha implementado una transición en el hover de las imagenes en formato thumbn
 }
 ~~~
 
-
 ## Modificaciones de sketch a wireframe y a prototipo:
 1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.
 
-2. También modificamos algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+2. El diseño original del contenido del cuerpo implicaba que el texto y las imágenes estaban directamente sobre el fondo blanco de la página en general. Si bien esta idea, a priori, nos parecía muy limpia y elegante, en la práctica no tardamos en ver que daba sensación de desorden y falta de control. Para solucionarlo optamos por incluir el contenido central en contenedores 'div' extras, con bordes remarcados y un fondo gris que destacara sobre el blanco original, hiciera buen contraste con la letra, y facilitara la ordenación visual de los diferentes tipos de contenido.
 
-3. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un underline.
+3. También modificamos algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
 
-//TODO completar
+4. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un *underline*.
 
 ### Links de webs de juegos similares:
+Para desarrollar estas páginas hemos consultado diversos juegos de estrategia online, entre los que destacan los siguientes:
 * https://www.wesnoth.org/
 * http://www.freeciv.org/
 * https://play0ad.com/
 
-### Problemas encontrados:
+### Problemas encontrados en el diseño de las páginas iniciales:
+Una de las dificultades que nos hemos encontrado ha sido trabajar con las pseudoclases *:first-child, :nth-child(), :last-child*, no conseguíamos seleccionar los elementos que esperábamos y finalmente, enocntramos que la mejor opción es utilizar las siguientes para evitar estos problema *:first-of-type,:nth-of-type(), :last-of-type*.
 
-* Uno de las dificultades que nos hemos encontrado ha sido trabajar con las pseudoclases *:first-child, :nth-child(), :last-child*, no conseguíamos seleccionar los elementos que esperábamos y finalmente, enocntramos que la mejor opción es utilizar las siguientes para evitar estos problema *:first-of-type,:nth-of-type(), :last-of-type*.
-
-    * fuentes:
+    * Fuentes:
         * [Stackoverrun](https://stackoverrun.com/es/q/1070889)
         * [esthersola.com](https://www.esthersola.com/nth-child-css-ejemplos-practicos/)
 
-<!-- * En las pantallas dónde cargamos más de un js, hemos tenido que utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, ya que sino no se cargan completamente los scripts -->
+//TODO Completar con lo de abajo
+<!-- * En las pantallas donde cargamos más de un js, hemos tenido que utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, ya que sino no se cargan completamente los scripts -->
+
 
 ## Desarrollo de código:
 
+### Detalles de las pantallas 'básicas':
+
 #### Slider / Carrusel pantalla de personajes:
-Para programar el carrusel de la página de personajes con animación, nos hemos basa en [este tutorial de w3schools](https://www.w3schools.com/howto/howto_js_slideshow.asp)
+Para programar el carrusel de la página de personajes con animación, nos hemos basado en [este tutorial de w3schools](https://www.w3schools.com/howto/howto_js_slideshow.asp).
+
+#### Header / footer:
+Para 'importar' tanto el header como el footer hemos partido de las explicaciones enlazadas en el classroom de la asignatura, partiendo de la comprensión del código explicativo original en github.
+
+### Pantalla del juego:
+El código de desarrollo del juego es, posiblemente, el programa más largo que hemos escrito hasta el momento. Su base es el archivo main.js, que importa (a su vez o desde sus archivos importados) una serie de módulos entre los que cabe señalar un objeto 'juego' con sus métodos, una serie de funciones de pintado y 'transcripción' de canvas, y un archivo .js con variables de configuración.
+
+#### Inicio del juego:
+El juego comienza al cargarse la página de juego. En el archivo main.js  //TODO completar
+
+#### Canvas:
+//TODO completar
+
+#### Construcción de edificios.
+//TODO completar
+
+#### Información de eventos de dinero:
+Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por ejemplo, por rentas) o porque pierde (al pagar sobornos o al construir o trasladar sus edificios) es importante que tanto la nueva cantidad como los 'motivos' para llegar a ella aparezcan claramente en la pantalla. Para desarrollar esta funcionalidad nos hemos basado en el diseño del 'loot' de numerosos juegos, que informan al usuario de lo que entra/sale de sus bolsas durante unos segundos antes de desaparecer de la pantalla.
+
+Esto se ha desarrollado fundamentalmente mediante la siguiente función:
+
+function mostrarEventosDinero(texto) {
+  let infoDinero = document.getElementById("eventoDinero");
+  infoDinero.innerHTML = texto;
+  infoDinero.style.display = "block";
+  ocultarEventosDinero(6000);
+}
+
+Esta función recibe el texto que queremos que se muestre por pantalla (por ejemplo, '+renta casa: 250'), lo mete en el elemento correspondiente del DOM, y fuerza que el style.display de este elemento se muestre. Por último llama a una función que establece un timer (en este ejemplo de 6 segundos), al final del cual el elemento deja de mostrarse en la página con display = 'none'.
+
+function ocultarEventosDinero(tiempo) {
+  setTimeout(
+    () => (document.getElementById("eventoDinero").style.display = "none"),
+    tiempo
+  );
+}
+
+#### Sonidos:
+Para incluir sonidos al realizar determinadas acciones en el juego (por ejemplo, que suene una caja registradora al cobrar alquileres o que un martillo golpee varias veces una superficie al construir un edificio) hemos investigado varias opciones, hasta finalmente decidirnos por la solución encontrada en [el apartado de sonidos de juegos de w3s](https://www.w3schools.com/graphics/game_sound.asp). Se basa en desarrollar una función (en nuestro caso llamada sound(src)) para llevar a cabo las diferentes acciones de un posible sonido: que comience, que se pare...
+
+Cuando se desea llamar a un sonido en una función concreta, primero se instancia el nuevo sonido, pasándole por parámetro dónde se encuentra el archivo de sonido correspondiente, y luego se llama a la función apropiada. A título de ejemplo puede ver el siguiente fragmento de código:
+
+if (ganancias != 0) {
+    let sonidoDinero = new sound("src/sound/cash.mp3");
+    sonidoDinero.play();
+}
+
+Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/
+
+#### Tratamiento del cursor:
+Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con el aspecto del cursor, para fomentar que las distinas opciones sean más instintivas para el usuario. Así, hemos tenido en cuenta los siguientes puntos:
+
+* El cursor sobre el canvas siempre adopta el aspecto de una mano, aunque este aspecto cambia dependiendo del punto del juego. Por norma general, el cursor fuera del canvas es de tipo flecha estándar, mientras que al hacer hover en el canvas es de tipo *pointer*.
+
+* Cuando se hace hover sobre una construcción posible, el cursor pasa a ser de estilo *grab*: es una mano cerrada para agarrar la construcción que se quiere.
+
+* Cuando se ha elegido una construcción y se quiere seleccionar dónde colocarla, el cursor en hover sobre el canvas pasa a tener estilo *grabbing* para mejor señalar la casilla elegida.
+
+* Cuando el usuario no puede pulsar un pseudo-botón (por ejemplo, porque no tiene dinero para construir un tipo de edificio) el cursor desaparece al hacer hover sobre ese botón.
+
+Más allá de la configuración inicial por css, todos estos cambios en el cursor se gestionan a través del código javascript.
+
+## Consideraciones finales:
+//TODO completar
 
 ## Releases:
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
-//TODO completar
+* [Versión 2.0](link): 28 de noviembre de 2021
+* [Versión 3.0](link): TBA

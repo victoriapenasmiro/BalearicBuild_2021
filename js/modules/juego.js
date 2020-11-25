@@ -133,16 +133,16 @@ function mostrarEventosDinero(texto) {
   let infoDinero = document.getElementById("eventoDinero");
   infoDinero.innerHTML = texto;
   infoDinero.style.display = "block";
-  ocultarEventosDinero();
+  ocultarEventosDinero(5000);
 }
 
 /**
- * Me hace ocultar automático de los cambios de $$
+ * Hace ocultar automático de los cambios de $$
  */
-function ocultarEventosDinero() {
+function ocultarEventosDinero(tiempo) {
   setTimeout(
     () => (document.getElementById("eventoDinero").style.display = "none"),
-    6000
+    tiempo
   );
 }
 
