@@ -1,14 +1,14 @@
 import { getTodos } from "./modules/website_personajes.js";
 
 $(document).ready(() => {
-  /* $("head").load("head.html"); *///TODO APARENTEMENTE QUE MACHACA OTROS ELEMENTOS DEL HEAD, NO FUNCIONA EN PANTALLA PERSONAJES, quizás es por el bug general 
-  $("header").load("header.html");
+  $("head").load("head.html"); //TODO APARENTEMENTE QUE MACHACA OTROS ELEMENTOS DEL HEAD, NO FUNCIONA EN PANTALLA PERSONAJES, quizás es por el bug general 
   $("footer").load("footer.html");
+  $("header").load("header.html",start);
 });
 
-window.onload = function () {
+function start(){
   //resaltamos active del elemento seleccionado del menu
-  document //TODO HAY PROBLEMAS EN LA PANTALLA DE PERSONAJES, por algún motivo, cargan los nodos antes de que se importe el header.html y no los encuentra.
+  document
     .getElementById("optionsMenu")
     .getElementsByTagName("a")[0]
     .addEventListener("click", addActiveClass);
@@ -22,10 +22,6 @@ window.onload = function () {
     .addEventListener("click", addActiveClass);
   document
     .getElementById("optionsMenu")
-    .getElementsByTagName("a")[2]
-    .addEventListener("click", getTodos); //TODO no funciona, porque no encuentra los nodos, es como que el header.html no ha cargado todavía en la pantalla de personajes
-  document
-    .getElementById("optionsMenu")
     .getElementsByTagName("a")[3]
     .addEventListener("click", addActiveClass);
   document
@@ -33,7 +29,6 @@ window.onload = function () {
     .getElementsByTagName("a")[4]
     .addEventListener("click", addActiveClass);
 
-  /* Estos scripts se incluyen ya cargado el html; así al principio no se pueden cargar los eventListeners */
   var botonTop = document.getElementById("botonTop");
 
   //Función para que al hacer click vuelva al principio:
@@ -96,7 +91,7 @@ window.onload = function () {
 
         document.getElementsByTagName("ul")[1].style.display = "block";
       });
-  } else if (window.location.pathname == "/personajes.html") { //TODO no funciona, como hay problemas con el header, parece que peta todo
+  } else if (window.location.pathname == "/personajes.html") {
     getTodos();
   }
 
