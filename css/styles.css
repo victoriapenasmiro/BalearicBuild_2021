@@ -247,7 +247,7 @@ i.fa-arrow-up{
   }
 
   /* TODO: pensar y hacer un logo en condiciones */
-  header > img {
+  header > a > img {
     box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
   }
 

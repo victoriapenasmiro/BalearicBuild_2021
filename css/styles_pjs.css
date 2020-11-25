@@ -14,10 +14,13 @@
   text-align: center;
 }
 
-.mySlides img,
-#personajeSeleccion img{/*TODO eliminar y añadir la fotos con tamaño adecuado, 150 en desktop, 100 en mobile*/
-  width: 150px; /*TODO en móvil deberian ser 100px*/
-  height: 150px; /*DEBERIAN SER CUADRADAS*/
+#personajeSeleccion img{
+  width: 150px;
+}
+
+#personajesLista img {
+  width: 100px;
+  height: 80px;
 }
 
 /* Slideshow container */
@@ -89,6 +92,11 @@
     box-sizing: border-box;
   }
 
+  .mySlides img {
+    width: 120px;
+    height: 150px;
+  }
+
   #personajesVista {
     display: flex;
     flex-direction: row;
@@ -102,16 +110,14 @@
       flex-direction: column;
   }
 
-  #personajesVista > div {
-    width: 50%;
-  }
-  
   #personajesLista {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-items: center;
     border-right: 1px solid var(--secondary);
     align-items: center;
+    grid-gap: 20px;
+    padding-right: 20px;
   }
 
   /*Transición al pasar el ratón sobre la imagen*/
@@ -146,6 +152,12 @@
 
 /*responsive design mobile*/
 @media screen and (max-width: 799px) {
+
+  .mySlides img {
+    width: 100px;
+    height: 120px;
+  }
+
   #personajesLista {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -164,6 +176,8 @@
     order: 1;
     margin-top: 2rem;
   }
+
+  /* TODO ajustar diseño a partir de 800 */
 }
 
 

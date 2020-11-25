@@ -21,21 +21,19 @@
     <!--JQuery únicamente para importar Header y footer-->
     <!-- prettier-ignore -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <!-- scripts -->
-    <script type="text/javascript" src="js/scripts.js" defer></script><!--no carga siempre, depende del DOM, he probado con defer y asyncr sin éxito-->
-    <script type="text/javascript" src="js/scripts_pjs.js" defer></script>
+    <script type="module" src="js/scripts.js"></script>
 
   </head>
   <body>
     <header></header>
-    <!-- TODO esto es main pero por temas de .css no lo hago --> <!--no entiendo este comentario - @maria ??-->
+    <!-- TODO esto es main pero por temas de .css no lo hago -->
     <div id="personajesMain">
       <div id="carrusel">
-        <div id="slideshow-container">
-        </div>
+        <div id="slideshow-container"></div>
         <br />
-
         <div id="dots" style="text-align: center">
           <span class="dot"></span>
           <span class="dot"></span>
