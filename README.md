@@ -197,7 +197,11 @@ Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionad
 //TODO completar
 
 #### Eventos de tiempo:
-//TODO completar.
+Existen dos tipos de eventos de tiempo: los de actualización de datos y pantalla y los de eventos sorpresa. Ambos tipos tienen sus tiempos guardados en el archivo configuración.js
+
+Cada //TODO completar
+
+Los eventos sorpresa se manejan a partir de la función *manejarSorpresa()*. La lógica de esta función es la siguiente: //TODO completar
 
 #### Información de eventos de dinero:
 Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por ejemplo, por rentas) o porque pierde (al pagar sobornos o al construir o trasladar sus edificios) es importante que tanto la nueva cantidad como los 'motivos' para llegar a ella aparezcan claramente en la pantalla. Para desarrollar esta funcionalidad nos hemos basado en el diseño del 'loot' de numerosos juegos, que informan al usuario de lo que entra/sale de sus bolsas durante unos segundos antes de desaparecer de la pantalla.
