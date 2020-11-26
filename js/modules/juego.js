@@ -16,7 +16,7 @@ import {
   costeSoborno,
   filasJuego,
   columnasJuego,
-  cantidadSorpresa
+  cantidadSorpresa,
 } from "./configuracion.js";
 
 export var juego = new Object();
@@ -42,7 +42,8 @@ juego.iniciar = function () {
   manejarInactivos();
 };
 
-juego.sobornar = function () {      //TODO revisar xq me da q no tiene
+juego.sobornar = function () {
+  //TODO revisar xq me da q no tiene
 
   if (document.getElementById("juegoDinero") > costeSoborno) {
     //TODO: q sólo se pueda clicar cuando tienes el dinero suficiente
@@ -93,7 +94,10 @@ juego.cobrarConstruccion = function (tipo) {
 juego.comprobarBadges = function () {
   if (this.contarEdificios("hotel") > 2) {
     this.badge = "Empresari Ecològic";
-  } else if (this.contarEdificios("casa") > 2 && this.contarEdificios("xalet") > 2) {
+  } else if (
+    this.contarEdificios("casa") > 2 &&
+    this.contarEdificios("xalet") > 2
+  ) {
     this.badge = "Gran Empresari";
   } else if (this.soborno == true) {
     this.badge = "Benefactor Social";
@@ -105,7 +109,7 @@ juego.comprobarBadges = function () {
 /**
  * Cuenta cuántos edificios de un tipo hay en el array. TODO, usarla en la suna de alquileres?
  * Para reduce, ver: https://www.w3schools.com/jsref/jsref_reduce.asp
- * @param {String} tipo 
+ * @param {String} tipo
  */
 juego.contarEdificios = function (tipo) {
   var total = this.construcciones.reduce(function (n, val) {
@@ -347,20 +351,30 @@ juego.eventoSorpresa = function () {
       //TODO
       break;
     case "infracció":
+      if (this.construcciones.includes("xibiu")) {
+        this.dinero -= cantidadSorpresa;
+        this.comprobarBadges();
+        document.getElementById("juegoDinero").innerHTML = juego.dinero;
+        document.getElementById("juegoBadges").innerHTML = juego.badges;
+        mostrarEventosDinero(evento.toUpperCase() + "!!!");
+      }
       //TODO
 
-      //sumo cantidadSorpresa
+      //resto cantidadSorpresa
       break;
     case "premi":
-      if (!this.construcciones.includes("xibiu")) {    //TODO y si no está vacío
-        
-      } 
+      if (!this.construcciones.includes("xibiu")) {
+        //TODO y si no está vacío
+        this.dinero += cantidadSorpresa;
+        this.comprobarBadges();
+        document.getElementById("juegoDinero").innerHTML = juego.dinero;
+        document.getElementById("juegoBadges").innerHTML = juego.badges;
+        mostrarEventosDinero(evento.toUpperCase() + "!!!");
+      }
       //TODO
       break;
   }
-}
-
-
+};
 
 /**
  * Activa o desactiva automáticamente los diferentes botones segun si hay dinero para hacerlos.

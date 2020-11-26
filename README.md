@@ -24,6 +24,13 @@ Como sub-objetivos podemos destacar:
 * El desarrollo de nuestra familiariedad con el proceso de búsqueda de resolución de problemas y conflictos al programar, aprendiendo tanto a buscar como a analizar los resultados obtenidos con rapidez y en profundidad.
 * El fomento de nuestra creatividad e inspiración a la hora no sólo de diseñar el aspecto físico del proyecto, sino también del código.
 
+## Información previa para la buena visualización del proyecto:
+Vemos necesario señalar las siguientes consideraciones previas para poder analizar bien el proyecto:
+
+1. La fuente principal del proyecto no es nativa de Google Fonts y debe instalarse previamente; consultar el apartado de 'fuentes'.
+
+2. Es necesario recargar la pantalla de personajes al pasar de resolución *desktop* a móvil (al jugar con el navegador): los scripts se deben de cargar de nuevo porque, lógicamente, el slider y el grid son diferentes en móvil.
+
 ## Flujo de trabajo - GIT:
 Desde el primer momento se ha visto importante establecer un proceso de trabajo común para facilitar el trabajo en equipo y evitar 'machacar' código. Así, se ha establecido el siguiente proceso de trabajo con GIT:
 
@@ -156,8 +163,14 @@ Una de las dificultades que nos hemos encontrado ha sido trabajar con las pseudo
         * [Stackoverrun](https://stackoverrun.com/es/q/1070889)
         * [esthersola.com](https://www.esthersola.com/nth-child-css-ejemplos-practicos/)
 
-//TODO Completar con lo de abajo
-<!-- * En las pantallas donde cargamos más de un js, hemos tenido que utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, ya que sino no se cargan completamente los scripts -->
+Un problema que ha consumido una buena parte del tiempo disponible ha surgido en las pantallas en que se carga más de un archivo .js, como pueden ser la *homepage* o la página de personajes: la carga de archivos no era la correcta. Al hacer dos veces window.onload() en diferentes archivos, las funciones se machacaban y mezclaban entre sí, dando lugar a resultados indeseados.
+
+Para solucionarlo hemos probado numerosas posibilidades. Una de ellas ha sido utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, pero no funcionaba correctamenete. Otra opción ha sido unificar todos los archivos en uno, pero si bien esto hubiera funcionado correctamente no era ni lo que se pedía en el enunciado ni lo que queríamos conseguir.
+
+Finalmente hemos optado por incluir el contenido del onload() original en una función diferente a la que no hemos invocado hasta estar ya cargado el onload() del archivo de header, con lo que hemos evitado que se sobrecarguen ambas funciones y hemos podido continuar trabajando con módulos.
+
+Por otro lado, hemos tenido problemas en la carga de imágenes del archivo .json facilitado en el enunciado, no tanto por las imágenes en sí o por el desarrollo del código, sino más bien enlazando con la dificultad de los párrafos anteriores: el archivo de origen no se cargaba adecuadamente, especialmente cuando teníamos que cargar varios .json a la vez, dado que surgían temas de asincronía. Finalmente, la solución de ambos problemas vino de la mano.
+//TODO Vicky revisar y completar con la solución final de hoy
 
 
 ## Desarrollo de código:
@@ -177,10 +190,14 @@ El código de desarrollo del juego es, posiblemente, el programa más largo que 
 El juego comienza al cargarse la página de juego. En el archivo main.js  //TODO completar
 
 #### Canvas:
+Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente.
 //TODO completar
 
 #### Construcción de edificios.
 //TODO completar
+
+#### Eventos de tiempo:
+//TODO completar.
 
 #### Información de eventos de dinero:
 Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por ejemplo, por rentas) o porque pierde (al pagar sobornos o al construir o trasladar sus edificios) es importante que tanto la nueva cantidad como los 'motivos' para llegar a ella aparezcan claramente en la pantalla. Para desarrollar esta funcionalidad nos hemos basado en el diseño del 'loot' de numerosos juegos, que informan al usuario de lo que entra/sale de sus bolsas durante unos segundos antes de desaparecer de la pantalla.
