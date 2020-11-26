@@ -1,7 +1,7 @@
 import { getTodos } from "./modules/website_personajes.js";
 
 $(document).ready(() => {
-  $("head").load("head.html"); //TODO APARENTEMENTE QUE MACHACA OTROS ELEMENTOS DEL HEAD, NO FUNCIONA EN PANTALLA PERSONAJES, quizás es por el bug general 
+  /* $("head").load("head.html"); */ //TODO APARENTEMENTE QUE MACHACA OTROS ELEMENTOS DEL HEAD, NO FUNCIONA EN PANTALLA PERSONAJES, quizás es por el bug general 
   $("footer").load("footer.html");
   $("header").load("header.html",start);
 });

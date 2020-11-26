@@ -61,6 +61,7 @@ a {
   font-family: Open Sans, sans-serif;
   font-size: 1rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 hr {
@@ -135,7 +136,6 @@ footer {
 nav a,
 footer a {
   font-family: Open Sans, sans-serif;
-  text-decoration: none;
   color: white;
 }
 
