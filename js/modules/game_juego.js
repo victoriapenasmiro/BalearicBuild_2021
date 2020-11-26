@@ -5,6 +5,8 @@ import {
 } from "./game_canvas.js";
 import {
   tiempoRenta,
+  tiempoSorpresa,
+  cantidadSorpresa,
   costeXibiu,
   rentaXibiu,
   costeCasa,
@@ -16,7 +18,6 @@ import {
   costeSoborno,
   filasJuego,
   columnasJuego,
-  cantidadSorpresa,
 } from "./game_configuracion.js";
 
 export var juego = new Object();
@@ -355,7 +356,7 @@ juego.dibujarConstrucciones = function () {
     for (let j = 0; i < this.tablero[i].length; i++) {
       //si es el origen de una casa (es decir, origentipo == true)
       if (tablero[i][j].origenTipo) {
-        pintarConstruccion(tablero[i][j].tipo, i, j);       //TODO comprobar
+        pintarConstruccion(tablero[i][j].tipo, i, j);       //TODO comprobar la formulacion
       }
     }
   }
