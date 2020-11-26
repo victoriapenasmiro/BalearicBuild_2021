@@ -191,6 +191,15 @@ El juego comienza al cargarse la página de juego. En el archivo main.js  //TODO
 
 #### Canvas:
 Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente.
+
+La generación del grid sobre el canvas nos ha resultado muy problemática por el tratamiento que hace el tag *canvas* de los estilos *width* y *height*; finalmente nos ha obligado a generar el canvas en sí dentro de un div específico para el tablero de juego, a fin de poder trabajar como procede con las coordenadas.
+
+Entre las páginas consultadas para resolver este problema, las más útiles han sido las de la siguiente lista:
+* https://stackoverflow.com/questions/10214873/make-canvas-as-wide-and-as-high-as-parent
+* https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
+* https://stackoverflow.com/questions/7545863/canvas-distorts-drawing-how-do-i-get-the-scale-factor-between-the-set-size-and
+* https://stackoverflow.com/questions/59939839/difference-between-coordinates-in-pixels-and-coordinates-in-canvas-html
+
 //TODO completar
 
 #### Construcción de edificios.
