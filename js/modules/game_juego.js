@@ -1,12 +1,12 @@
 import {
-  dibujarTablero,
   generarArrayTablero,
   pintarConstruccion,
-  borrarTablero,
   tomarPosicionClick,
-} from "./canvas.js";
+} from "./game_canvas.js";
 import {
   tiempoRenta,
+  tiempoSorpresa,
+  cantidadSorpresa,
   costeXibiu,
   rentaXibiu,
   costeCasa,
@@ -18,37 +18,51 @@ import {
   costeSoborno,
   filasJuego,
   columnasJuego,
-} from "./configuracion.js";
+} from "./game_configuracion.js";
 
 export var juego = new Object();
 
 juego.nickname = "En Pep";
-juego.badge = "es Padrí";
+juego.badge = "";
 juego.dinero = 500;
 juego.construcciones = [];
 juego.tablero = generarArrayTablero();
+juego.soborno = false;
+juego.xalet = false;
+juego.hotel = false;
 juego.tipoSeleccionado = null;
 
 juego.iniciar = function () {
+  this.comprobarBadges();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
+  // Intervalo de configuración de la renta:
   setInterval(() => {
-    actualizar();
+    this.actualizar();
   }, tiempoRenta);
+  // Intervalo de configuración de los eventos aleatorios:
+  setInterval(() => {
+    this.manejarSorpresa();
+  }, tiempoSorpresa);
+
   manejarInactivos();
 };
 
 juego.sobornar = function () {
+  //TODO revisar xq me da q no tiene
+
   if (document.getElementById("juegoDinero") > costeSoborno) {
     //TODO: q sólo se pueda clicar cuando tienes el dinero suficiente
     //TODO: q avise con una animación cuando tienes el dinero suficiente
     //TODO: q una vez clicado se vuelva rojo y no se pueda volver a sobornar
     juego.dinero -= costeSoborno; //TODO revisar q esta es la cantidad del soborno
-    juego.badge = "Benefactor Social";
+    juego.xalet = true;
     document.getElementById("juegoDinero").innerHTML = juego.dinero;
     document.getElementById("juegoBadge").innerHTML = juego.badge;
     mostrarEventosDinero("soborno -" + costeSoborno);
+    this.soborno = true;
+    this.comprobarBadges();
     manejarInactivos();
   } else {
     mostrarEventosDinero("falta $$$ de soborno!");
@@ -78,26 +92,63 @@ juego.cobrarConstruccion = function (tipo) {
   manejarInactivos();
 };
 
+/**
+ * Comprueba los requisitos del jugador para los diferentes títulos.
+ * Estructura if/else de título más importante (= el que se muestra) a menos.
+ * Nota: Si tenc + de 2 cases i +  de 2 xalets, s’activa la Badge “Gran empresari” i puc construir un HOTEL
+ * Si pierdo esta característica, vuelvo al título anterior y no puedo construir más hoteles.
+ */
 juego.comprobarBadges = function () {
-  //TODO las comprobaciones del número de tipo
+  if (this.contarEdificios("hotel") > 2) {
+    this.badge = "Empresari Ecològic";
+  } else if (
+    this.contarEdificios("casa") > 2 &&
+    this.contarEdificios("xalet") > 2
+  ) {
+    this.badge = "Gran Empresari";
+  } else if (this.soborno == true) {
+    this.badge = "Benefactor Social";
+  } else {
+    this.badge = "es Padrí";
+  }
 };
 
-function actualizar() {
-  juego.dinero += contabilizarGanancias();
+/**
+ * Cuenta cuántos edificios de un tipo hay en el array. TODO, usarla en la suna de alquileres?
+ * Para reduce, ver: https://www.w3schools.com/jsref/jsref_reduce.asp
+ * @param {String} tipo
+ */
+juego.contarEdificios = function (tipo) {
+  var total = this.construcciones.reduce(function (n, val) {
+    return n + (val === tipo);
+  }, 0);
+  return total;
+};
+
+/**
+ * Actualiza el dinero y los títulos según avanza el tiempo; TODO actualizar tablero?
+ */
+juego.actualizar = function () {
+  this.dinero += this.contabilizarGanancias();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
-  // borrarTablero();
-  // dibujarTablero();
+  /*
+  borrarTablero();
+  dibujarTablero();
+  if (this.construcciones.length != 0) {
+    this.reflejarConstrucciones();
+  }
+  */
   manejarInactivos();
-}
+};
 
 /**
  * Calcula la suma de rentas.
  */
-function contabilizarGanancias() {
+juego.contabilizarGanancias = function () {
   let ganancias = 0;
   let infoGanancias = "";
-  juego.construcciones.forEach((element) => {
+  this.construcciones.forEach((element) => {
     switch (element) {
       case "xibiu":
         ganancias += rentaXibiu;
@@ -124,7 +175,7 @@ function contabilizarGanancias() {
   }
   mostrarEventosDinero(infoGanancias);
   return ganancias;
-}
+};
 
 /**
  * Muestra info de los cambios de $$ por pantalla
@@ -232,7 +283,8 @@ juego.comprobarSiConstruible = function (posicion) {
       for (let j = posicion[1]; j < posicion[1] + y; j++) {
         if (j >= filasJuego) {
           return false;
-        } else if (this.tablero[i][j].tipo != null) {     //TODO en algunas condiciones aqui me da uncaught error
+        } else if (this.tablero[i][j].tipo != null) {
+          //TODO en algunas condiciones aqui me da uncaught error
           return false;
         }
       }
@@ -297,6 +349,67 @@ juego.actualizarTableroEntorno = function (tipo, fila, columna) {
 };
 
 /**
+ * Toma las construcciones del array de apoyo y las dibuja en un canvas vacío.
+ */
+juego.dibujarConstrucciones = function () {
+  for (let i = 0; i < this.tablero.length; i++) {
+    for (let j = 0; i < this.tablero[i].length; i++) {
+      //si es el origen de una casa (es decir, origentipo == true)
+      if (tablero[i][j].origenTipo) {
+        pintarConstruccion(tablero[i][j].tipo, i, j);       //TODO comprobar la formulacion
+      }
+    }
+  }
+};
+
+/**
+ * Determina si se va a producir un evento sorpresa o no. La posibilidad de que se produzca es del 50%.
+ * TODO añadir a readme https://stackoverflow.com/questions/36756331/js-generate-random-boolean
+ */
+juego.manejarSorpresa = function () {
+  let randomBoolean = Math.random() < 0.5;
+  if (randomBoolean) {
+    this.eventoSorpresa();
+  }
+};
+
+/**
+ * Controla los eventos aleatorios: si se llama, elige una de las cuatro opciones y la desarrolla.
+ */
+juego.eventoSorpresa = function () {
+  let eventos = ["crisi", "promoció", "infracció", "premi"];
+  //también puede no suceder ninguna de ellas, pero por ahora sucede sí o sí
+  let evento = eventos[Math.floor(Math.random() * eventos.length)];
+  switch (evento) {
+    case "crisi":
+      //TODO: pierde todas las casas
+      break;
+    case "promoció":
+      //TODO: todas las chabolas se convierten en casa
+      break;
+    case "infracció":
+      if (this.construcciones.includes("xibiu")) {
+        this.dinero -= cantidadSorpresa;
+      }
+      break;
+    case "premi":
+      if (
+        this.construcciones.length != 0 &&
+        !this.construcciones.includes("xibiu")
+      ) {
+        //si no está vacío y no tiene chabolas
+        this.dinero += cantidadSorpresa;
+      }
+      break;
+  }
+  this.comprobarBadges();
+  document.getElementById("juegoDinero").innerHTML = juego.dinero;
+  document.getElementById("juegoBadges").innerHTML = juego.badges;
+  mostrarEventosDinero(evento.toUpperCase() + "!!!");
+  this.manejarInactivos();
+};
+
+/**
  * Activa o desactiva automáticamente los diferentes botones segun si hay dinero para hacerlos.
  */
 function manejarInactivos() {
@@ -323,7 +436,7 @@ function manejarInactivos() {
     document.getElementById("xalet").style.backgroundColor = "black";
     document.getElementById("xalet").style.color = "white";
     document.getElementById("xalet").style.cursor = "none";
-  } else {
+  } else if (juego.xalet == true) {
     document.getElementById("xalet").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("xalet").style.color = "black";
     document.getElementById("xalet").style.cursor = "grab";
@@ -332,7 +445,7 @@ function manejarInactivos() {
     document.getElementById("hotel").style.backgroundColor = "black";
     document.getElementById("hotel").style.color = "white";
     document.getElementById("hotel").style.cursor = "none";
-  } else {
+  } else if (juego.hotel == true) {
     document.getElementById("hotel").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("hotel").style.color = "black";
     document.getElementById("hotel").style.cursor = "grab";

@@ -1,4 +1,4 @@
-import { filasJuego, columnasJuego } from "./configuracion.js";
+import { filasJuego, columnasJuego } from "./game_configuracion.js";
 
 //por ahora la hago variable global; ya lo cambiaré TODO
 var repeticion;

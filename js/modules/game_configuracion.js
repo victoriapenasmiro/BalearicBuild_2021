@@ -1,4 +1,6 @@
 export var tiempoRenta = 10000;       //cada 10 segundos
+export var tiempoSorpresa = 30000;
+export var cantidadSorpresa = 1000;
 
 export var filasJuego = 15;
 export var columnasJuego = 30;
@@ -17,4 +19,4 @@ export var rentaXalet = 500;
 export var costeHotel = 12000;
 export var rentaHotel = 3000;
 
-export var costeSoborno = 900;
+export var costeSoborno = 2500;
