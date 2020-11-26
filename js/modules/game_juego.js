@@ -2,7 +2,7 @@ import {
   generarArrayTablero,
   pintarConstruccion,
   tomarPosicionClick,
-} from "./canvas.js";
+} from "./game_canvas.js";
 import {
   tiempoRenta,
   costeXibiu,
@@ -17,7 +17,7 @@ import {
   filasJuego,
   columnasJuego,
   cantidadSorpresa,
-} from "./configuracion.js";
+} from "./game_configuracion.js";
 
 export var juego = new Object();
 
@@ -36,9 +36,15 @@ juego.iniciar = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
+  // Intervalo de configuración de la renta:
   setInterval(() => {
     this.actualizar();
   }, tiempoRenta);
+  // Intervalo de configuración de los eventos aleatorios:
+  setInterval(() => {
+    this.manejarSorpresa();
+  }, tiempoSorpresa);
+
   manejarInactivos();
 };
 
@@ -125,8 +131,13 @@ juego.actualizar = function () {
   this.dinero += this.contabilizarGanancias();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
-  // borrarTablero();
-  // dibujarTablero();
+  /*
+  borrarTablero();
+  dibujarTablero();
+  if (this.construcciones.length != 0) {
+    this.reflejarConstrucciones();
+  }
+  */
   manejarInactivos();
 };
 
@@ -337,7 +348,32 @@ juego.actualizarTableroEntorno = function (tipo, fila, columna) {
 };
 
 /**
- * TODO completar
+ * Toma las construcciones del array de apoyo y las dibuja en un canvas vacío.
+ */
+juego.dibujarConstrucciones = function () {
+  for (let i = 0; i < this.tablero.length; i++) {
+    for (let j = 0; i < this.tablero[i].length; i++) {
+      //si es el origen de una casa (es decir, origentipo == true)
+      if (tablero[i][j].origenTipo) {
+        pintarConstruccion(tablero[i][j].tipo, i, j);       //TODO comprobar
+      }
+    }
+  }
+};
+
+/**
+ * Determina si se va a producir un evento sorpresa o no. La posibilidad de que se produzca es del 50%.
+ * TODO añadir a readme https://stackoverflow.com/questions/36756331/js-generate-random-boolean
+ */
+juego.manejarSorpresa = function () {
+  let randomBoolean = Math.random() < 0.5;
+  if (randomBoolean) {
+    this.eventoSorpresa();
+  }
+};
+
+/**
+ * Controla los eventos aleatorios: si se llama, elige una de las cuatro opciones y la desarrolla.
  */
 juego.eventoSorpresa = function () {
   let eventos = ["crisi", "promoció", "infracció", "premi"];
@@ -345,35 +381,31 @@ juego.eventoSorpresa = function () {
   let evento = eventos[Math.floor(Math.random() * eventos.length)];
   switch (evento) {
     case "crisi":
-      //TODO
+      //TODO: pierde todas las casas
       break;
     case "promoció":
-      //TODO
+      //TODO: todas las chabolas se convierten en casa
       break;
     case "infracció":
       if (this.construcciones.includes("xibiu")) {
         this.dinero -= cantidadSorpresa;
-        this.comprobarBadges();
-        document.getElementById("juegoDinero").innerHTML = juego.dinero;
-        document.getElementById("juegoBadges").innerHTML = juego.badges;
-        mostrarEventosDinero(evento.toUpperCase() + "!!!");
       }
-      //TODO
-
-      //resto cantidadSorpresa
       break;
     case "premi":
-      if (!this.construcciones.includes("xibiu")) {
-        //TODO y si no está vacío
+      if (
+        this.construcciones.length != 0 &&
+        !this.construcciones.includes("xibiu")
+      ) {
+        //si no está vacío y no tiene chabolas
         this.dinero += cantidadSorpresa;
-        this.comprobarBadges();
-        document.getElementById("juegoDinero").innerHTML = juego.dinero;
-        document.getElementById("juegoBadges").innerHTML = juego.badges;
-        mostrarEventosDinero(evento.toUpperCase() + "!!!");
       }
-      //TODO
       break;
   }
+  this.comprobarBadges();
+  document.getElementById("juegoDinero").innerHTML = juego.dinero;
+  document.getElementById("juegoBadges").innerHTML = juego.badges;
+  mostrarEventosDinero(evento.toUpperCase() + "!!!");
+  this.manejarInactivos();
 };
 
 /**
