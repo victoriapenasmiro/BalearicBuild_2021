@@ -2,7 +2,7 @@ import {
   generarArrayTablero,
   pintarConstruccion,
   tomarPosicionClick,
-} from "./canvas.js";
+} from "./game_canvas.js";
 import {
   tiempoRenta,
   costeXibiu,
@@ -17,7 +17,7 @@ import {
   filasJuego,
   columnasJuego,
   cantidadSorpresa,
-} from "./configuracion.js";
+} from "./game_configuracion.js";
 
 export var juego = new Object();
 
@@ -358,20 +358,16 @@ juego.eventoSorpresa = function () {
         document.getElementById("juegoBadges").innerHTML = juego.badges;
         mostrarEventosDinero(evento.toUpperCase() + "!!!");
       }
-      //TODO
-
-      //resto cantidadSorpresa
       break;
     case "premi":
-      if (!this.construcciones.includes("xibiu")) {
-        //TODO y si no está vacío
+      if (this.construcciones.length != 0 && !this.construcciones.includes("xibiu")) {
+        //si no está vacío y no tiene chabolas
         this.dinero += cantidadSorpresa;
         this.comprobarBadges();
         document.getElementById("juegoDinero").innerHTML = juego.dinero;
         document.getElementById("juegoBadges").innerHTML = juego.badges;
         mostrarEventosDinero(evento.toUpperCase() + "!!!");
       }
-      //TODO
       break;
   }
 };
