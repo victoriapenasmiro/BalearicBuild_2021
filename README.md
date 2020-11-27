@@ -146,9 +146,11 @@ Se ha implementado una transición en el hover de las imagenes en formato thumbn
 
 2. El diseño original del contenido del cuerpo implicaba que el texto y las imágenes estaban directamente sobre el fondo blanco de la página en general. Si bien esta idea, a priori, nos parecía muy limpia y elegante, en la práctica no tardamos en ver que daba sensación de desorden y falta de control. Para solucionarlo optamos por incluir el contenido central en contenedores 'div' extras, con bordes remarcados y un fondo gris que destacara sobre el blanco original, hiciera buen contraste con la letra, y facilitara la ordenación visual de los diferentes tipos de contenido.
 
-3. También modificamos algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+3. Hemos cambiado la posición de los títulos <h1> de *homepage* y *personajes* para acercarlos más a la línea superior de la página. En nuestro diseño original estos títulos estaban en los apartados inferiores, y aunque estéticamente resultaban agradables no cumplían su función de título, por lo que hemos visto lógico modificarlos.
 
-4. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un *underline*.
+4. También hemos modificado algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+
+5. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un *underline*.
 
 ### Links de webs de juegos similares:
 Para desarrollar estas páginas hemos consultado diversos juegos de estrategia online, entre los que destacan los siguientes:
