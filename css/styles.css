@@ -367,7 +367,7 @@ i.fa-arrow-up {
   main > section:first-child {
     background-color: var(--surface);
     border: solid 3px var(--secondary-light);
-    padding: 0.4%;
+    padding: 0.3%;
     margin-bottom: 3%;
     box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
     box-sizing: border-box;
@@ -409,6 +409,10 @@ i.fa-arrow-up {
     padding-bottom: -2%;
     box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
     box-sizing: border-box;
+  }
+
+  main > section:last-child > h2 {
+    text-align: center;
   }
 
   main > section:last-child > div:first-of-type {
@@ -461,6 +465,11 @@ i.fa-arrow-up {
   main > section:last-child > div:nth-of-type(2) > img,
   main > section:last-child > div:last-of-type > img {
     padding-right: 20px;
+  }
+
+  main > section:last-child > div:nth-of-type(3) > img,
+  main > section:last-child > div:nth-of-type(4) > img {
+    margin-top: 1.5rem;
   }
 
   main > section:last-child > div:nth-of-type(3) {
