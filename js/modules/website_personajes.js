@@ -9,7 +9,8 @@ var personajes;
 /**
  * Función para obtener el JSON
  */
-export const getTodos = async () => { // TODO debería estar en mayúsculas, no ??? codigo copiado de Toni
+export const getTodos = async () => {
+  // TODO debería estar en mayúsculas, no ??? codigo copiado de Toni
   try {
     const RES = await axios.get(`${BASE_URL}/personatges`);
     personajes = RES.data;
@@ -69,15 +70,11 @@ function pintarPersonajesOpt() {
     let grid = document.createElement("div");
     grid.id = personaje.id;
     let gridImg = document.createElement("img");
-    gridImg.alt = personaje.img;
+    gridImg.id = personaje.nombre;
+    gridImg.alt = personaje.nombre;
     gridImg.src = personaje.img;
     gridImg.style.border = "none";
     gridImg.style.boxSizing = "border-box";
-    // Con esto manejamos que se muestren/oculten bordes:
-    //gridImg.onclick = manejarBordes();
-    gridImg.addEventListener("click", function(){
-      manejarBordes(event)
-    });
     grid.appendChild(gridImg);
     let divOverlay = document.createElement("div");
     divOverlay.classList.add("overlay");
@@ -119,23 +116,12 @@ function mostrarSlides() {
 }
 
 /**
- * 
- */
-function manejarBordes(elemento) {
-  console.log("entra en manejar bordes");
-  if (elemento.style.border != "none") {
-    elemento.style.border = "none";
-  }
-  event.target.style.border = "3px solid black";
-  
-}
-
-/**
  * Muestra la información del personaje seleccionado.
  */
 function seleccionarPersonaje() {
   let img, nombre, motto;
   let id = this.id;
+  manejarBordes(id);
 
   personajes.forEach((personaje) => {
     if (personaje.id == id) {
@@ -156,6 +142,16 @@ function seleccionarPersonaje() {
   document
     .getElementById("personajeSeleccion")
     .getElementsByTagName("div")[2].innerHTML = `<p>${motto}</p>`;
+}
+
+/**
+ *
+ */
+function manejarBordes(id) {
+  for (let i = 1; i <= personajes.length; i++) {
+    document.getElementById(i).style.border = "none";
+  }
+  document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)";
 }
 
 /***************************** DEPRECATED *****************************/
@@ -204,8 +200,8 @@ function pintarPersonajes() {
     document.getElementById("personajesLista").innerHTML += gridImg;
     //creamos los addEventListener automáticamente
     document
-    .getElementById(`${personaje.id}`)
-    .addEventListener("click", seleccionarPersonaje);
+      .getElementById(`${personaje.id}`)
+      .addEventListener("click", seleccionarPersonaje);
   }
 
   document.getElementById("slideshow-container").innerHTML += slider;
