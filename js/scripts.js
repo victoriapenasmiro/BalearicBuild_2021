@@ -41,9 +41,12 @@ function start(){
     controlarBotonTop();
   };
 
-  //scripts propios de la HOME
-  if (window.location.pathname == "/") {
-    //Mostrar/ocultar ranking seleccionado sidebar
+  // Scripts propios de las diferentes páginas:
+  if (window.location.href.indexOf("personajes") > -1) {
+    getTodos();
+    
+  } else if (window.location.href.indexOf("inicio") == -1) {
+    // Mostrar/ocultar ranking seleccionado sidebar
     document.getElementsByClassName("fa-minus-square")[0].style.display =
       "none";
 
@@ -91,8 +94,6 @@ function start(){
 
         document.getElementsByTagName("ul")[1].style.display = "block";
       });
-  } else if (window.location.pathname == "/personajes.html") {
-    getTodos();
   }
 
   document

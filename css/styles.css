@@ -24,18 +24,23 @@ h1 {
   font-family: Corleone, sans-serif;
   font-weight: 400;
   letter-spacing: 3px;
+  text-decoration: underline;
+  text-decoration-color: var(--main-color);
   text-align: center;
 }
 
 h2 {
   font-family: Corleone, sans-serif;
   font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: var(--main-color);
   letter-spacing: 2px;
 }
 
 h3 {
-  font-family: Open Sans, sans-serif;
-  font-size: 1.5rem;
+  font-family: Corleone, sans-serif;
+  font-weight: 350;
+  letter-spacing: 2px;
 }
 
 h4,
@@ -144,8 +149,8 @@ nav a {
 }
 
 nav a:hover {
-  border-bottom:3px solid var(--secondary);
-  padding-bottom:2px;
+  border-bottom: 3px solid var(--secondary);
+  padding-bottom: 2px;
   color: var(--secondary);
 }
 
@@ -187,13 +192,13 @@ a > .fa-envelope {
   padding-bottom: 5px;
 }
 
-i.fa-arrow-up{
-  display: contents;/*para centrar el icono del arrow up*/
+i.fa-arrow-up {
+  display: contents; /*para centrar el icono del arrow up*/
 }
 
 .active {
-  border-bottom:3px solid white;
-  padding-bottom:2px;
+  border-bottom: 3px solid white;
+  padding-bottom: 2px;
   font-weight: 800;
 }
 
@@ -220,7 +225,7 @@ i.fa-arrow-up{
 }
 
 /* Adaptación video YouTube */
-@media screen and (min-width: 800px and max-width:1100px) {
+@media screen and (min-width: 800px) and (max-width: 1100px) {
   iframe {
     height: auto;
   }
@@ -277,7 +282,6 @@ i.fa-arrow-up{
   }
   /* END MENU DESKTOP*/
 
-  /* cambios hechos sin wireframe porq no queda bien; consultar mañana con Vicky */
   main > hr {
     display: none;
   }
@@ -290,6 +294,10 @@ i.fa-arrow-up{
     font-size: 3rem;
   }
 
+  h3 {
+    font-size: 2.5rem;
+  }
+
   button {
     width: 200px;
   }
@@ -300,8 +308,8 @@ i.fa-arrow-up{
 
   main,
   aside {
-    margin-top: 8vh;
-    margin-bottom: 8vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     box-sizing: border-box;
   }
 
@@ -313,6 +321,7 @@ i.fa-arrow-up{
   aside {
     margin-left: 1.5vw;
     margin-right: 4vw;
+    box-sizing: border-box;
   }
 
   main p {
@@ -322,6 +331,14 @@ i.fa-arrow-up{
   aside h2 {
     text-decoration: underline;
     text-decoration-color: var(--main-color);
+  }
+
+  aside h3 {
+    font-family: Open Sans, sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0px;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
   }
 
   aside hr {
@@ -350,25 +367,34 @@ i.fa-arrow-up{
   main > section:first-child {
     background-color: var(--surface);
     border: solid 3px var(--secondary-light);
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    padding: 5%;
+    padding: 0.4%;
     margin-bottom: 3%;
     box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
     box-sizing: border-box;
   }
 
-  main > section:first-child > div:last-child {
+  main > section:nth-child(2) {
+    background-color: var(--surface);
+    border: solid 3px var(--secondary-light);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 6%;
+    margin-bottom: 3%;
+    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
+    box-sizing: border-box;
+  }
+
+  main > section:nth-child(2) > div:last-child {
     display: flex;
     flex-direction: column;
     margin-left: 5%;
   }
 
-  main > section:first-child > div:last-child > button {
+  main > section:nth-child(2) > div:last-child > button {
     align-self: center;
   }
 
-  main > section:first-of-type > div:nth-of-type(2) > button {
+  main > section:nth-child(2) > div:nth-of-type(2) > button {
     display: flex;
     align-items: center;
   }
@@ -377,30 +403,31 @@ i.fa-arrow-up{
   #pantallaOpciones {
     background-color: var(--surface);
     border: solid 3px var(--secondary-light);
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 6%;
+    padding-right: 6%;
     padding-top: -4%;
     padding-bottom: -2%;
     box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
     box-sizing: border-box;
   }
 
-  main > section:last-child > h1,
-  #pantallaOpciones > h1 {
-    text-decoration: underline;
-    text-decoration-color: var(--main-color);
-  }
-
   main > section:last-child > div:first-of-type {
     display: grid;
     grid-template-areas:
-      "h2 h2 img"
+      "h3 h3 img"
       "p p img";
   }
 
-  main > section:last-child > div > h2 {
-    grid-area: h2;
+  main > section:last-child > div:first-of-type > img {
+    margin-top: 3.5rem;
+    box-sizing: border-box;
+  }
+
+  main > section:last-child > div > h3 {
+    grid-area: h3;
     margin: 0;
+    padding-left: 1rem;
+    box-sizing: border-box;
   }
 
   main > section:last-child > div > p:first-of-type {
@@ -420,7 +447,7 @@ i.fa-arrow-up{
   main > section:last-child > div:nth-of-type(2) {
     display: grid;
     grid-template-areas:
-      "img h2 h2"
+      "img h3 h3"
       "img p p"
       "p2 p2 p2";
     margin-top: 30px;
@@ -480,7 +507,6 @@ i.fa-arrow-up{
 
 /*responsive design mobile*/
 @media screen and (max-width: 799px) {
-
   /*diseño MENU MOVIL */
   header > div:first-of-type {
     width: fit-content;
@@ -512,11 +538,17 @@ i.fa-arrow-up{
 
   h1 {
     font-size: 2.5rem;
-    margin-bottom: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
   }
 
   h2 {
     font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
   }
 
   .grid-container {
@@ -535,25 +567,25 @@ i.fa-arrow-up{
     text-align: center;
   }
 
-  main > section:first-of-type > div:last-of-type > button:first-of-type,
-  main > section:first-of-type > div:nth-of-type(2) > button > i {
+  main > section:nth-child(2) > div:last-of-type > button:first-of-type,
+  main > section:nth-child(2) > div:nth-of-type(2) > button > i {
     display: none;
   }
 
-  main > section:first-of-type > div:nth-of-type(2) > button {
+  main > section:nth-child(2) > div:nth-of-type(2) > button {
     display: inline;
     margin-top: 20px;
   }
 
-  main > section:nth-of-type(2) > div > img {
+  main > section:nth-of-type(3) > div > img {
     width: 100%;
   }
 
-  main > section:nth-of-type(2) > div:first-of-type > h2 {
+  main > section:nth-of-type(3) > div:first-of-type > h2 {
     text-align: center;
   }
 
-  main > section:nth-of-type(2) > div:last-of-type {
+  main > section:nth-of-type(3) > div:last-of-type {
     display: none;
   }
 

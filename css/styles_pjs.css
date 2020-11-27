@@ -7,7 +7,7 @@
   background-color: var(--main-color);
   justify-content: space-around;
   align-items: center;
-  padding: 5%;
+  padding: 4%;
 }
 
 .mySlides div {
@@ -23,7 +23,7 @@
   height: 80px;
 }
 
-/* Slideshow container */
+/* Contenedor del Slideshow */
 #slideshow-container {
   max-width: 1000px;
   position: relative;
@@ -33,7 +33,7 @@
   box-sizing: border-box;
 }
 
-/* The dots/bullets/indicators */
+/* Bullets/indicadores */
 .dot {
   height: 15px;
   width: 15px;
@@ -42,13 +42,15 @@
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
+  box-sizing: border-box;
+  margin-bottom: 5vh;
 }
 
 .active-dot {
   background-color: var(--secondary-light);
 }
 
-/* Fading animation */
+/* Animación de fade */
 .fade {
   -webkit-animation-name: fade;
   -webkit-animation-duration: 2s;
@@ -78,18 +80,23 @@
   text-align: center;
 }
 
-/*responsive design tablet + desktop*/
+/* Para tablet y desktop (responsive) */
 @media screen and (min-width: 800px) {
   /* MAIN: */
   #personajesMain {
     margin: 0 auto;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
     width: 80%;
-    padding: 3rem;
+    padding: 1rem;
     background-color: var(--surface);
     border: solid 3px var(--secondary-light);
     box-sizing: border-box;
+  }
+
+  #personajes > h2 {
+    margin: 0 auto;
+    text-align: center;
   }
 
   .mySlides img {
@@ -98,14 +105,18 @@
   }
 
   #personajesVista {
+    background-color: var(--secondary);
+    color: white;
+    margin: 1rem 2rem 1rem 2rem;
+    padding: 2rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-around;
+    min-height: 590px;
     box-sizing: border-box;
   }
 
-  #personajesSeleccion {
-      border-left: 3px solid var(--main-color);
+  #personajeSeleccion {
       display: flex;
       flex-direction: column;
   }
@@ -114,10 +125,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-items: center;
-    border-right: 1px solid var(--secondary);
     align-items: center;
-    grid-gap: 20px;
-    padding-right: 20px;
+    grid-gap: 1rem;
   }
 
   /*Transición al pasar el ratón sobre la imagen*/
@@ -148,20 +157,31 @@
     text-decoration: underline;
     text-decoration-color: var(--main-color);
   }
+
+  #personajeSeleccion {
+    max-width: 30%;
+  }
 }
 
 /*responsive design mobile*/
 @media screen and (max-width: 799px) {
 
   .mySlides img {
-    width: 100px;
-    height: 120px;
+    width: 80px;
+    height: 100px;
+  }
+
+  #personajes > h2 {
+    text-align: center;
+    margin-bottom: -1rem;
+    padding-bottom: 0px;
+    box-sizing: border-box;
   }
 
   #personajesLista {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 1.5rem;
     justify-items: center;
     padding: 2rem;
     order: 2;
