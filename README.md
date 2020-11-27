@@ -191,17 +191,33 @@ El juego comienza al cargarse la página de juego. En el archivo main.js  //TODO
 
 #### Canvas:
 Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente.
+
+La generación del grid sobre el canvas nos ha resultado muy problemática por el tratamiento que hace el tag *canvas* de los estilos *width* y *height*; finalmente nos ha obligado a generar el canvas en sí dentro de un div específico para el tablero de juego, a fin de poder trabajar como procede con las coordenadas.
+
+Entre las páginas consultadas para resolver este problema, las más útiles han sido las de la siguiente lista:
+* https://stackoverflow.com/questions/10214873/make-canvas-as-wide-and-as-high-as-parent
+* https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
+* https://stackoverflow.com/questions/7545863/canvas-distorts-drawing-how-do-i-get-the-scale-factor-between-the-set-size-and
+* https://stackoverflow.com/questions/59939839/difference-between-coordinates-in-pixels-and-coordinates-in-canvas-html
+
 //TODO completar
 
 #### Construcción de edificios.
 //TODO completar
 
 #### Eventos de tiempo:
-Existen dos tipos de eventos de tiempo: los de actualización de datos y pantalla y los de eventos sorpresa. Ambos tipos tienen sus tiempos guardados en el archivo configuración.js
+Existen dos tipos de eventos de tiempo: los de actualización de datos y pantalla y los de eventos sorpresa. Ambos tipos tienen sus tiempos guardados en el archivo *game_configuracion.js*, y ambos se llaman desde la función de inicio del juego de la siguiente manera:
 
-Cada //TODO completar
+> setInterval(() => { this.actualizar(); }, tiempoRenta);
+> setInterval(() => { this.manejarSorpresa(); }, tiempoSorpresa);
 
-Los eventos sorpresa se manejan a partir de la función *manejarSorpresa()*. La lógica de esta función es la siguiente: //TODO completar
+Los eventos de actualización de datos implican tanto la actualización de dinero y títulos como el control de los botones inactivos.
+
+//TODO completar
+
+Los eventos sorpresa se manejan a partir de la función *manejarSorpresa()*. La lógica de esta función es la siguiente: 
+
+//TODO completar
 
 #### Información de eventos de dinero:
 Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por ejemplo, por rentas) o porque pierde (al pagar sobornos o al construir o trasladar sus edificios) es importante que tanto la nueva cantidad como los 'motivos' para llegar a ella aparezcan claramente en la pantalla. Para desarrollar esta funcionalidad nos hemos basado en el diseño del 'loot' de numerosos juegos, que informan al usuario de lo que entra/sale de sus bolsas durante unos segundos antes de desaparecer de la pantalla.
@@ -234,7 +250,7 @@ if (ganancias != 0) {
     sonidoDinero.play();
 }
 
-Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/
+Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/ y se pueden encontrar en la carpeta *src/sound/* del proyecto.
 
 #### Tratamiento del cursor:
 Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con el aspecto del cursor, para fomentar que las distinas opciones sean más instintivas para el usuario. Así, hemos tenido en cuenta los siguientes puntos:
