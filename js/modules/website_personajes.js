@@ -151,7 +151,8 @@ function manejarBordes(id) {
   for (let i = 1; i <= personajes.length; i++) {
     document.getElementById(i).style.border = "none";
   }
-  document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)";
+  document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)"
+  document.getElementById(id).style.height = "93%";
 }
 
 /***************************** DEPRECATED *****************************/

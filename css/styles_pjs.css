@@ -20,8 +20,7 @@
 }
 
 #personajesLista img {
-  width: 100px;
-  height: 80px;
+  width: 120px;
 }
 
 /* Contenedor del Slideshow */
@@ -81,6 +80,11 @@
   text-align: center;
 }
 
+#personajeSeleccion h3 {
+  margin: 0.5rem;
+  font-weight: 100;
+}
+
 /* Para tablet y desktop (responsive) */
 @media screen and (min-width: 800px) {
   /* MAIN: */
@@ -111,10 +115,11 @@
     margin: 1rem 2rem 1rem 2rem;
     padding: 2rem;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: space-evenly;
-    min-height: 590px;
+    min-height: 500px;
     box-sizing: border-box;
+    align-items: center;
   }
 
   #personajeSeleccion {
