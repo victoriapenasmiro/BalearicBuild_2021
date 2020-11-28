@@ -1,7 +1,6 @@
 /* TODO eventualmente esto unificarlo */
 /* SLIDER: */
 
-
 .mySlides {
   display: none;
   background-color: var(--main-color);
@@ -14,16 +13,48 @@
   text-align: center;
 }
 
-#personajeSeleccion img{
+#personajeSeleccion img {
   width: 150px;
   height: 170px;
 }
 
 #personajesLista img {
-  width: 120px;
+  width: 100px;
 }
 
-/* Contenedor del Slideshow */
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: var(--main-dark);
+}
+
+#personajesLista > div:hover .overlay {
+  opacity: 0.5;
+}
+
+/*Transición al pasar el ratón sobre la imagen*/
+#personajesLista > div {
+  position: relative;
+  cursor: pointer;
+}
+
+#personajeSeleccion {
+  text-align: center;
+}
+
+#personajeSeleccion h3 {
+  margin: 0.5rem;
+  font-weight: 100;
+}
+
+/* Contenedor del carrusel */
 #slideshow-container {
   max-width: 1000px;
   position: relative;
@@ -33,7 +64,7 @@
   box-sizing: border-box;
 }
 
-/* Bullets/indicadores */
+/* Bullets */
 .dot {
   height: 15px;
   width: 15px;
@@ -76,15 +107,6 @@
   }
 }
 
-#personajeSeleccion {
-  text-align: center;
-}
-
-#personajeSeleccion h3 {
-  margin: 0.5rem;
-  font-weight: 100;
-}
-
 /* Para tablet y desktop (responsive) */
 @media screen and (min-width: 800px) {
   /* MAIN: */
@@ -109,81 +131,16 @@
     height: 150px;
   }
 
-  #personajesVista {
-    background-color: var(--secondary);
-    color: white;
-    margin: 1rem 2rem 1rem 2rem;
-    padding: 2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    min-height: 500px;
-    box-sizing: border-box;
-    align-items: center;
-  }
-
-  #personajeSeleccion {
-      display: flex;
-      flex-direction: column;
-  }
-
-  #personajesLista {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-items: center;
-    align-items: center;
-    grid-gap: 1rem;
-  }
-
-  /*Transición al pasar el ratón sobre la imagen*/
-  #personajesLista > div {
-    position: relative;
-    cursor: pointer;
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: var(--main-dark);
-  }
-  
-  #personajesLista > div:hover .overlay {
-    opacity: 0.5;
-  }
-
   /* OTROS APARTADOS: */
   #personajes h1 {
     text-decoration: underline;
     text-decoration-color: var(--main-color);
   }
 
-  #personajeSeleccion {
-    max-width: 30%;
-  }
 }
 
-/*responsive design mobile*/
-@media screen and (max-width: 799px) {
-
-  .mySlides img {
-    width: 80px;
-    height: 100px;
-  }
-
-  #personajes > h2 {
-    text-align: center;
-    margin-bottom: -1rem;
-    padding-bottom: 0px;
-    box-sizing: border-box;
-  }
-
+/* GRID PERSONAJES - Responsive adaptado para resoluciones de hasta 1100px */
+@media screen and (max-width: 1100px) {
   #personajesLista {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -203,8 +160,69 @@
     margin-top: 2rem;
   }
 
-  /* TODO ajustar diseño a partir de 800 */
+  #personajesLista > div:first-of-type,
+  #personajesLista > div:nth-of-type(3),
+  #personajesLista > div:nth-of-type(5),
+  #personajesLista > div:nth-of-type(7) {
+    justify-self: flex-end;
+  }
+
+  #personajesLista > div:last-of-type,
+  #personajesLista > div:nth-of-type(2),
+  #personajesLista > div:nth-of-type(4),
+  #personajesLista > div:nth-of-type(6) {
+    justify-self: flex-start;
+  }
 }
 
+/* GRID PERSONAJES - Desktop */
+@media screen and (min-width: 1101px) {
+  #personajesVista {
+    background-color: var(--secondary);
+    color: white;
+    margin: 1rem 2rem 1rem 2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-height: 500px;
+    box-sizing: border-box;
+    align-items: center;
+  }
 
+  #personajeSeleccion {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #personajeSeleccion {
+    text-align: center;
+    width: 500px;
+    margin: 0 auto;
+  }
 
+  #personajesLista {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 1rem;
+    padding-right: 1rem;
+    margin: 0 auto;
+  }
+}
+
+/*responsive design mobile*/
+@media screen and (max-width: 799px) {
+  .mySlides img {
+    width: 80px;
+    height: 100px;
+  }
+
+  #personajes > h2 {
+    text-align: center;
+    margin-bottom: -1rem;
+    padding-bottom: 0px;
+    box-sizing: border-box;
+  }
+}

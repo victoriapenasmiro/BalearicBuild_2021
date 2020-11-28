@@ -46,10 +46,25 @@ function start() {
   /**** aviso de cookies ****/
   var modal = document.getElementById("myModal");
 
-  // Botón que cierra el modal
+  // Botón aceptación cookies
   var btn = document
     .getElementsByClassName("modal_content")[0]
     .getElementsByTagName("button")[0];
+
+  // TODO podemos añadir la propiedad onclick o si o si debe ser addEventListenet?
+  btn.onclick = function () {
+    modal.style.display = "none";
+    setCookie("avisoCookies", "balearicBuild", 1); //intalo una cookie en el navegador que caduca en 1 dia
+  };
+
+  //opción cookies rechazadas
+  document
+    .getElementsByClassName("modal_content")[0]
+    .getElementsByTagName("a")[0]
+    .addEventListener("click", function () {
+      alert("¡RECUERDA! Para jugar tienes que aceptar nuestras 🍪 🍪 🍪");
+      modal.style.display = "none";
+    });
 
   if (!getCookie("avisoCookies")) {
     //si no se ha aceptado el aviso de cookies, lo muestro
@@ -58,14 +73,7 @@ function start() {
     modal.style.display = "none";
   }
 
-  // TODO podemos añadir la propiedad onclick o si o si debe ser addEventListenet?
-  btn.onclick = function () {
-    modal.style.display = "none";
-    setCookie("avisoCookies", "balearicBuild", 1); //intalo una cookie en el navegador que caduca en 1 dia
-  };
-
   // Cuando el usuario hace click fuera del modal, este se cierra
-  // TODO, Está implementado pero no lo utilizamos, mantengo por si cambio de idea
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
@@ -76,7 +84,6 @@ function start() {
   // Scripts propios de las diferentes páginas:
   if (window.location.href.indexOf("personajes") > -1) {
     getTodos();
-    
   } else if (window.location.href.indexOf("inicio") == -1) {
     // Mostrar/ocultar ranking seleccionado sidebar
     document.getElementsByClassName("fa-minus-square")[0].style.display =

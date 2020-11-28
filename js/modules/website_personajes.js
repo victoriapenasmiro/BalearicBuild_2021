@@ -152,7 +152,7 @@ function manejarBordes(id) {
     document.getElementById(i).style.border = "none";
   }
   document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)"
-  document.getElementById(id).style.height = "93%";
+  document.getElementById(id).style.height = "92%";
 }
 
 /***************************** DEPRECATED *****************************/

@@ -18,25 +18,15 @@
     <!-- prettier-ignore -->
     <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
 
-    <!--Header y footer: TODO ver si pasamos el doc.ready al archivo .js -->
     <!-- prettier-ignore -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(() => {
-        $("header").load("header.html");
-        $("footer").load("footer.html");
-      });
-    </script>
 
     <!-- scripts TODO poner el específico -->
-    <script src="js/scripts.js"></script>
+    <script type="module" src="js/scripts.js"></script>
   </head>
   <body>
     <div class="grid-container">
       <header></header>
-      <button id="botonTop" title="VOLVER ARRIBA">
-        VOLVER ARRIBA <i class="fas fa-arrow-up"></i>
-      </button>
       <main>
         <div id="pantallaOpciones">
           <h1>Empezar juego</h1>
@@ -66,7 +56,7 @@
               value="dificultadDificil"
             />
             <label for="dificultadDificil">estudiante de FP ($)</label><br />
-            <input type="submit" value="GAME START!">
+            <input type="submit" value="GAME START!" />
           </form>
         </div>
       </main>
@@ -93,6 +83,25 @@
           version 1.0
         </div>
       </aside>
+      <!-- Modal aviso de Cookies -->
+      <div id="myModal" class="modal">
+        <div class="modal_content modal_start">
+          <img src="images/imagenCookies_ovalo.png" alt="" />
+          <p>
+            Nosotros y nuestros socios de confianza utilizamos cookies y
+            tecnología de medición para ofrecerte una experiencia lo más
+            relevante posible. Para poder navegar por nuestra web debes
+            aceptarlas. 🍪 🍪 🍪
+          </p>
+          <button>¡ENTENDIDO,GRACIAS!</button>
+          <div>
+            <a href="#">RECHAZAR</a>
+            <a href="#">MÁS INFORMACIÓN</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal aviso de Cookies -->
+      <!-- TODO Para que haga bien la transición lo tengo que meter aquí, si lo hago en la start function no pinta bien -->
       <footer></footer>
     </div>
   </body>

@@ -148,7 +148,8 @@ nav a {
   font-size: 1.25rem;
 }
 
-nav a:hover {
+nav a:hover,
+nav a:selected {
   border-bottom: 3px solid var(--secondary);
   padding-bottom: 2px;
   color: var(--secondary);
@@ -260,11 +261,11 @@ i.fa-arrow-up {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   -webkit-transition-property: width top;
-  -webkit-transition-duration: 0.5s;
-  -webkit-transition-delay: 1s;
+  -webkit-transition-duration: 3s;
+  -webkit-transition-delay: 0.5s;
   -webkit-transition-timing-function: linear; /* TODO EN MOVIL NO FUNCIONA */
   transition-property: width top;
-  transition-duration: 4s;
+  transition-duration: 3s;
   transition-delay: 0.5s;
   transition-timing-function: linear; /* TODO EN MOVIL NO FUNCIONA */
 }
@@ -279,6 +280,10 @@ i.fa-arrow-up {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-end: 3;
+}
+
+.modal_content a:hover {
+  text-decoration: underline;
 }
 
 .modal_content > button {
@@ -716,12 +721,13 @@ i.fa-arrow-up {
 
   .modal_end {
     width: auto;
-    top: auto;
-  }
+/*     top: auto;
+ */  }
 
   .modal_content {
     padding-bottom: 20px;
     left: auto;
+    margin:15px
   }
 
   .modal_content > button {

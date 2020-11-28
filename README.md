@@ -105,11 +105,52 @@ Actualmente los dispositivos móviles abarcan desde los 320px hasta los 799px ap
 
 Por otro lado, como ya se ha señalado en el apartado de diseño, debido a la longitud de nuestro menú para resoluciones inferiores a 800px ha sido necesario generar un menú de navegación colpasado, ya que no cabe todo en la misma linea.
 
-Cabe destacar que hemos realizado algunas ampliaciones en el desarrollo responsive de la página: hemos adaptado el video (tomado de youtube) de la Homepage en resoluciones intermedias para ipads, de forma que el video no se corta en ningún momento.
+Cabe destacar que hemos realizado algunas ampliaciones en el desarrollo responsive de la página:
+
+1. Hemos adaptado el video (tomado de youtube) de la Homepage en resoluciones intermedias para ipads, de forma que el video no se corta en ningún momento.
+
+2. Hemos adaptador el grid de personajes en diferentes resoluciones para que en ningún momento quede descuadrado.
 
 ### Transiciones:
 #### Aviso de cookies:
-//TODO hacer y completar
+Se ha implementado una transición sobre el modal de aviso de cookies dónde empieza oculto y con un width de un 20% y hace un scroll from top al centro de la pantalla y aumenta hasta tener un with del 50%.
+
+Esto se ha logrado con el siguiente fragmento de código:
+
+~~~
+CSS:
+.modal_content {
+  ...
+  -webkit-transition-property: width top;
+  -webkit-transition-duration: 3s;
+  -webkit-transition-delay: 0.5s;
+  -webkit-transition-timing-function: linear;
+  transition-property: width top;
+  transition-duration: 3s;
+  transition-delay: 0.5s;
+  transition-timing-function: linear;
+}
+
+  .modal_start {
+    width: 20%;
+    top: -50%;
+  }
+
+  .modal_end {
+    width: 50%;
+    top: 30%;
+  }
+
+JS:
+function activarTransicion() {
+  var modal = document.querySelector(".modal_content");
+  if (modal.classList.contains("modal_start")) {
+    modal.classList.remove("modal_start");
+    modal.classList.add("modal_end");
+  }
+}
+~~~
+
 
 #### Fotos giratorias:
 La segunda transición se encuentra en el elemento 'aside' de la homepage y afecta a las fotografías de las colaboradoras de este proyecto. Cuando se pasa el ratón por encima de cada fotografía, esta gira y tarda en hacer una rotación completa un tiempo de 2.5 segundos. Como las fotografías se han redondeado, el efecto resultante resulta muy agradable. Cuando se aparta el ratón, la foto hace el giro en sentido contrario hasta volver a su posición inicial.
@@ -167,13 +208,20 @@ Una de las dificultades que nos hemos encontrado ha sido trabajar con las pseudo
 
 Un problema que ha consumido una buena parte del tiempo disponible ha surgido en las pantallas en que se carga más de un archivo .js, como pueden ser la *homepage* o la página de personajes: la carga de archivos no era la correcta. Al hacer dos veces window.onload() en diferentes archivos, las funciones se machacaban y mezclaban entre sí, dando lugar a resultados indeseados.
 
-Para solucionarlo hemos probado numerosas posibilidades. Una de ellas ha sido utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, pero no funcionaba correctamenete. Otra opción ha sido unificar todos los archivos en uno, pero si bien esto hubiera funcionado correctamente no era ni lo que se pedía en el enunciado ni lo que queríamos conseguir.
+Para solucionarlo hemos probado numerosas posibilidades. Una de ellas ha sido utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, pero no funcionaba correctamente. Otra opción ha sido unificar todos los archivos en uno, pero si bien esto hubiera funcionado correctamente no era ni lo que se pedía en el enunciado ni lo que queríamos conseguir.
 
 Finalmente hemos optado por incluir el contenido del onload() original en una función diferente a la que no hemos invocado hasta estar ya cargado el onload() del archivo de header, con lo que hemos evitado que se sobrecarguen ambas funciones y hemos podido continuar trabajando con módulos.
 
-Por otro lado, hemos tenido problemas en la carga de imágenes del archivo .json facilitado en el enunciado, no tanto por las imágenes en sí o por el desarrollo del código, sino más bien enlazando con la dificultad de los párrafos anteriores: el archivo de origen no se cargaba adecuadamente, especialmente cuando teníamos que cargar varios .json a la vez, dado que surgían temas de asincronía. Finalmente, la solución de ambos problemas vino de la mano.
-//TODO Vicky revisar y completar con la solución final de hoy
+Por otro lado, hemos tenido problemas en la carga de imágenes del archivo .json facilitado en el enunciado, no tanto por las imágenes en sí o por el desarrollo del código, sino más bien enlazando con la dificultad de los párrafos anteriores: el archivo de origen no se cargaba adecuadamente, especialmente cuando teníamos que cargar varios elementos que se contruían con el js y necesitaban que el json estuviera cargado con antelación ya que tienen addEventListeners asignados a algunos elementos que se creaban con la carga del json, y al intentar asignar el evento antes de que existiera en el DOM daba error, surgían temas de asincronía. 
 
+Finalmente, la solución de ambos problemas vino de la mano. Mediante la siguiente función, controlamos que las funciones que debían ejecutarse al cargar el DOM, no se lanzasen hasta que estuviera completamente cargado el archivo header.html, que era el principal que nos daba problemas:
+
+~~~
+$(document).ready(() => {
+  ...
+  $("header").load("header.html", start);
+});
+~~~
 
 ## Desarrollo de código:
 
@@ -184,6 +232,15 @@ Para programar el carrusel de la página de personajes con animación, nos hemos
 
 #### Header / footer:
 Para 'importar' tanto el header como el footer hemos partido de las explicaciones enlazadas en el classroom de la asignatura, partiendo de la comprensión del código explicativo original en github.
+
+#### Aviso de cookies + ampliación: instalación cookie en el navegador:
+Se ha configurado el modal del aviso de cookies basándonos en el siguiente tutorial de w3schools: [https://www.w3schools.com/howto/howto_css_modals.asp](https://www.w3schools.com/howto/howto_css_modals.asp).
+
+Además, para que el popup de cookies no salga en todas las páginas de la web por las que se está navegando, se ha realizado una ampliación, dónde al aceptar el aviso, se instala la cookie balearicBuild con una duración de 1 día.
+
+Para realizar esta ampliación, nos hemos basado en el siguiente tutorial de w3schools: [https://www.w3schools.com/js/js_cookies.asp](https://www.w3schools.com/js/js_cookies.asp).
+
+En el caso de que se rechazen, aparece un alert que informa que para juagr es necesario aceptar el popup de cookies, y se cierra momentaneamente el modal permitiendo la navegación, pero al cambiar de pantalla o recargarla volverá a aparecer hasta que quede aceptado.
 
 ### Pantalla del juego:
 El código de desarrollo del juego es, posiblemente, el programa más largo que hemos escrito hasta el momento. Su base es el archivo main.js, que importa (a su vez o desde sus archivos importados) una serie de módulos entre los que cabe señalar un objeto 'juego' con sus métodos, una serie de funciones de pintado y 'transcripción' de canvas, y un archivo .js con variables de configuración.
