@@ -1,115 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
-
-    <style>
-
-        /* The Modal (background) */
-        .modal {
-          position: fixed; /* Stay in place */
-          z-index: 1; /* Sit on top */
-          padding-top: 100px; /* Location of the box */
-          left: 0;
-          top: 0;
-          width: 100%; /* Full width */
-          height: 100%; /* Full height */
-          overflow: auto; /* Enable scroll if needed */
-          background-color: rgb(0,0,0); /* Fallback color */
-          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    <script>
+      /**
+       * Función para ejecutar la transición del aviso de cookies
+       */
+      function updateTransition() {
+        var modal = document.querySelector(".modal_content");
+        if (modal.classList.contains("modal_start")) {
+          modal.classList.remove("modal_start");
+          modal.classList.add("modal_end");
         }
-        
-        /* Modal Content */
-        .modal-content {
-          background-color: #151617;
-          background-image: linear-gradient(to right,var(--error) , #151617);
-          margin: auto;
-          padding: 20px;
-          border: 2px solid var(--error);
-          width: 50%;
-          position: relative;
-          color: white;
-          display: grid;
-          grid-template-columns: repeat(3,1fr);
+      }
+
+      window.onload = function () {
+        if(!getCookie("avisoCookies")){
+          updateTransition();
         }
 
-        .modal-content > p {
-          grid-column-start: 1;
-          grid-column-end: 3;
-          grid-row-end: 3;
-
-        }
-
-        .modal-content > button {
-          grid-row-start: 3;
-          grid-column-start: 1;
-          grid-column-end: 3;
-          font-weight: bold;
-          padding: 5%;
-          width: fit-content;
-          letter-spacing: 1.5px;
-          margin-left: 15px;
-        }
-
-        .modal-content > div {
-          grid-row-start: 4;
-          grid-column-start: 1;
-          grid-column-end: 3;
-          padding-left: 15px;
-        }
-
-        .modal-content > img {
-          position: absolute;
-          margin-top: -10%;
-          width: 20%;
-          right: 3%;
-        }
-
-        .modal-content > div a {
-          margin-right: 4%;
-          color: var(--secondary);
-        }
-        
-        </style>
-        </head>
-        <body>        
-        <!-- Modal aviso de Cookies -->
-        <div id="myModal" class="modal">
-          <div class="modal-content">
-            <img src="images/imagenCookies_ovalo.png" alt="">
-              <p>Nosotros y nuestros socios de confianza utilizamos cookies y tecnología de medición para ofrecerte una experiencia lo más relevante posible. Para poder navegar por nuestra web debes aceptarlas.</p>
-              <button>¡ENTENDIDO,GRACIAS!</button>
-              <div>
-                <a href="#">RECHAZAR</a><!-- si rechazan, cerrar ventana o no permitir la navegación -->
-                <a href="#">MÁS INFORMACIÓN</a>
-              </div>
-          </div>
-        
-        </div>
-        
-        <script>
         // Get the modal
         var modal = document.getElementById("myModal");
-        
+
         // Get the <span> element that closes the modal
-        var btn = document.getElementsByClassName("modal-content")[0].getElementsByTagName("button")[0];
-        
+        var btn = document
+          .getElementsByClassName("modal_content")[0]
+          .getElementsByTagName("button")[0];
+
         // TODO podemos añadir la propiedad onclick o si o si debe ser addEventListenet?
-        btn.onclick = function() {
+        btn.onclick = function () {
           modal.style.display = "none";
-        }
-        
+          setCookie("avisoCookies", "balearicBuild", 1); //intalo una cookie en el navegador que caduca en 1 dia
+        };
+
         // Cuando el usuario hace click fuera del modal, este se cierra
-        window.onclick = function(event) {
+        // TODO, Está implementado pero no lo utilizamos, mantengo por si cambio de idea
+        window.onclick = function (event) {
           if (event.target == modal) {
             modal.style.display = "none";
           }
+        };
+      };
+
+      /**** control aceptación aviso de cookies ****/
+      //FORMATO cookies 
+      /* document.cookie =
+        "username=avisoCookies; expires=Thu, 29 Nov 2020 12:00:00 UTC; path=/;"; */
+
+      function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //seteo la fecha en milisengundos, desde el 1 Enero de 1970
+        var expires = "expires=" + d.toUTCString(); //seteo la fecha en formato Sat, 28 Nov 2020 08:13:24 GMT
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie); //recupero todas las cookies instalas, separadas por ;
+        var listadoCookies = decodedCookie.split(";"); //creo una array con las cookies instaladas
+        for (var i = 0; i < listadoCookies.length; i++) {
+          //busco la cookie
+          var c = listadoCookies[i];
+          while (c.charAt(0) == " ") {
+            //las cookies están separadas por ; + espacio, me quedo con el nombre y valor de la cookie
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return true;
+          }
         }
-        </script>
-        
-        </body>
-        </html>
+        return false;
+      }
+      /**** END control aceptación aviso de cookies ****/
+    </script>
+    <style>
+      /* Modal Aviso de cookies */
+      @media screen and (min-width: 800px) {
+        .modal_content > img {
+          width: 25%;
+        }
+
+        .modal_end {
+          width: 50%;
+          top: 30%;
+        }
+
+        .modal_content {
+          padding: 20px;
+          left: 25%;
+        }
+
+        .modal_content > button {
+          margin-left: 15px;
+          grid-column-end: 3;
+          padding: 5%;
+        }
+
+        .modal_content > div {
+          grid-column-end: 3;
+        }
+      }
+
+      @media screen and (max-width: 800px) {
+        .modal_content > img {
+          width: 28%;
+        }
+
+        .modal_end {
+          width: auto;
+          top: auto;
+        }
+
+        .modal_content {
+          padding-bottom: 20px;
+          left: auto;
+        }
+
+        .modal_content > button {
+          grid-column-end: 4;
+          padding: 3%;
+        }
+
+        .modal_content > div {
+          grid-column-end: 4;
+          text-align: center;
+        }
+      }
+
+      .modal {
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      }
+
+      .modal_content {
+        background-color: #151617;
+        background-image: linear-gradient(to right, var(--error), #151617);
+        border: 2px solid var(--error);
+        position: absolute;
+        color: white;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        -webkit-transition-property: width top;
+        -webkit-transition-duration: 0.5s;
+        -webkit-transition-delay: 1s;
+        -webkit-transition-timing-function: linear;
+        transition-property: width top;
+        transition-duration: 2s;
+        transition-delay: 0.5s;
+        transition-timing-function: linear;
+      }
+
+      .modal_start {
+        width: 20%;
+        top: -50%;
+      }
+
+      .modal_content > img {
+        position: absolute;
+        margin-top: -10%;
+        /* width: 35%;//distinto por resposive*/
+        right: 3%;
+      }
+
+      .modal_content > p {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-end: 3;
+      }
+
+      .modal_content > button {
+        grid-row-start: 3;
+        grid-column-start: 1;
+        /* grid-column-end: 3; */
+        font-weight: bold;
+        width: fit-content;
+        letter-spacing: 1.5px;
+        /* margin-left: 15px; */
+      }
+
+      .modal_content > div {
+        grid-row-start: 4;
+        grid-column-start: 1;
+        /* grid-column-end: 3; */
+        padding-left: 15px;
+      }
+
+      .modal_content > div a {
+        margin-right: 4%;
+        color: var(--secondary);
+      }
+
+      /* End Modal Aviso de cookies */
+    </style>
+  </head>
+  <body>
+    <!-- Modal aviso de Cookies -->
+    <div id="myModal" class="modal">
+      <div class="modal_content modal_start">
+        <img src="images/imagenCookies_ovalo.png" alt="" />
+        <p>
+          Nosotros y nuestros socios de confianza utilizamos cookies y
+          tecnología de medición para ofrecerte una experiencia lo más relevante
+          posible. Para poder navegar por nuestra web debes aceptarlas.
+        </p>
+        <button>¡ENTENDIDO,GRACIAS!</button>
+        <div>
+          <a href="#">RECHAZAR</a
+          ><!-- si rechazan, cerrar ventana o no permitir la navegación -->
+          <a href="#">MÁS INFORMACIÓN</a>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
