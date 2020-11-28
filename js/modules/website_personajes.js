@@ -1,15 +1,16 @@
 //API personajes
-export const BASE_URL =
+const BASE_URL =
   "https://my-json-server.typicode.com/classicoman2/fakeRESTserver";
 //variable para el Carrusel
-export var slideIndex = 0;
+var slideIndex = 0;
 //variable para cargar la array de personajes
-export var personajes;
+var personajes;
 
 /**
  * Función para obtener el JSON
  */
-export const getTodos = async () => { // TODO debería estar en mayúsculas, no ??? codigo copiado de Toni
+export const getTodos = async () => {
+  // TODO debería estar en mayúsculas, no ??? codigo copiado de Toni
   try {
     const RES = await axios.get(`${BASE_URL}/personatges`);
     personajes = RES.data;
@@ -20,7 +21,7 @@ export const getTodos = async () => { // TODO debería estar en mayúsculas, no 
   }
 };
 
-export function pintarPersonajesOpt() {
+function pintarPersonajesOpt() {
   var carrusel = document.getElementById("slideshow-container");
   let slid0 = document.createElement("div");
   slid0.classList.add("mySlides", "fade");
@@ -30,8 +31,9 @@ export function pintarPersonajesOpt() {
   slid2.classList.add("mySlides", "fade");
   let slid3 = document.createElement("div");
   slid3.classList.add("mySlides", "fade");
-  carrusel.appendChild(slid0); //en movil y desktop la necesito
-  carrusel.appendChild(slid1); //en movil y desktop la necesito
+  // .appendChild es necesario en movil y desktop
+  carrusel.appendChild(slid0);
+  carrusel.appendChild(slid1);
 
   for (let i = 0; i < personajes.length; i++) {
     let personaje = new Object();
@@ -68,8 +70,11 @@ export function pintarPersonajesOpt() {
     let grid = document.createElement("div");
     grid.id = personaje.id;
     let gridImg = document.createElement("img");
-    gridImg.alt = personaje.img;
+    gridImg.id = personaje.nombre;
+    gridImg.alt = personaje.nombre;
     gridImg.src = personaje.img;
+    gridImg.style.border = "none";
+    gridImg.style.boxSizing = "border-box";
     grid.appendChild(gridImg);
     let divOverlay = document.createElement("div");
     divOverlay.classList.add("overlay");
@@ -81,18 +86,18 @@ export function pintarPersonajesOpt() {
   }
 
   if (screen.width < 800) {
-    //añado dos dots más en caso de móvil
+    // Con dos dots más en caso de móvil:
     document.getElementById("dots").innerHTML +=
       '<span class="dot"></span><span class="dot"></span>';
   }
 
-  showSlides();
+  mostrarSlides();
 }
 
 /**
  * Función para activar la animación del carrusel de imágenes
  */
-export function showSlides() {
+function mostrarSlides() {
   let slides = document.getElementsByClassName("mySlides");
   let dots = document.getElementsByClassName("dot");
   for (let i = 0; i < slides.length; i++) {
@@ -107,15 +112,16 @@ export function showSlides() {
   }
   slides[slideIndex - 1].style.display = "flex";
   dots[slideIndex - 1].className += " active-dot";
-  setTimeout(showSlides, 3000); // Change image every 2 seconds
+  setTimeout(mostrarSlides, 3000); // Change image every 2 seconds
 }
 
 /**
- * Función para mostrar la información del personaje seleccionado
+ * Muestra la información del personaje seleccionado.
  */
-export function seleccionarPersonaje() {
+function seleccionarPersonaje() {
   let img, nombre, motto;
   let id = this.id;
+  manejarBordes(id);
 
   personajes.forEach((personaje) => {
     if (personaje.id == id) {
@@ -127,7 +133,7 @@ export function seleccionarPersonaje() {
 
   document
     .getElementById("personajeSeleccion")
-    .getElementsByTagName("div")[0].innerHTML = `<p>${nombre}</p>`;
+    .getElementsByTagName("div")[0].innerHTML = `<h3>${nombre}</h3>`;
   document
     .getElementById("personajeSeleccion")
     .getElementsByTagName(
@@ -138,7 +144,17 @@ export function seleccionarPersonaje() {
     .getElementsByTagName("div")[2].innerHTML = `<p>${motto}</p>`;
 }
 
-/***************************** DEPREDCATED *****************************/
+/**
+ *
+ */
+function manejarBordes(id) {
+  for (let i = 1; i <= personajes.length; i++) {
+    document.getElementById(i).style.border = "none";
+  }
+  document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)";
+}
+
+/***************************** DEPRECATED *****************************/
 
 /**
  * Función para crear el carrusel y el grid de personajes
@@ -184,11 +200,11 @@ function pintarPersonajes() {
     document.getElementById("personajesLista").innerHTML += gridImg;
     //creamos los addEventListener automáticamente
     document
-    .getElementById(`${personaje.id}`)
-    .addEventListener("click", seleccionarPersonaje);
+      .getElementById(`${personaje.id}`)
+      .addEventListener("click", seleccionarPersonaje);
   }
 
   document.getElementById("slideshow-container").innerHTML += slider;
 
-  showSlides();
+  mostrarSlides();
 }

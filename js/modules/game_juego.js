@@ -1,4 +1,6 @@
 import {
+  borrarTablero,
+  dibujarTablero,
   generarArrayTablero,
   pintarConstruccion,
   tomarPosicionClick,
@@ -136,7 +138,7 @@ juego.actualizar = function () {
   borrarTablero();
   dibujarTablero();
   if (this.construcciones.length != 0) {
-    this.reflejarConstrucciones();
+    this.dibujarConstrucciones();
   }
   */
   manejarInactivos();
@@ -380,12 +382,17 @@ juego.eventoSorpresa = function () {
   let eventos = ["crisi", "promoció", "infracció", "premi"];
   //también puede no suceder ninguna de ellas, pero por ahora sucede sí o sí
   let evento = eventos[Math.floor(Math.random() * eventos.length)];
+  console.log(evento);
   switch (evento) {
     case "crisi":
-      //TODO: pierde todas las casas
+      if (this.construcciones.includes("casa")) {
+        this.eventoCrisis();
+      }
       break;
     case "promoció":
-      //TODO: todas las chabolas se convierten en casa
+      if (this.construcciones.includes("xibiu")) {
+        this.eventoPromocion();
+      }
       break;
     case "infracció":
       if (this.construcciones.includes("xibiu")) {
@@ -408,6 +415,70 @@ juego.eventoSorpresa = function () {
   mostrarEventosDinero(evento.toUpperCase() + "!!!");
   this.manejarInactivos();
 };
+
+/**
+ * Pierde todos los edificios de tipo casa.
+ */
+juego.eventoCrisis = function () {
+// 1. Quito las chabolas en .construcciones
+this.construcciones.filter((edificio) => {     //TODO comprobar que esto está bien formulado
+  return (edificio != "xibiu");
+});
+
+// 2. Convierto las chabolas en la matriz bidimensional
+for (let i = 0; i < this.tablero.length; i++) {
+  for (let j = 0; j < this.tablero[i].length; j++) {
+    if (tablero[i][j].tipo == "xibiu") {
+      tablero[i][j].tipo = null;
+      tablero[i][j].origenTipo = null;
+    }
+  }
+}
+
+// 3. Limpio el tablero
+borrarTablero();
+
+// 4. Repinto el tablero
+dibujarTablero();
+this.dibujarConstrucciones();
+
+// 5. Manejo badges e inactivos
+this.comprobarBadges();
+this.manejarInactivos();
+
+}
+
+/**
+ * Todas las chabolas se convierten en casa.
+ */
+juego.eventoPromocion = function () {
+// 1. Convierto las chabolas en casas en .construcciones
+this.construcciones.map((edificio) => {     //TODO comprobar que esto está bien formulado
+  if (edificio == "xibiu") {
+    return "casa";
+  }
+});
+
+// 2. Convierto las chabolas en casas en la matriz bidimensional: igual tamaño
+for (let i = 0; i < this.tablero.length; i++) {
+  for (let j = 0; j < this.tablero[i].length; j++) {
+    if (tablero[i][j].tipo == "xibiu") {
+      tablero[i][j].tipo = casa;
+    }
+  }
+}
+
+// 3. Limpio el tablero
+borrarTablero();
+
+// 4. Repinto el tablero
+dibujarTablero();
+this.dibujarConstrucciones();
+
+// 5. Manejo badges e inactivos
+this.comprobarBadges();
+this.manejarInactivos();
+}
 
 /**
  * Activa o desactiva automáticamente los diferentes botones segun si hay dinero para hacerlos.

@@ -146,9 +146,11 @@ Se ha implementado una transición en el hover de las imagenes en formato thumbn
 
 2. El diseño original del contenido del cuerpo implicaba que el texto y las imágenes estaban directamente sobre el fondo blanco de la página en general. Si bien esta idea, a priori, nos parecía muy limpia y elegante, en la práctica no tardamos en ver que daba sensación de desorden y falta de control. Para solucionarlo optamos por incluir el contenido central en contenedores 'div' extras, con bordes remarcados y un fondo gris que destacara sobre el blanco original, hiciera buen contraste con la letra, y facilitara la ordenación visual de los diferentes tipos de contenido.
 
-3. También modificamos algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+3. Hemos cambiado la posición de los títulos <h1> de *homepage* y *personajes* para acercarlos más a la línea superior de la página. En nuestro diseño original estos títulos estaban en los apartados inferiores, y aunque estéticamente resultaban agradables no cumplían su función de título, por lo que hemos visto lógico modificarlos.
 
-4. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un *underline*.
+4. También hemos modificado algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
+
+5. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un *underline*.
 
 ### Links de webs de juegos similares:
 Para desarrollar estas páginas hemos consultado diversos juegos de estrategia online, entre los que destacan los siguientes:
@@ -191,17 +193,33 @@ El juego comienza al cargarse la página de juego. En el archivo main.js  //TODO
 
 #### Canvas:
 Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente.
+
+La generación del grid sobre el canvas nos ha resultado muy problemática por el tratamiento que hace el tag *canvas* de los estilos *width* y *height*; finalmente nos ha obligado a generar el canvas en sí dentro de un div específico para el tablero de juego, a fin de poder trabajar como procede con las coordenadas.
+
+Entre las páginas consultadas para resolver este problema, las más útiles han sido las de la siguiente lista:
+* https://stackoverflow.com/questions/10214873/make-canvas-as-wide-and-as-high-as-parent
+* https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
+* https://stackoverflow.com/questions/7545863/canvas-distorts-drawing-how-do-i-get-the-scale-factor-between-the-set-size-and
+* https://stackoverflow.com/questions/59939839/difference-between-coordinates-in-pixels-and-coordinates-in-canvas-html
+
 //TODO completar
 
 #### Construcción de edificios.
 //TODO completar
 
 #### Eventos de tiempo:
-Existen dos tipos de eventos de tiempo: los de actualización de datos y pantalla y los de eventos sorpresa. Ambos tipos tienen sus tiempos guardados en el archivo configuración.js
+Existen dos tipos de eventos de tiempo: los de actualización de datos y pantalla y los de eventos sorpresa. Ambos tipos tienen sus tiempos guardados en el archivo *game_configuracion.js*, y ambos se llaman desde la función de inicio del juego de la siguiente manera:
 
-Cada //TODO completar
+> setInterval(() => { this.actualizar(); }, tiempoRenta);
+> setInterval(() => { this.manejarSorpresa(); }, tiempoSorpresa);
 
-Los eventos sorpresa se manejan a partir de la función *manejarSorpresa()*. La lógica de esta función es la siguiente: //TODO completar
+Los eventos de actualización de datos implican tanto la actualización de dinero y títulos como el control de los botones inactivos.
+
+//TODO completar
+
+Los eventos sorpresa se manejan a partir de la función *manejarSorpresa()*. La lógica de esta función es la siguiente: 
+
+//TODO completar
 
 #### Información de eventos de dinero:
 Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por ejemplo, por rentas) o porque pierde (al pagar sobornos o al construir o trasladar sus edificios) es importante que tanto la nueva cantidad como los 'motivos' para llegar a ella aparezcan claramente en la pantalla. Para desarrollar esta funcionalidad nos hemos basado en el diseño del 'loot' de numerosos juegos, que informan al usuario de lo que entra/sale de sus bolsas durante unos segundos antes de desaparecer de la pantalla.
@@ -234,7 +252,7 @@ if (ganancias != 0) {
     sonidoDinero.play();
 }
 
-Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/
+Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/ y se pueden encontrar en la carpeta *src/sound/* del proyecto.
 
 #### Tratamiento del cursor:
 Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con el aspecto del cursor, para fomentar que las distinas opciones sean más instintivas para el usuario. Así, hemos tenido en cuenta los siguientes puntos:

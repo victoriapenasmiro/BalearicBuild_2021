@@ -20,13 +20,8 @@ export function dibujarTablero() {
   canvas.style.height = "100%";
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
-  // Muchos problemas con temas de altura y porcentajes. Links para incluir en documentación:
-  // https://stackoverflow.com/questions/10214873/make-canvas-as-wide-and-as-high-as-parent
-  // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
-  // https://stackoverflow.com/questions/7545863/canvas-distorts-drawing-how-do-i-get-the-scale-factor-between-the-set-size-and
-  // https://stackoverflow.com/questions/59939839/difference-between-coordinates-in-pixels-and-coordinates-in-canvas-html
 
-  // así dibujo los recuadros; funciona pero queda borrosa TODO
+  // así dibujo los recuadros; funciona pero queda algo borrosa TODO
   let ctx = canvas.getContext("2d");
   ctx.strokeStyle = "black";
   for (let i = 0; i < tableroAnchura; i += repeticion) {
