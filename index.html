@@ -21,7 +21,7 @@
     <!--JQuery para importar Header y footer-->
     <!-- prettier-ignore -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    
+
     <!-- scripts -->
     <script type="module" src="js/scripts.js"></script>
   </head>
@@ -202,6 +202,23 @@
           version 1.0
         </div>
       </aside>
+      <!-- Modal aviso de Cookies -->
+<div id="myModal" class="modal">
+  <div class="modal_content modal_start">
+    <img src="images/imagenCookies_ovalo.png" alt="" />
+    <p>
+      Nosotros y nuestros socios de confianza utilizamos cookies y
+      tecnología de medición para ofrecerte una experiencia lo más relevante
+      posible. Para poder navegar por nuestra web debes aceptarlas.
+    </p>
+    <button>¡ENTENDIDO,GRACIAS!</button>
+    <div>
+      <a href="#">RECHAZAR</a><!-- TODO si rechazan, cerrar ventana o no permitir la navegación -->
+      <a href="#">MÁS INFORMACIÓN</a>
+    </div>
+  </div>
+</div>
+<!-- End Modal aviso de Cookies --> <!-- TODO Para que haga bien la transición lo tengo que meter aquí, si lo hago en la start function no pinta bien -->
       <footer></footer>
     </div>
   </body>

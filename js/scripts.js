@@ -1,12 +1,12 @@
 import { getTodos } from "./modules/website_personajes.js";
 
 $(document).ready(() => {
-  /* $("head").load("head.html"); */ //TODO APARENTEMENTE QUE MACHACA OTROS ELEMENTOS DEL HEAD, NO FUNCIONA EN PANTALLA PERSONAJES, quizás es por el bug general 
+  /* $("head").load("head.html"); */ //TODO APARENTEMENTE QUE MACHACA OTROS ELEMENTOS DEL HEAD, NO FUNCIONA EN PANTALLA PERSONAJES, quizás es por el bug general
   $("footer").load("footer.html");
-  $("header").load("header.html",start);
+  $("header").load("header.html", start);
 });
 
-function start(){
+function start() {
   //resaltamos active del elemento seleccionado del menu
   document
     .getElementById("optionsMenu")
@@ -29,6 +29,7 @@ function start(){
     .getElementsByTagName("a")[4]
     .addEventListener("click", addActiveClass);
 
+  /**** scroll to top ****/
   var botonTop = document.getElementById("botonTop");
 
   //Función para que al hacer click vuelva al principio:
@@ -40,6 +41,38 @@ function start(){
   window.onscroll = function () {
     controlarBotonTop();
   };
+  /**** end scroll to top ****/
+
+  /**** aviso de cookies ****/
+
+  var modal = document.getElementById("myModal");
+
+  // Botón que cierra el modal
+  var btn = document
+    .getElementsByClassName("modal_content")[0]
+    .getElementsByTagName("button")[0];
+
+  if (!getCookie("avisoCookies")) {
+    //si no se ha aceptado el aviso de cookies, lo muestro
+    updateTransition();
+  } else {
+    modal.style.display = "none";
+  }
+
+  // TODO podemos añadir la propiedad onclick o si o si debe ser addEventListenet?
+  btn.onclick = function () {
+    modal.style.display = "none";
+    setCookie("avisoCookies", "balearicBuild", 1); //intalo una cookie en el navegador que caduca en 1 dia
+  };
+
+  // Cuando el usuario hace click fuera del modal, este se cierra
+  // TODO, Está implementado pero no lo utilizamos, mantengo por si cambio de idea
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+  /**** end aviso de cookies ****/
 
   //scripts propios de la HOME
   if (window.location.pathname == "/") {
@@ -101,7 +134,7 @@ function start(){
   document
     .getElementsByClassName("fa-times")[0]
     .addEventListener("click", menuMobile);
-};
+}
 
 /**
  * Función que ejecuta el menu en móviles
@@ -171,3 +204,45 @@ function controlarBotonTop() {
     botonTop.style.display = "none";
   }
 }
+
+/**
+ * Función para ejecutar la transición del aviso de cookies
+ */
+function activarTransicion() {
+  var modal = document.querySelector(".modal_content");
+  if (modal.classList.contains("modal_start")) {
+    modal.classList.remove("modal_start");
+    modal.classList.add("modal_end");
+  }
+}
+
+/**** control aceptación aviso de cookies ****/
+//FORMATO cookies
+/* document.cookie =
+        "username=avisoCookies; expires=Thu, 29 Nov 2020 12:00:00 UTC; path=/;"; */
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //seteo la fecha en milisengundos, desde el 1 Enero de 1970
+  var expires = "expires=" + d.toUTCString(); //seteo la fecha en formato Sat, 28 Nov 2020 08:13:24 GMT
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie); //recupero todas las cookies instalas, separadas por ;
+  var listadoCookies = decodedCookie.split(";"); //creo una array con las cookies instaladas
+  for (var i = 0; i < listadoCookies.length; i++) {
+    //busco la cookie
+    var c = listadoCookies[i];
+    while (c.charAt(0) == " ") {
+      //las cookies están separadas por ; + espacio, me quedo con el nombre y valor de la cookie
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return true;
+    }
+  }
+  return false;
+}
+/**** END control aceptación aviso de cookies ****/
