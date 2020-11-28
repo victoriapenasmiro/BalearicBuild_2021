@@ -44,7 +44,6 @@ function start() {
   /**** end scroll to top ****/
 
   /**** aviso de cookies ****/
-
   var modal = document.getElementById("myModal");
 
   // Botón que cierra el modal
@@ -54,7 +53,7 @@ function start() {
 
   if (!getCookie("avisoCookies")) {
     //si no se ha aceptado el aviso de cookies, lo muestro
-    updateTransition();
+    activarTransicion();
   } else {
     modal.style.display = "none";
   }
