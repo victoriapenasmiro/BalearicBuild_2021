@@ -10,7 +10,7 @@ window.onload = function () {
   juego.iniciar();
 
   document.getElementById("tablero").addEventListener("click", function () {
-    juego.construir();
+    juego.seleccionarEvento();
   });
 
   document.getElementById("soborno").addEventListener("click", function () {
@@ -18,11 +18,11 @@ window.onload = function () {
   });
 
   document.getElementById("traslado").addEventListener("click", function () {
-    juego.trasladar();    //funcion creada pero no desarrollada, TODO
+    juego.seleccionarTraslado();    //funcion creada pero no desarrollada, TODO
   });
 
   document.getElementById("demolicion").addEventListener("click", function () {
-    juego.demoler();
+    juego.seleccionarDemolicion();
   });
 
   document.getElementById("xibiu").addEventListener("click", function () {
