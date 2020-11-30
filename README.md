@@ -177,37 +177,33 @@ La segunda transición se encuentra en el elemento 'aside' de la homepage y afec
 
 Esto se ha logrado con el siguiente fragmento de código:
 
-~~~
-aside img {
-  ...
-  border-radius: 50%;
-  transition: transform 2.5s ease-in-out;
-}
-
-aside img:hover {
-  transform: rotate(360deg);
-}
-~~~
+>aside img {
+>  ...
+>  border-radius: 50%;
+>  transition: transform 2.5s ease-in-out;
+>}
+>
+>aside img:hover {
+>  transform: rotate(360deg);
+>}
 
 #### Transición de thumbnails:
 Se ha implementado una transición en el hover de las imagenes en formato thumbnail de la pantalla de personajes. Esta transición transcurre durante 0.5 segundos y únicamente al hacer 'hover' sobre fotos de thumbnail.
 
-~~~
-.overlay {
-  transition: .5s ease;
-}
-
-#personajesLista > div:hover .overlay {
-  opacity: 0.5;
-}
-~~~
+>.overlay {
+>  transition: .5s ease;
+>}
+>
+>#personajesLista > div:hover .overlay {
+>  opacity: 0.5;
+>}
 
 ## Modificaciones de sketch a wireframe y a prototipo:
 1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.
 
 2. El diseño original del contenido del cuerpo implicaba que el texto y las imágenes estaban directamente sobre el fondo blanco de la página en general. Si bien esta idea, a priori, nos parecía muy limpia y elegante, en la práctica no tardamos en ver que daba sensación de desorden y falta de control. Para solucionarlo optamos por incluir el contenido central en contenedores 'div' extras, con bordes remarcados y un fondo gris que destacara sobre el blanco original, hiciera buen contraste con la letra, y facilitara la ordenación visual de los diferentes tipos de contenido.
 
-3. Hemos cambiado la posición de los títulos <h1> de *homepage* y *personajes* para acercarlos más a la línea superior de la página. En nuestro diseño original estos títulos estaban en los apartados inferiores, y aunque estéticamente resultaban agradables no cumplían su función de título, por lo que hemos visto lógico modificarlos.
+3. Hemos cambiado la posición de los títulos *h1* de *homepage* y *personajes* para acercarlos más a la línea superior de la página. En nuestro diseño original estos títulos estaban en los apartados inferiores, y aunque estéticamente resultaban agradables no cumplían su función de título, por lo que hemos visto lógico modificarlos.
 
 4. También hemos modificado algún título concreto, como el de la pantalla de personajes: de 'Elige a tu Balearic Builder' pasamos a 'Balearic Builders', ya que el verbo elegir daba la impresión de estar en una pantalla de selección en vez de en una pantalla de información.
 
@@ -236,12 +232,10 @@ Por otro lado, hemos tenido problemas en la carga de imágenes del archivo .json
 
 Finalmente, la solución de ambos problemas vino de la mano. Mediante la siguiente función, controlamos que las funciones que debían ejecutarse al cargar el DOM, no se lanzasen hasta que estuviera completamente cargado el archivo header.html, que era el principal que nos daba problemas:
 
-~~~
-$(document).ready(() => {
-  ...
-  $("header").load("header.html", start);
-});
-~~~
+>$(document).ready(() => {
+>  ...
+>  $("header").load("header.html", start);
+>});
 
 ## Desarrollo de código:
 
@@ -256,12 +250,10 @@ Para 'importar' tanto el header como el footer hemos partido de las explicacione
 #### Head:
 Quisimos crear un archivo para agrupar los elementos del head comunes en todas las pantallas, pero daba conflictos ya que había elementos propios de cada pantalla y se machacaban. Finalmente esta opción no se ha implementado y se ha dejado comentada en js/scripts.js
 
-~~~
-$(document).ready(() => {
-/* $("head").load("head.html"); */ //No utilizar, no carga bien
-...
-});
-~~~
+>$(document).ready(() => {
+>/* $("head").load("head.html"); */ //No utilizar, no carga bien
+>...
+>});
 
 #### Aviso de cookies + ampliación: instalación cookie en el navegador:
 Se ha configurado el modal del aviso de cookies basándonos en el siguiente tutorial de w3schools: [https://www.w3schools.com/howto/howto_css_modals.asp](https://www.w3schools.com/howto/howto_css_modals.asp).
@@ -292,6 +284,8 @@ Entre las páginas consultadas para resolver este problema, las más útiles han
 //TODO completar
 
 #### Construcción de edificios.
+La construcción, el traslado y la demolición de edificios comparten buena parte de su operativa. Las tres siguen el mismo procedimiento genérico: se pulsa el botón para seleccionar qué se va a hacer (por ejemplo, construir una chabola), se activa una variable del objeto *juego* asociada a este concepto, se pulsa sobre el canvas en el punto en que se desea operar, se selecciona la función correcta en base a la variable modificada anteriormente y se le pasan las coordenadas, se realizan las operaciones sobre el tablero, y se manejan los cambios.
+
 //TODO completar
 
 #### Eventos de tiempo:
@@ -300,13 +294,21 @@ Existen dos tipos de eventos de tiempo: los de actualización de datos y pantall
 > setInterval(() => { this.actualizar(); }, tiempoRenta);
 > setInterval(() => { this.manejarSorpresa(); }, tiempoSorpresa);
 
-Los eventos de actualización de datos implican tanto la actualización de dinero y títulos como el control de los botones inactivos.
-
-//TODO completar
+Los eventos de actualización de datos implican tanto la actualización de dinero y títulos como el control de los botones inactivos. Esto implica que cada vez que transcurre el tiempo definido en *tiempoRenta* llamaremos a las funciones *contabilizarGanancias()*, que sumará todas las rentas obtenidas durante el periodo por los edificios que ha construido el jugador, y *manejarInactivos()*, que analizará si se cumplen las condiciones para que se puedan construir los distintos tipos de edificios y, en función de esto, activará o desactivará los botones pertinentes.
 
 Los eventos sorpresa se manejan a partir de la función *manejarSorpresa()*. La lógica de esta función es la siguiente: 
 
-//TODO completar
+* Cada vez que pasa el periodo *tiempoSorpresa* se genera un booleano de forma aleatoria con una probabilidad de cada opción del 50%. El cógido para generarlo es [let randomBoolean = Math.random() < 0.5;](https://stackoverflow.com/questions/36756331/js-generate-random-boolean).
+
+* Si el booleano es *true* se producirá el evento, así que se llama a la función *eventoSorpresa()*. Si es false no se producirá.
+
+* La función *eventoSorpresa()* tiene un array con las diferentes posibilidades establecidas en el enunciado.
+
+* Aleatoriamente se selecciona una de estas posibilidades mediante la línea: let evento = eventos[Math.floor(Math.random() * eventos.length)];
+
+* A través de un switch, según el evento, se realizan las operaciones que toquen.
+
+* Para terminar, se manejan las variables de dinero, *badges* y botones inactivos en pantalla.
 
 #### Información de eventos de dinero:
 Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por ejemplo, por rentas) o porque pierde (al pagar sobornos o al construir o trasladar sus edificios) es importante que tanto la nueva cantidad como los 'motivos' para llegar a ella aparezcan claramente en la pantalla. Para desarrollar esta funcionalidad nos hemos basado en el diseño del 'loot' de numerosos juegos, que informan al usuario de lo que entra/sale de sus bolsas durante unos segundos antes de desaparecer de la pantalla.
@@ -340,6 +342,14 @@ if (ganancias != 0) {
 }
 
 Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/ y se pueden encontrar en la carpeta *src/sound/* del proyecto.
+
+#### Juego 'perdido':
+Haciendo pruebas de desarrollo vimos que podía darse (en determinadas condiciones) un caso peculiar: que el jugador se quedase sin dinero. Tras hablarlo con el profesor en hora de clase, consideramos que esto hacía que fuera posible 'perder' el juego. Entendemos así que hay dos condiciones para perder el juego:
+
+1. Que el jugador quede en números rojos (es decir, su dinero baje de 0).
+2. Que el jugador pierda todas sus construcciones y tenga menos dinero que el necesario para construir una chabola (es decir, que no pueda hacer nada).
+
+//TODO programar
 
 #### Tratamiento del cursor:
 Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con el aspecto del cursor, para fomentar que las distinas opciones sean más instintivas para el usuario. Así, hemos tenido en cuenta los siguientes puntos:

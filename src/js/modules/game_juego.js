@@ -36,7 +36,8 @@ juego.contadorEdificio = 0; //manera simple de saber qué se construye; funciona
 juego.tipoSeleccionado = null;
 
 /* CONSTRUCTOR */
-function Juego(nickname,personaje) { //TODO mapa y dificultad
+function Juego(nickname, personaje) {
+  //TODO mapa y dificultad
   this.nickname = nickname;
   this.personaje = personaje;
   this.badge = "";
@@ -48,8 +49,9 @@ function Juego(nickname,personaje) { //TODO mapa y dificultad
   this.hotel = false;
   this.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
   this.tipoSeleccionado = null; //hace ref a la propiedad indicada
+  this.tipoSeleccionadoDemoler = false;
+  this.tipoSeleccionadoTrasladar = false;
 }
-
 
 juego.iniciar = function () {
   this.comprobarBadges();
@@ -69,13 +71,11 @@ juego.iniciar = function () {
 };
 
 juego.sobornar = function () {
-  //TODO revisar xq me da q no tiene
-
   if (document.getElementById("juegoDinero").innerHTML >= costeSoborno) {
     //TODO: q sólo se pueda clicar cuando tienes el dinero suficiente
     //TODO: q avise con una animación cuando tienes el dinero suficiente
     //TODO: q una vez clicado se vuelva rojo y no se pueda volver a sobornar
-    juego.dinero -= costeSoborno; //TODO revisar q esta es la cantidad del soborno
+    juego.dinero -= costeSoborno;
     juego.xalet = true;
     document.getElementById("juegoDinero").innerHTML = juego.dinero;
     document.getElementById("juegoBadge").innerHTML = juego.badge;
@@ -84,7 +84,7 @@ juego.sobornar = function () {
     this.comprobarBadges();
     this.manejarInactivos();
   } else {
-    mostrarEventosDinero("falta $$$ de soborno!");
+    mostrarEventosDinero("No tens $$ per surbornar!");
   }
 };
 
@@ -183,7 +183,7 @@ juego.contabilizarGanancias = function () {
   });
   //aquí meto el sonido
   if (ganancias != 0) {
-    let sonidoDinero = new sound("src/sound/cash.mp3");
+    let sonidoDinero = new sound("../resources/sound/cash.mp3");
     sonidoDinero.play();
   }
   mostrarEventosDinero(infoGanancias);
@@ -210,12 +210,22 @@ function ocultarEventosDinero(tiempo) {
   );
 }
 
+juego.seleccionarEvento = function () {
+  let posicion = tomarPosicionClick(); //TODO mirar event
+  if (this.tipoSeleccionado != null) {
+    this.construir(posicion);
+  } else if (this.tipoSeleccionadoTrasladar == true) {
+    this.trasladar(posicion);
+  } else if (this.tipoSeleccionadoDemoler == true) {
+    this.demoler(posicion);
+  }
+};
+
 /**
  * Toma un edificio y lo construye, es decir, lo añade al tablero y a la matriz de juego.
  * @param {String} tipo edificio que se va a construir.
  */
 juego.elegirConstruccion = function (tipo) {
-  //TODO: controles de lo q no se puede construir, sea por falta de espacio o casa previa o por instrucciones
   let coste = 0;
   switch (tipo) {
     case "xibiu":
@@ -239,24 +249,22 @@ juego.elegirConstruccion = function (tipo) {
 /**
  * Construye el edificio seleccionado al clicar sobre el juego.
  */
-juego.construir = function () {
-  if (this.tipoSeleccionado != null) {
-    let posicion = tomarPosicionClick(); //TODO mirar event
-    if (this.comprobarSiConstruible(posicion)) {
-      this.construcciones.push(this.tipoSeleccionado);
-      let sonidoConstruccion = new sound("src/sound/build.wav");
-      sonidoConstruccion.play();
-      pintarConstruccion(this.tipoSeleccionado, posicion[0], posicion[1]);
-      this.actualizarTablero(this.tipoSeleccionado, posicion[0], posicion[1]);
-      this.cobrarConstruccion(this.tipoSeleccionado);
-      this.comprobarBadges();
-      this.contadorEdificio++; // aumento el contador de edificios para hacer única la siguiente construcción
-      document.getElementById("tablero").style.cursor = "pointer"; // devuelvo el cursor a su version original
-      this.tipoSeleccionado = null;
-    } else {
-      let sonidoProhibido = new sound("src/sound/forbidden.wav");
-      sonidoProhibido.play();
-    }
+juego.construir = function (posicion) {
+  if (this.comprobarSiConstruible(posicion)) {
+    this.construcciones.push(this.tipoSeleccionado);
+    this.contadorEdificio++; // aumento el contador de edificios para hacer única cada construcción
+    pintarConstruccion(this.tipoSeleccionado, posicion[0], posicion[1]);
+    this.actualizarTablero(this.tipoSeleccionado, posicion[0], posicion[1]);
+    this.cobrarConstruccion(this.tipoSeleccionado);
+    this.comprobarBadges();
+    // Sonido:
+    let sonidoConstruccion = new sound("../resources/sound/build.wav");
+    sonidoConstruccion.play();
+    document.getElementById("tablero").style.cursor = "pointer"; // devuelvo el cursor a su version original
+    this.tipoSeleccionado = null;
+  } else {
+    let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
+    sonidoProhibido.play();
   }
 };
 
@@ -284,7 +292,7 @@ juego.comprobarSiConstruible = function (posicion) {
   }
   for (let i = posicion[0]; i < posicion[0] + x; i++) {
     if (i >= columnasJuego) {
-      //si se sale del tablero no puedo construir
+      // Si se sale del tablero no puedo construir
       return false;
     } else {
       for (let j = posicion[1]; j < posicion[1] + y; j++) {
@@ -317,7 +325,7 @@ juego.comprobarSiEdificio = function (posicion) {
  * @param {int} columna
  */
 juego.actualizarTablero = function (tipo, fila, columna) {
-  // busco la casilla a la que afecta el origen del tipo:
+  // Busco la casilla a la que afecta el origen del tipo:
   for (let i = 0; i < filasJuego; i++) {
     if (i == fila) {
       for (let j = 0; j < columnasJuego; j++) {
@@ -370,11 +378,11 @@ juego.actualizarTableroEntorno = function (tipo, fila, columna) {
  * Toma las construcciones del array de apoyo y las dibuja en un canvas vacío.
  */
 juego.dibujarConstrucciones = function () {
-  for (let i = 0; i < this.tablero.length; i++) {
-    for (let j = 0; i < this.tablero[i].length; i++) {
+  for (let i = 0; i < columnasJuego; i++) {
+    for (let j = 0; i < filasJuego; i++) {
       //si es el origen de una casa (es decir, origentipo == true)
-      if (tablero[i][j].origenTipo) {
-        pintarConstruccion(tablero[i][j].tipo, i, j); //TODO comprobar la formulacion
+      if (this.tablero[i][j].origenTipo) {
+        pintarConstruccion(this.tablero[i][j].tipo, i, j); //TODO comprobar la formulacion
       }
     }
   }
@@ -382,7 +390,6 @@ juego.dibujarConstrucciones = function () {
 
 /**
  * Determina si se va a producir un evento sorpresa o no. La posibilidad de que se produzca es del 50%.
- * TODO añadir a readme https://stackoverflow.com/questions/36756331/js-generate-random-boolean
  */
 juego.manejarSorpresa = function () {
   let randomBoolean = Math.random() < 0.5;
@@ -396,7 +403,7 @@ juego.manejarSorpresa = function () {
  */
 juego.eventoSorpresa = function () {
   let eventos = ["crisi", "promoció", "infracció", "premi"];
-  //también puede no suceder ninguna de ellas, pero por ahora sucede sí o sí
+  //TODO meterle la imagen, q no aparezca por consola solo
   let evento = eventos[Math.floor(Math.random() * eventos.length)];
   console.log(evento);
   switch (evento) {
@@ -445,9 +452,9 @@ juego.eventoCrisis = function () {
   // 2. Convierto las chabolas en la matriz bidimensional
   for (let i = 0; i < this.tablero.length; i++) {
     for (let j = 0; j < this.tablero[i].length; j++) {
-      if (tablero[i][j].tipo == "xibiu") {
-        tablero[i][j].tipo = null;
-        tablero[i][j].origenTipo = null;
+      if (this.tablero[i][j].tipo == "xibiu") {
+        this.tablero[i][j].tipo = null;
+        this.tablero[i][j].origenTipo = null;
       }
     }
   }
@@ -479,8 +486,8 @@ juego.eventoPromocion = function () {
   // 2. Convierto las chabolas en casas en la matriz bidimensional: igual tamaño
   for (let i = 0; i < this.tablero.length; i++) {
     for (let j = 0; j < this.tablero[i].length; j++) {
-      if (tablero[i][j].tipo == "xibiu") {
-        tablero[i][j].tipo = "casa";
+      if (this.tablero[i][j].tipo == "xibiu") {
+        this.tablero[i][j].tipo = "casa";
       }
     }
   }
@@ -498,49 +505,62 @@ juego.eventoPromocion = function () {
 };
 
 /**
+ * TODO COMPLETAR
+ */
+juego.seleccionarTraslado = function () {
+  //TODO
+};
+
+/**
  * Toma una construcción y la cambia de sitio.
  */
-juego.trasladar = function () {
+juego.trasladar = function (posicion) {
   //TODO
+};
+
+/**
+ * Al elegir demoler, realiza las operaciones básicas.
+ */
+juego.seleccionarDemolicion = function () {
+  if (this.tablero.length > 0) {
+    //sólo puedo demoler si hay algún edificio en lista
+    document.getElementById("tablero").style.cursor = "grab";
+    this.tipoSeleccionadoDemoler = true;
+  }
 };
 
 /**
  * Toma una construcción seleccionada y la elimina.
  */
-juego.demoler = function () {
-  document.getElementById("tablero").style.cursor = "grab";
-  if (this.tablero.length > 0) {      //sólo puedo demoler si hay algún edificio en lista (TODO comprobar limites)
-    //TODO: no tengo generado el evento en tablero, así que se me lanza automático
-    let posicion = tomarPosicionClick();
-    if (this.comprobarSiEdificio(posicion)) {
-      console.log("entra");
-      for (let i = 0; i < filasJuego; i++) {
-        for (let j = 0; j < columnasJuego; j++) {
-          if (
-            this.tablero[i][j].idEdificio ==
-            this.tablero[posicion[0]][posicion[1]].idEdificio
-          ) {
-            this.tablero[i][j].idEdificio = "";
-            this.tablero[i][j].tipo = "null";
-            this.tablero[i][j].origenTipo = "null";
-          }
+juego.demoler = function (posicion) {
+  if (this.comprobarSiEdificio(posicion)) {
+    for (let i = 0; i < columnasJuego; i++) {
+      for (let j = 0; j < filasJuego; j++) {
+        if (
+          this.tablero[i][j].idEdificio ==
+          this.tablero[posicion[0]][posicion[1]].idEdificio
+        ) {
+          this.tablero[i][j].idEdificio = "";
+          this.tablero[i][j].tipo = "null";
+          this.tablero[i][j].origenTipo = "null";
         }
       }
-      let sonidoDemoler = new sound("src/sound/demolish.wav");
-      sonidoDemoler.play();
-      // Repinto mapa:
-      borrarTablero();
-      dibujarTablero();
-      this.dibujarConstrucciones();
-      document.getElementById("tablero").style.cursor = "pointer";
-
-      // Manejo eventos
-      this.comprobarBadges();
-      this.manejarInactivos();
     }
+    let sonidoDemoler = new sound("../resources/sound/demolish.wav");
+    sonidoDemoler.play();
+    // Repinto mapa:
+    borrarTablero();
+    dibujarTablero();
+    this.dibujarConstrucciones();
+    document.getElementById("tablero").style.cursor = "pointer";
+
+    // Manejo eventos
+    this.comprobarBadges();
+    this.manejarInactivos();
   } else {
     console.log("No hay edificio para demoler."); //TODO este mensaje es para pruebas
   }
+  this.tipoSeleccionadoDemoler = false;
 };
 
 /**

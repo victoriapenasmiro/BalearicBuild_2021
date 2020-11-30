@@ -10,13 +10,13 @@ export var columnasJuego = 30;
 export var costeXibiu = 500;
 export var rentaXibiu = 100;
 
-export var costeCasa = 1500;
+export var costeCasa = 1300;
 export var rentaCasa = 250;
 
 export var costeXalet = 2900;
-export var rentaXalet = 500;
+export var rentaXalet = 505;
 
-export var costeHotel = 12000;
+export var costeHotel = 10100;
 export var rentaHotel = 3000;
 
-export var costeSoborno = 2500;
+export var costeSoborno = 1200;
