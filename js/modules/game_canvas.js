@@ -52,10 +52,11 @@ export function borrarTablero() {
 export function generarArrayTablero() {
   //Lo ideal aquí sería generar un array bidimensional, pero no son nativos de javascript
   let arrayTablero = [];
-  for (let i = 0; i < filasJuego; i++) {
+  for (let i = 0; i < columnasJuego; i++) {
     arrayTablero[i] = [];
-    for (let j = 0; j < columnasJuego; j++) {
+    for (let j = 0; j < filasJuego; j++) {
       let casilla = new Object();
+      casilla.idEdificio = "";
       casilla.tipo = null;
       casilla.origenTipo = null;
       casilla.terreno = null;

@@ -18,11 +18,11 @@ window.onload = function () {
   });
 
   document.getElementById("traslado").addEventListener("click", function () {
-    //TODO
+    juego.trasladar();    //funcion creada pero no desarrollada, TODO
   });
 
   document.getElementById("demolicion").addEventListener("click", function () {
-    //TODO
+    juego.demoler();
   });
 
   document.getElementById("xibiu").addEventListener("click", function () {

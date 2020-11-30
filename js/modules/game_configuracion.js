@@ -1,5 +1,5 @@
 export var tiempoRenta = 10000;       //cada 10 segundos
-export var tiempoSorpresa = 30000;
+export var tiempoSorpresa = 20000;
 export var cantidadSorpresa = 1000;
 
 export var filasJuego = 15;
