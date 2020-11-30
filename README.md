@@ -29,7 +29,7 @@ Vemos necesario señalar las siguientes consideraciones previas para poder anali
 
 1. La fuente principal del proyecto no es nativa de Google Fonts y debe instalarse previamente; consultar el apartado de 'fuentes'.
 
-2. Es necesario recargar la pantalla de personajes al pasar de resolución *desktop* a móvil (al jugar con el navegador): los scripts se deben de cargar de nuevo porque, lógicamente, el slider y el grid son diferentes en móvil.
+2. Es necesario recargar las pantallas al cambiar de resolución *desktop* a *mobile*, es decir, al jugar con el navegador: los scripts se deben de cargar de nuevo porque, lógicamente, el slider y el grid son diferentes en móvil.
 
 ## Flujo de trabajo - GIT:
 Desde el primer momento se ha visto importante establecer un proceso de trabajo común para facilitar el trabajo en equipo y evitar 'machacar' código. Así, se ha establecido el siguiente proceso de trabajo con GIT:
