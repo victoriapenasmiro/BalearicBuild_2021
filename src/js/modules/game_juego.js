@@ -35,6 +35,22 @@ juego.hotel = false;
 juego.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
 juego.tipoSeleccionado = null;
 
+/* CONSTRUCTOR */
+function Juego(nickname,personaje) { //TODO mapa y dificultad
+  this.nickname = nickname;
+  this.personaje = personaje;
+  this.badge = "";
+  this.dinero = 500;
+  this.construcciones = [];
+  this.tablero = generarArrayTablero();
+  this.soborno = false;
+  this.xalet = false;
+  this.hotel = false;
+  this.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
+  this.tipoSeleccionado = null; //hace ref a la propiedad indicada
+}
+
+
 juego.iniciar = function () {
   this.comprobarBadges();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
@@ -55,7 +71,7 @@ juego.iniciar = function () {
 juego.sobornar = function () {
   //TODO revisar xq me da q no tiene
 
-  if (document.getElementById("juegoDinero") > costeSoborno) {
+  if (document.getElementById("juegoDinero").innerHTML >= costeSoborno) {
     //TODO: q sólo se pueda clicar cuando tienes el dinero suficiente
     //TODO: q avise con una animación cuando tienes el dinero suficiente
     //TODO: q una vez clicado se vuelva rojo y no se pueda volver a sobornar
@@ -464,7 +480,7 @@ juego.eventoPromocion = function () {
   for (let i = 0; i < this.tablero.length; i++) {
     for (let j = 0; j < this.tablero[i].length; j++) {
       if (tablero[i][j].tipo == "xibiu") {
-        tablero[i][j].tipo = casa;
+        tablero[i][j].tipo = "casa";
       }
     }
   }
