@@ -92,9 +92,28 @@ La principal dificultad con esta paleta ha sido decidir un tono de error: como e
 ### Fuentes:
 * Hemos descargado la [tipografía Corleone](https://www.dafont.com/es/corleone.font) para utilizar en los titulos H1 y H2 y en el logo, así como en algunos elementos puntuales del juego. El motivo principal por el cual hemos seleccionado esta tipografía es que hemos querido basarnos en el estilo de [EL PADRINO](https://www.filmaffinity.com/es/film809297.html), ya que el juego trata de mafia y corrupción. No hemos optado utilizar la misma tipografía para todos los encabezados, porqué sino queda muy agresivo a la vista.
 
-Esta tipografía se ha cargado en el css general, y no en la cabecera de cada página con el objetivo de utilizarlo en todas las pantallas.
+Esta tipografía se ha cargado en el css general, y no en la cabecera de cada página con el objetivo de utilizarlo en todas las pantallas:
+
+~~~
+@font-face {
+  font-family: "Corleone";
+  src: url("src/fonts/Corleone.TTF");
+}
+~~~
+
+Debido a esto, la consola devuelve un error styles.css:1 GET http://127.0.0.1:5500/css/src/fonts/Corleone.TTF net::ERR_ABORTED 404 (Not Found), ya que espera obtener el código desde el head de cada página.
 
 * La fuente de los textos que no son encabezados, hemos seleccionado una tipografía de [Google Fonts, Open Sans](https://fonts.google.com/specimen/Open+Sans). El motivo es porqué queríamos una tipografía bastante limpia, clara y de fácil lectura.
+
+Desde la consola de Chrome, se obtiene el siguiente error con la fuente:
+
+~~~
+Refused to apply style from 'http://127.0.0.1:5500/url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.
+~~~
+
+Hemos estado investigando y aparentemente se trata de un error propio de Chrome, ya que en otros navegadores no lo recuperamos.
+
+Fuente: [https://discourse.roots.io/t/mime-type-text-html-not-a-supported-stylesheet-mime-type/11636/8](https://discourse.roots.io/t/mime-type-text-html-not-a-supported-stylesheet-mime-type/11636/8)
 
 ### Responsive:
 Hemos establecido los siguientes criterios para el diseño responsive:
@@ -151,6 +170,7 @@ function activarTransicion() {
 }
 ~~~
 
+La transición solo se ha configurado para la versión *desktop* con el objetivo de no mejorar el rendimiento y tiempo de carga en móvil y así favorcer al *Mobile First* y *UX*.
 
 #### Fotos giratorias:
 La segunda transición se encuentra en el elemento 'aside' de la homepage y afecta a las fotografías de las colaboradoras de este proyecto. Cuando se pasa el ratón por encima de cada fotografía, esta gira y tarda en hacer una rotación completa un tiempo de 2.5 segundos. Como las fotografías se han redondeado, el efecto resultante resulta muy agradable. Cuando se aparta el ratón, la foto hace el giro en sentido contrario hasta volver a su posición inicial.
@@ -232,6 +252,16 @@ Para programar el carrusel de la página de personajes con animación, nos hemos
 
 #### Header / footer:
 Para 'importar' tanto el header como el footer hemos partido de las explicaciones enlazadas en el classroom de la asignatura, partiendo de la comprensión del código explicativo original en github.
+
+#### Head:
+Quisimos crear un archivo para agrupar los elementos del head comunes en todas las pantallas, pero daba conflictos ya que había elementos propios de cada pantalla y se machacaban. Finalmente esta opción no se ha implementado y se ha dejado comentada en js/scripts.js
+
+~~~
+$(document).ready(() => {
+/* $("head").load("head.html"); */ //No utilizar, no carga bien
+...
+});
+~~~
 
 #### Aviso de cookies + ampliación: instalación cookie en el navegador:
 Se ha configurado el modal del aviso de cookies basándonos en el siguiente tutorial de w3schools: [https://www.w3schools.com/howto/howto_css_modals.asp](https://www.w3schools.com/howto/howto_css_modals.asp).

@@ -260,14 +260,6 @@ i.fa-arrow-up {
   color: white;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  -webkit-transition-property: width top;
-  -webkit-transition-duration: 3s;
-  -webkit-transition-delay: 0.5s;
-  -webkit-transition-timing-function: linear; /* TODO EN MOVIL NO FUNCIONA */
-  transition-property: width top;
-  transition-duration: 3s;
-  transition-delay: 0.5s;
-  transition-timing-function: linear; /* TODO EN MOVIL NO FUNCIONA */
 }
 
 .modal_content > img {
@@ -600,6 +592,14 @@ i.fa-arrow-up {
   .modal_content {
     padding: 20px;
     left: 25%;
+    -webkit-transition-property: width top;
+    -webkit-transition-duration: 3s;
+    -webkit-transition-delay: 0.5s;
+    -webkit-transition-timing-function: linear;
+    transition-property: width top;
+    transition-duration: 3s;
+    transition-delay: 0.5s;
+    transition-timing-function: linear;
   }
 
   .modal_content > button {
@@ -716,13 +716,8 @@ i.fa-arrow-up {
   }
 
   .modal_start {
-    top: -70%;
-  }
-
-  .modal_end {
     width: auto;
-/*     top: auto;
- */  }
+ }
 
   .modal_content {
     padding-bottom: 20px;

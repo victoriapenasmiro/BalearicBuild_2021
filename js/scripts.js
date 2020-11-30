@@ -1,35 +1,14 @@
 import { getTodos } from "./modules/website_personajes.js";
 
 $(document).ready(() => {
-  /* $("head").load("head.html"); */ //TODO APARENTEMENTE QUE MACHACA OTROS ELEMENTOS DEL HEAD, NO FUNCIONA EN PANTALLA PERSONAJES, quizás es por el bug general
+  /* $("head").load("head.html"); */ //No utilizar, no carga bien
   $("footer").load("footer.html");
   $("header").load("header.html", start);
 });
 
 function start() {
-  //resaltamos active del elemento seleccionado del menu
-  document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[0]
-    .addEventListener("click", addActiveClass);
-  document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[1]
-    .addEventListener("click", addActiveClass);
-  document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[2]
-    .addEventListener("click", addActiveClass);
-  document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[3]
-    .addEventListener("click", addActiveClass);
-  document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[4]
-    .addEventListener("click", addActiveClass);
 
-  /**** scroll to top ****/
+  /**** SCROLL TO TOP ****/
   var botonTop = document.getElementById("botonTop");
 
   //Función para que al hacer click vuelva al principio:
@@ -41,9 +20,9 @@ function start() {
   window.onscroll = function () {
     controlarBotonTop();
   };
-  /**** end scroll to top ****/
+  /**** END SCROLL TO TOP ****/
 
-  /**** aviso de cookies ****/
+  /**** AVISO DE COOKIES ****/
   var modal = document.getElementById("myModal");
 
   // Botón aceptación cookies
@@ -79,12 +58,36 @@ function start() {
       modal.style.display = "none";
     }
   };
-  /**** end aviso de cookies ****/
+  /**** END AVISO DE COOKIES ****/
 
+  /***** RESETEO DE ESTILOS DEL NAV *****/
+  let options = document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a");
+
+  /* Cuando obtenemos los items desde getElementsByTagName
+    es necesario convertirlos a Array para poder tratarlos con 
+    un forEach */
+  let optionsList = Array.prototype.slice.call(options);
+  optionsList.forEach(removeActiveClass);
+
+  /***** END RESETEO ESTILOS NAV *****/
+ 
   // Scripts propios de las diferentes páginas:
   if (window.location.href.indexOf("personajes") > -1) {
     getTodos();
+    
+    document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a")[2].classList.add("active");
+
+
   } else if (window.location.href.indexOf("inicio") == -1) {
+
+    document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a")[0].classList.add("active");
+
     // Mostrar/ocultar ranking seleccionado sidebar
     document.getElementsByClassName("fa-minus-square")[0].style.display =
       "none";
@@ -133,6 +136,11 @@ function start() {
 
         document.getElementsByTagName("ul")[1].style.display = "block";
       });
+  } else if (window.location.href.indexOf("inicio") > -1) {
+
+    document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a")[1].classList.add("active");
   }
 
   document
@@ -162,27 +170,6 @@ function menuMobile() {
     iconPrincipal.style.display = "none";
     iconTanca.style.display = "inline-block";
   }
-}
-
-/**
- * Funcion para agregar la clase active a
- * un elemento del menu
- *
- */
-function addActiveClass() {
-  let options = document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a");
-
-  /* Cuando obtenemos los items desde getElementsByTagName
-    es necesario convertirlos a Array para poder tratarlos con 
-    un forEach */
-
-  let optionsList = Array.prototype.slice.call(options);
-
-  optionsList.forEach(removeActiveClass);
-
-  this.classList.add("active");
 }
 
 /**
