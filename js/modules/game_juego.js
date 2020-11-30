@@ -98,8 +98,6 @@ juego.cobrarConstruccion = function (tipo) {
 /**
  * Comprueba los requisitos del jugador para los diferentes títulos.
  * Estructura if/else de título más importante (= el que se muestra) a menos.
- * Nota: Si tenc + de 2 cases i +  de 2 xalets, s’activa la Badge “Gran empresari” i puc construir un HOTEL
- * Si pierdo esta característica, vuelvo al título anterior y no puedo construir más hoteles.
  */
 juego.comprobarBadges = function () {
   if (this.contarEdificios("hotel") > 2) {
@@ -109,6 +107,8 @@ juego.comprobarBadges = function () {
     this.contarEdificios("xalet") > 2
   ) {
     this.badge = "Gran Empresari";
+    // Una vez puede construir un hotel, aunque luego caiga por crisis podrá seguir construyéndolo.
+    this.hotel = true;
   } else if (this.soborno == true) {
     this.badge = "Benefactor Social";
   } else {
@@ -215,11 +215,6 @@ juego.elegirConstruccion = function (tipo) {
       coste = costeHotel;
       break;
   }
-  /*
-  let costeMaximo = document.getElementById("juegoDinero").innerHTML; //TODO ver si la quito porq ya esta el control
-  if (coste <= costeMaximo) {
-    */
-  //con esto controlo q no haga nada si no hay pasta
   this.tipoSeleccionado = tipo;
   document.getElementById("tablero").style.cursor = "grabbing";
   /* } */
@@ -289,7 +284,7 @@ juego.comprobarSiConstruible = function (posicion) {
 };
 
 /**
- * Comrpueba si donde he pulsado con el ratón existe un edificio.
+ * Comprueba si donde he pulsado con el ratón existe un edificio.
  * @param {array} posicion
  */
 juego.comprobarSiEdificio = function (posicion) {
