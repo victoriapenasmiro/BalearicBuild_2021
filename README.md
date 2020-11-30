@@ -359,5 +359,5 @@ Más allá de la configuración inicial por css, todos estos cambios en el curso
 
 ## Releases:
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
-* [Versión 2.0](link): 28 de noviembre de 2021
+* [Versión 2.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v2.0): 28 de noviembre de 2021
 * [Versión 3.0](link): TBA
