@@ -501,7 +501,21 @@ juego.eventoPromocion = function () {
  * Toma una construcción y la cambia de sitio.
  */
 juego.trasladar = function () {
-  //TODO
+  //TODO, revisar estructura funcion demoler
+  /* 1- comprobar que se selecciona una construccion
+  2- comprobar que donde se quiere mover la construccion se puede construir
+  3- mover construccion --> modificar la array de apoyo (this.tablero)
+  4- repinto el mapa
+  */
+
+ if (this.tablero.length > 0) {
+
+  document.getElementById("tablero").style.cursor = "grab";
+  let posicion = tomarPosicionClick();
+  if (this.comprobarSiEdificio(posicion)) {
+
+  }
+}
 };
 
 /**

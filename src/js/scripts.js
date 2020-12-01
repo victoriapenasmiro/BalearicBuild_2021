@@ -1,4 +1,4 @@
-import { getTodos } from "./modules/website_personajes.js";
+import { GET_TODOS } from "./modules/website_personajes.js";
 
 $(document).ready(() => {
   /* $("head").load("head.html"); */ //No utilizar, no carga bien
@@ -75,7 +75,7 @@ function start() {
  
   // Scripts propios de las diferentes páginas:
   if (window.location.href.indexOf("personajes") > -1) {
-    getTodos();
+    GET_TODOS();
     
     document
     .getElementById("optionsMenu")
@@ -137,10 +137,28 @@ function start() {
         document.getElementsByTagName("ul")[1].style.display = "block";
       });
   } else if (window.location.href.indexOf("inicio") > -1) {
+    GET_TODOS();
 
     document
     .getElementById("optionsMenu")
     .getElementsByTagName("a")[1].classList.add("active");
+
+    //añado estilos propios de esta landing, ya que en el CSS general,
+    //no puedo diferenciar en función de la landing en la que está ubicado el usuario
+    document
+    .getElementsByTagName("aside")[0].style.display = "flex";
+    document
+    .getElementsByTagName("aside")[0].style.flexDirection = "column";
+    document
+    .getElementsByTagName("aside")[0].style.alignItems = "flex-end";
+    document
+    .getElementsByTagName("aside")[0]
+    .getElementsByTagName("div")[1].style.width = "334px";
+    document
+    .getElementsByTagName("main")[0]
+    .getElementsByTagName("section")[1]
+    .getElementsByTagName("h3")[0].style.textAlign = "center";
+
   }
 
   document

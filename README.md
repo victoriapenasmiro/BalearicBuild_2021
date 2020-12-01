@@ -220,13 +220,13 @@ Para desarrollar estas páginas hemos consultado diversos juegos de estrategia o
 * https://play0ad.com/
 
 ### Problemas encontrados en el diseño de las páginas iniciales:
-Una de las dificultades que nos hemos encontrado ha sido trabajar con las pseudoclases *:first-child, :nth-child(), :last-child*, no conseguíamos seleccionar los elementos que esperábamos y finalmente, enocntramos que la mejor opción es utilizar las siguientes para evitar estos problema *:first-of-type,:nth-of-type(), :last-of-type*.
+1. Una de las dificultades que nos hemos encontrado ha sido trabajar con las pseudoclases *:first-child, :nth-child(), :last-child*, no conseguíamos seleccionar los elementos que esperábamos y finalmente, enocntramos que la mejor opción es utilizar las siguientes para evitar estos problema *:first-of-type,:nth-of-type(), :last-of-type*.
 
     * Fuentes:
         * [Stackoverrun](https://stackoverrun.com/es/q/1070889)
         * [esthersola.com](https://www.esthersola.com/nth-child-css-ejemplos-practicos/)
 
-Un problema que ha consumido una buena parte del tiempo disponible ha surgido en las pantallas en que se carga más de un archivo .js, como pueden ser la *homepage* o la página de personajes: la carga de archivos no era la correcta. Al hacer dos veces window.onload() en diferentes archivos, las funciones se machacaban y mezclaban entre sí, dando lugar a resultados indeseados.
+2. Un problema que ha consumido una buena parte del tiempo disponible ha surgido en las pantallas en que se carga más de un archivo .js, como pueden ser la *homepage* o la página de personajes: la carga de archivos no era la correcta. Al hacer dos veces window.onload() en diferentes archivos, las funciones se machacaban y mezclaban entre sí, dando lugar a resultados indeseados.
 
 Para solucionarlo hemos probado numerosas posibilidades. Una de ellas ha sido utilizar el atributo *defer* en el js secundario, para retrasar su carga hasta la completa construcción del DOM, pero no funcionaba correctamente. Otra opción ha sido unificar todos los archivos en uno, pero si bien esto hubiera funcionado correctamente no era ni lo que se pedía en el enunciado ni lo que queríamos conseguir.
 
@@ -242,6 +242,27 @@ $(document).ready(() => {
   $("header").load("header.html", start);
 });
 ~~~
+
+3. Hemos tenido problemas para añadir propiedades de flexbox mediante js, el siguiente código daba error:
+
+~~~
+document
+.getElementsByTagName("aside")[0].style.flex-direction = "column";
+document
+.getElementsByTagName("aside")[0].style.align-items = "flex-end";
+~~~
+
+Finalmente, hemos encontrado una solución en: [stackoverflow](https://stackoverflow.com/questions/58699722/using-javascript-to-change-css-style-in-flexbox)
+
+Ha quedado de la siguiente forma:
+
+~~~
+document
+.getElementsByTagName("aside")[0].style.flexDirection = "column";
+document
+.getElementsByTagName("aside")[0].style.alignItems = "flex-end";
+~~~
+
 
 ## Desarrollo de código:
 

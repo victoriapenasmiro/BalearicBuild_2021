@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BalearicBuilding - INICIAR JUEGO</title>
+    <title>BalearicBuilding - HOMEPAGE</title>
 
     <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
@@ -11,76 +11,98 @@
     <!-- tipografías -->
     <!-- prettier-ignore -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
     </style>
 
     <!--Fontawesome-->
     <!-- prettier-ignore -->
     <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
 
+    <!--JQuery para importar Header y footer-->
     <!-- prettier-ignore -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-    <!-- scripts TODO poner el específico -->
+    <!-- scripts -->
     <script type="module" src="js/scripts.js"></script>
   </head>
   <body>
     <div class="grid-container">
       <header></header>
       <main>
-        <div id="pantallaOpciones">
+        <section>
           <h1>Empezar juego</h1>
-          <p>A continuación puedes elegir tus opciones para empezar a jugar.</p>
+        </section>
+        <section>
+            <h3>¡Elije tus opciones para empezar a jugar!</h3>
+            <form>
+              <div>
+                <label for="nickname"><strong>Nickname:</strong></label>
+                <input type="text" id="nickname" name="nickname" />
+                <h4>Elige un mapa:</h4>
+                <select name="mapa" id="mapa">
+                  <option value="mapa1">Mapa 1</option>
+                  <option value="mapa1">Mapa 1</option>
+                </select>
+                <h4>
+                  Dificultades económicas:
+                </h4>
+                <input
+                  type="radio"
+                  id="dificultadFacil"
+                  name="dificultad"
+                  value="dificultadFacil"
+                />
+                <label for="dificultadFacil">Político profesional ($$$$$)</label
+                ><br />
+                <input
+                  type="radio"
+                  id="dificultadDificil"
+                  name="dificultad"
+                  value="dificultadDificil"
+                />
+                <label for="dificultadDificil">Estudiante de FP ($)</label><br />
+                <input type="hidden" name="">
+              </div>
+              <div>
+                <h4>
+                  Elige un personaje:
+                </h4>
+                <div id="gridPersonajes"> <!-- TODO no es responsive, no es mandatory que esta pantalla sea responsive -->
+<!--                   <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
+   -->
+                </div>
 
-          <form>
-            <label for="nickname">Nickname:</label><br />
-            <input type="text" id="nickname" name="nickname" /><br />
-            <br />
-            Personaje:
-            <br />
-            Mapa:
-            <br />
-            Dificultades económicas:
-            <input
-              type="radio"
-              id="dificultadFacil"
-              name="dificultad"
-              value="dificultadFacil"
-            />
-            <label for="dificultadFacil">político profesional ($$$$$)</label
-            ><br />
-            <input
-              type="radio"
-              id="dificultadDificil"
-              name="dificultad"
-              value="dificultadDificil"
-            />
-            <label for="dificultadDificil">estudiante de FP ($)</label><br />
-            <input type="submit" value="GAME START!" />
-          </form>
-        </div>
+              </div>
+
+              <button type="submit" value="Submit">¡GAME START!</button>
+        </section>
       </main>
       <aside>
         <div id="asidePrincipal">
           <h2>¿Cómo elijo mapa?</h2>
           <p>
-            Elegir mapa puede ser una tarea complicada. Para facilitártelo, aquí
-            tienes un resumen rápido de los mapas disponibles... o, si lo
-            prefieres, puedes dejarlo al azar. Alea iacta est!
+            Elegir mapa puede ser una tarea complicada. Para facilitártelo,
+            aquí tienes un resumen rápido de los mapas disponibles... o, si lo prefieres,
+            puedes dejarlo al azar. Alea iacta est!
           </p>
-
           <hr />
           <h3><i>Palma Ciutat</i></h3>
           <p>
             100% construible: ni 'zona de playa', ni 'terrenos protegidos', ni
             tonterías. ¡A especular!
           </p>
-
           <img src="images/logosimple.png" alt="Screen de mapa" />
         </div>
         <div>
           <i class="fas fa-ghost"></i>
-          version 1.0
+          version 2.0
         </div>
       </aside>
       <!-- Modal aviso de Cookies -->

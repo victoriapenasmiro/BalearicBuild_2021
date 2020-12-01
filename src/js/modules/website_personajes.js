@@ -9,12 +9,15 @@ var personajes;
 /**
  * Función para obtener el JSON
  */
-export const getTodos = async () => {
-  // TODO debería estar en mayúsculas, no ??? codigo copiado de Toni
+export const GET_TODOS = async () => {
   try {
-    const RES = await axios.get(`${BASE_URL}/personatges`);
+    const RES = await axios.get(`${BASE_URL}/personatges`); //en la pantalla de inicio, al ejecutar esta linea salta excepcion
     personajes = RES.data;
-    pintarPersonajesOpt();
+    if (window.location.href.indexOf("personajes") > -1) {
+      pintarPersonajesOpt();
+    } else if (window.location.href.indexOf("inicio") > -1) {
+      mostrarPersonajesInicio();
+    }
     return personajes;
   } catch (e) {
     console.error(e);
@@ -31,7 +34,6 @@ function pintarPersonajesOpt() {
   slid2.classList.add("mySlides", "fade");
   let slid3 = document.createElement("div");
   slid3.classList.add("mySlides", "fade");
-  // .appendChild es necesario en movil y desktop
   carrusel.appendChild(slid0);
   carrusel.appendChild(slid1);
 
@@ -70,11 +72,11 @@ function pintarPersonajesOpt() {
     let grid = document.createElement("div");
     grid.id = personaje.id;
     let gridImg = document.createElement("img");
-    gridImg.id = personaje.nombre;
-    gridImg.alt = personaje.nombre;
+    gridImg.alt = personaje.name;
     gridImg.src = personaje.img;
     gridImg.style.border = "none";
     gridImg.style.boxSizing = "border-box";
+    gridImg.classList.add("thumbnail");
     grid.appendChild(gridImg);
     let divOverlay = document.createElement("div");
     divOverlay.classList.add("overlay");
@@ -86,12 +88,38 @@ function pintarPersonajesOpt() {
   }
 
   if (screen.width < 800) {
-    // Con dos dots más en caso de móvil:
+    //Dos dots más en caso de móvil:
     document.getElementById("dots").innerHTML +=
       '<span class="dot"></span><span class="dot"></span>';
   }
-
   mostrarSlides();
+}
+
+/**
+ * Función que pinta el grid de personajes en formato thumbnail
+ * en la pantalla de INICIO
+ */
+function mostrarPersonajesInicio() {
+  let gridPersonajes = document.getElementById("gridPersonajes");
+
+  for (let i = 0; i < personajes.length; i++) {
+    let personaje = new Object();
+    personaje.id = personajes[i].id;
+    personaje.name = personajes[i].name;
+    personaje.motto = personajes[i].motto;
+    personaje.img = personajes[i].img;
+
+    let gridImg = document.createElement("img");
+    gridImg.id = personaje.id;
+    gridImg.alt = personaje.name;
+    gridImg.src = personaje.img;
+    gridImg.classList.add("thumbnail");
+    gridPersonajes.appendChild(gridImg);
+
+/*     document
+    .getElementById(`${personaje.id}`)
+    .addEventListener("click", seleccionarPersonaje); *///TODO añadir is personaje al input hidden
+  }
 }
 
 /**
@@ -151,7 +179,7 @@ function manejarBordes(id) {
   for (let i = 1; i <= personajes.length; i++) {
     document.getElementById(i).style.border = "none";
   }
-  document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)"
+  document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)";
   document.getElementById(id).style.height = "92%";
 }
 

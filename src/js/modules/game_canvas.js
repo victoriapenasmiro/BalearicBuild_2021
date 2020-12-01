@@ -48,7 +48,6 @@ export function borrarTablero() {
 /**
  * Convierte el tablero en un array
  */
-
 export function generarArrayTablero() {
   //Lo ideal aquí sería generar un array bidimensional, pero no son nativos de javascript
   let arrayTablero = [];
