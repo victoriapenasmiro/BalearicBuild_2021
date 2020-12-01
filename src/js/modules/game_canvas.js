@@ -55,7 +55,7 @@ export function generarArrayTablero() {
     arrayTablero[i] = [];
     for (let j = 0; j < filasJuego; j++) {
       let casilla = new Object();
-      casilla.idEdificio = "";
+      casilla.idEdificio = 0;
       casilla.tipo = null;
       casilla.origenTipo = null;
       casilla.terreno = null;
