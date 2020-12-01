@@ -50,7 +50,7 @@ function Juego(nickname, personaje) {
   this.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
   this.tipoSeleccionado = null; //hace ref a la propiedad indicada
   this.tipoSeleccionadoDemoler = false;
-  this.tipoSeleccionadoTrasladar = false;
+  this.tipoSeleccionadoTrasladar = false; //TODO ¿Se necesita realmente? no podría utilizarse el de demoler? al fin y al cabo, un traslado es una demolicion + contrucción
 }
 
 juego.iniciar = function () {
@@ -505,36 +505,47 @@ juego.eventoPromocion = function () {
 };
 
 /**
- * TODO COMPLETAR
+ * TODO COMPLETAR VICKY
  */
 juego.seleccionarTraslado = function () {
-  //TODO
+  //TODO ¿podría unificarse con seleccionarDemolicion(), no???
+  this.seleccionarDemolicion();
 };
 
 /**
  * Toma una construcción y la cambia de sitio.
+ * TODO VICKY
  */
-<<<<<<< HEAD
-juego.trasladar = function () {
-  //TODO, revisar estructura funcion demoler
-  /* 1- comprobar que se selecciona una construccion
-  2- comprobar que donde se quiere mover la construccion se puede construir
-  3- mover construccion --> modificar la array de apoyo (this.tablero)
-  4- repinto el mapa
-  */
-
- if (this.tablero.length > 0) {
-
-  document.getElementById("tablero").style.cursor = "grab";
-  let posicion = tomarPosicionClick();
-  if (this.comprobarSiEdificio(posicion)) {
-
-  }
-}
-=======
 juego.trasladar = function (posicion) {
-  //TODO
->>>>>>> 41736fac2b137c1d7a0a221d7bc46e7b4381195e
+  //TODO copiado de demoler
+  if (this.comprobarSiEdificio(posicion)) {
+    for (let i = 0; i < columnasJuego; i++) {
+      for (let j = 0; j < filasJuego; j++) {
+        if (
+          this.tablero[i][j].idEdificio ==
+          this.tablero[posicion[0]][posicion[1]].idEdificio
+        ) {
+          this.tablero[i][j].idEdificio = "";
+          this.tablero[i][j].tipo = "null";
+          this.tablero[i][j].origenTipo = "null";
+        }
+      }
+    }
+    let sonidoDemoler = new sound("../resources/sound/demolish.wav");
+    sonidoDemoler.play();
+    // Repinto mapa:
+    borrarTablero();
+    dibujarTablero();
+    this.dibujarConstrucciones();
+    document.getElementById("tablero").style.cursor = "pointer";
+
+    // Manejo eventos
+    this.comprobarBadges();
+    this.manejarInactivos();
+  } else {
+    console.log("No hay edificio para demoler."); //TODO este mensaje es para pruebas
+  }
+  this.tipoSeleccionadoDemoler = false;
 };
 
 /**

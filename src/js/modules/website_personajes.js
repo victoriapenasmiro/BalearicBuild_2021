@@ -118,7 +118,7 @@ function mostrarPersonajesInicio() {
 
 /*     document
     .getElementById(`${personaje.id}`)
-    .addEventListener("click", seleccionarPersonaje); *///TODO añadir is personaje al input hidden
+    .addEventListener("click", seleccionarPersonaje); *///TODO añadir id personaje al input hidden
   }
 }
 

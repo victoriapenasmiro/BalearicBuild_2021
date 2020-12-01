@@ -237,7 +237,7 @@ Finalmente, la solución de ambos problemas vino de la mano. Mediante la siguien
 >  $("header").load("header.html", start);
 >});
 
-3. Hemos tenido problemas para añadir propiedades de flexbox mediante js, el siguiente código daba error:
+3. Hemos tenido problemas para añadir propiedades de css con llevas un guión intermedio mediante js, el siguiente código daba error:
 
 ~~~
 document
