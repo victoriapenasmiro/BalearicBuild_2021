@@ -11,7 +11,7 @@ export function dibujarTablero() {
   let canvas = document.getElementById("tablero");
   // así lo hago dependiente del tamaño de la ventana ORIGINAL: primero calculo y luego transfiero
   var viewportAnchura = window.innerWidth;
-  let tableroAnchura = Number((viewportAnchura * 70) / 100);    //TODO FINAL ver si 70% va bien en toda resolucion
+  let tableroAnchura = Number((viewportAnchura * 60) / 100);    //TODO FINAL ver si 60% va bien en toda resolucion
   repeticion = tableroAnchura / columnasJuego;
   let tableroAltura = Number(repeticion * filasJuego);
   canvasDiv.style.width = tableroAnchura + "px";
@@ -57,7 +57,7 @@ export function generarArrayTablero() {
       let casilla = new Object();
       casilla.idEdificio = 0;
       casilla.tipo = null;
-      casilla.origenTipo = null;
+      casilla.origenTipo = false;
       casilla.terreno = null;
       arrayTablero[i][j] = casilla;
     }
