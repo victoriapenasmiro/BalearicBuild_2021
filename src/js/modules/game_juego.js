@@ -64,7 +64,6 @@ function Juego(nickname, mapa, dificultad, personaje) {
   }
   this.personaje = personaje;
   this.badge = "";
-  this.construcciones = [];
   this.tablero = generarArrayTablero();
   this.soborno = false;
   this.xalet = false;
@@ -175,7 +174,7 @@ juego.comprobarBadges = function () {
  * @param {String} tipo
  */
 juego.contarEdificios = function (tipo) {
-  let total = this.construcciones.reduce(function (n, val) {
+  let total = this.obtenerListaEdificios().reduce(function (n, val) {
     return n + (val === tipo);
   }, 0);
   return total;
@@ -198,7 +197,7 @@ juego.actualizar = function () {
 juego.contabilizarGanancias = function () {
   let ganancias = 0;
   let infoGanancias = "";
-  this.construcciones.forEach((element) => {
+  this.obtenerListaEdificios().forEach((element) => {
     switch (element) {
       case "xibiu":
         ganancias += rentaXibiu;
@@ -302,7 +301,6 @@ juego.elegirConstruccion = function (tipo) {
  */
 juego.construir = function (posicion) {
   if (this.comprobarSiConstruible(posicion)) {
-    this.construcciones.push(this.tipoSeleccionado);
     this.contadorEdificio++; // aumento el contador de edificios para hacer única cada construcción
     this.actualizarTablero(this.tipoSeleccionado, posicion[1], posicion[0]);
     pintarConstruccion(this.tipoSeleccionado, posicion[1], posicion[0]);
@@ -435,29 +433,30 @@ juego.eventoSorpresa = function () {
   let eventos = ["crisi", "promoció", "infracció", "premi"];
   let evento = eventos[Math.floor(Math.random() * eventos.length)];
   console.log(evento);
+  let listaEdificios = this.obtenerListaEdificios();
   switch (evento) {
     case "crisi":
-      if (this.construcciones.includes("casa")) {
+      if (listaEdificios.includes("casa")) {
         this.eventoCrisis();
         //this.mostrarImgEvento("/images/event_crisi.png");
       }
       break;
     case "promoció":
-      if (this.construcciones.includes("xibiu")) {
+      if (listaEdificios.includes("xibiu")) {
         this.eventoPromocion();
         //this.mostrarImgEvento("/images/event_promocio.png");
       }
       break;
     case "infracció":
-      if (this.construcciones.includes("xibiu")) {
+      if (listaEdificios.includes("xibiu")) {
         this.dinero -= cantidadSorpresa;
         //this.mostrarImgEvento("/images/event_infraccio.png");
       }
       break;
     case "premi":
       if (
-        this.construcciones.length != 0 &&
-        !this.construcciones.includes("xibiu")
+        listaEdificios.length != 0 &&
+        !listaEdificios.includes("xibiu")
       ) {
         //si no está vacío y no tiene chabolas
         this.dinero += cantidadSorpresa;
@@ -475,12 +474,7 @@ juego.eventoSorpresa = function () {
  * Pierde todos los edificios de tipo casa.
  */
 juego.eventoCrisis = function () {
-  // 1. Quito las casas en .construcciones
-  this.construcciones.filter((edificio) => {
-    return edificio != "casa";
-  });
-
-  // 2. Convierto las casas en la matriz bidimensional
+  // Convierto las casas en la matriz bidimensional
   for (let i = 0; i < filasJuego; i++) {
     for (let j = 0; j < columnasJuego; j++) {
       if (this.tablero[i][j].tipo == "casa") {
@@ -491,12 +485,12 @@ juego.eventoCrisis = function () {
     }
   }
 
-  // 3. Repinto el tablero
+  // Repinto el tablero
   borrarTablero();
   dibujarTablero();
   this.dibujarConstrucciones();
 
-  // 4. Manejo badges e inactivos
+  // Manejo badges e inactivos
   this.comprobarBadges();
   this.manejarInactivos();
 };
@@ -505,16 +499,7 @@ juego.eventoCrisis = function () {
  * Todas las chabolas se convierten en casas.
  */
 juego.eventoPromocion = function () {
-  // 1. Convierto las chabolas en casas en .construcciones
-  this.construcciones = this.construcciones.map((edificio) => {
-    if (edificio == "xibiu") {
-      return "casa";
-    } else {
-      return edificio;
-    }
-  });
-
-  // 2. Convierto las chabolas en casas en la matriz bidimensional: igual tamaño
+  // Convierto las chabolas en casas en la matriz bidimensional: igual tamaño
   for (let i = 0; i < filasJuego; i++) {
     for (let j = 0; j < columnasJuego; j++) {
       if (this.tablero[i][j].tipo == "xibiu") {
@@ -523,12 +508,12 @@ juego.eventoPromocion = function () {
     }
   }
 
-  // 3. Repinto el tablero
+  // Repinto el tablero
   borrarTablero();
   dibujarTablero();
   this.dibujarConstrucciones();
 
-  // 4. Manejo badges e inactivos
+  // Manejo badges e inactivos
   this.comprobarBadges();
   this.manejarInactivos();
 };
@@ -586,7 +571,6 @@ juego.demoler = function (posicion) {
     console.log("No hay edificio para demoler."); //este mensaje es para pruebas
   }
   this.tipoSeleccionadoDemoler = false;
-
 };
 
 /**
@@ -605,8 +589,6 @@ juego.borrarEdificio = function (posicion) {
       }
     }
   }
-  let posicionBorrada = this.construcciones.indexOf(tipoBorrado);
-  this.construcciones.splice(posicionBorrada, posicionBorrada + 1);
 };
 
 /**
@@ -617,6 +599,22 @@ juego.cancelarEvento = function () {
   this.tipoSeleccionadoDemoler = false;
   this.tipoSeleccionadoTrasladar = false;
   document.getElementById("tablero").style.cursor = "pointer";
+};
+
+/**
+ * Recorre el tablero y devuelve una lista de tipos de edificio
+ */
+juego.obtenerListaEdificios = function () {
+  let listaEdificios = [];
+  for (let i = 0; i < filasJuego; i++) {
+    for (let j = 0; j < columnasJuego; j++) {
+      if (this.tablero[i][j].origenTipo) {
+        let tipo = this.tablero[i][j].tipo;
+        listaEdificios.push(tipo);
+      }
+    }
+  }
+  return listaEdificios;
 };
 
 /**
