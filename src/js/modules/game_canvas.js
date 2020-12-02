@@ -51,9 +51,9 @@ export function borrarTablero() {
 export function generarArrayTablero() {
   //Lo ideal aquí sería generar un array bidimensional, pero no son nativos de javascript
   let arrayTablero = [];
-  for (let i = 0; i < columnasJuego; i++) {
+  for (let i = 0; i < filasJuego; i++) {
     arrayTablero[i] = [];
-    for (let j = 0; j < filasJuego; j++) {
+    for (let j = 0; j < columnasJuego; j++) {
       let casilla = new Object();
       casilla.idEdificio = 0;
       casilla.tipo = null;
@@ -72,7 +72,6 @@ export function tomarPosicionClick() {
   // para la columna:
   let x = event.offsetX;
   let xFila = Math.floor(x / repeticion);
-  // console.log(`(${x}, ${y})`);
   // para la fila:
   let y = event.offsetY;
   let yColumna = Math.floor(y / repeticion);
@@ -95,19 +94,19 @@ export function pintarConstruccion(tipo, fila, columna) {
       img.addEventListener('load', function() {
       }, false);
       img.src = 'images/edif_xibiu.png'; //fila * repeticion, para convertir a pixeles
-      ctx.drawImage(img, (fila * repeticion), (columna * repeticion), (repeticion * 2), (repeticion * 2));
+      ctx.drawImage(img, (columna * repeticion), (fila * repeticion), (repeticion * 2), (repeticion * 2));
       break;
     case "casa":
       img.src = 'images/edif_casa.png';
-      ctx.drawImage(img, (fila * repeticion), (columna * repeticion), (repeticion * 2), (repeticion * 2));
+      ctx.drawImage(img, (columna * repeticion), (fila * repeticion), (repeticion * 2), (repeticion * 2));
       break;
     case "xalet":
       img.src = 'images/edif_xalet.png';
-      ctx.drawImage(img, (fila * repeticion), (columna * repeticion), (repeticion * 3), (repeticion * 2));
+      ctx.drawImage(img, (columna * repeticion), (fila * repeticion), (repeticion * 3), (repeticion * 2));
       break;
     case "hotel":
       img.src = 'images/edif_hotel.png';
-      ctx.drawImage(img, (fila * repeticion), (columna * repeticion), (repeticion * 4), (repeticion * 4));
+      ctx.drawImage(img, (columna * repeticion), (fila * repeticion), (repeticion * 4), (repeticion * 4));
       break;
   }
   ctx.closePath();
