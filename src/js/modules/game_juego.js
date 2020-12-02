@@ -20,27 +20,15 @@ import {
   costeSoborno,
   filasJuego,
   columnasJuego,
+  dineroFacil,
+  dineroDificil,
 } from "./game_configuracion.js";
-
-//TODO ELIMINAR, ya creamos el objeto con los parámetros introducidos en la pantalla de inicio
-/* export var juego = new Object();
-juego.nickname = "En Pep";
-juego.badge = "";
-juego.dinero = 500;
-juego.construcciones = [];
-juego.tablero = generarArrayTablero();
-juego.soborno = false;
-juego.xalet = false;
-juego.hotel = false;
-juego.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
-juego.tipoSeleccionado = null; */
 
 export var juego = parametrosJuego();
 
 /**
  * Función para recuperar los parámetros de juego enviados por GET
  */
-
 export function parametrosJuego() {
   //Recupera los parametros de la URL
   let queryString = window.location.search;
@@ -56,7 +44,7 @@ export function parametrosJuego() {
     } else if (valores[0].includes("dificultad")) {
       dificultad = valores[1];
     } else if (valores[0].includes("personaje")){
-      personaje = decodeURIComponent(valores[1]);//descodifico la URL de la imagen
+      personaje = decodeURIComponent(valores[1]); //descodifico la URL de la imagen
     }
   });
 
@@ -69,10 +57,13 @@ export function parametrosJuego() {
 function Juego(nickname, mapa, dificultad, personaje) {
   this.nickname = nickname;
   this.mapa = mapa;
-  this.dificultad = dificultad;
+  if (dificultad == "dificultadFacil") {
+    this.dinero = dineroFacil;
+  } else {
+    this.dinero = dineroDificil;
+  }
   this.personaje = personaje;
   this.badge = "";
-  this.dinero = 50000;
   this.construcciones = [];
   this.tablero = generarArrayTablero();
   this.soborno = false;
@@ -81,9 +72,12 @@ function Juego(nickname, mapa, dificultad, personaje) {
   this.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
   this.tipoSeleccionado = null; //hace ref a la propiedad indicada
   this.tipoSeleccionadoDemoler = false;
-  this.tipoSeleccionadoTrasladar = false; //TODO ¿Se necesita realmente? no podría utilizarse el de demoler? al fin y al cabo, un traslado es una demolicion + contrucción
+  this.tipoSeleccionadoTrasladar = false;
 }
 
+/**
+ * Efectúa las operaciones iniciales del juego: sitúa propiedades en pantalla y define el canvas.
+ */
 juego.iniciar = function () {
   this.comprobarBadges();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
@@ -105,15 +99,17 @@ juego.iniciar = function () {
   this.manejarInactivos();
 };
 
+/**
+ * Realiza las operaciones para sobornar y poder construir chalets si se tiene el dinero suficiente;
+ * de lo contrario lo avisa por el div de eventos de dinero.
+ */
 juego.sobornar = function () {
   if (document.getElementById("juegoDinero").innerHTML >= costeSoborno) {
-    //TODO: q sólo se pueda clicar cuando tienes el dinero suficiente
     //TODO: q avise con una animación cuando tienes el dinero suficiente
     //TODO: q una vez clicado se vuelva rojo y no se pueda volver a sobornar
     juego.dinero -= costeSoborno;
     juego.xalet = true;
     document.getElementById("juegoDinero").innerHTML = juego.dinero;
-    document.getElementById("juegoBadge").innerHTML = juego.badge;
     mostrarEventosDinero("soborno -" + costeSoborno);
     this.soborno = true;
     this.comprobarBadges();
@@ -123,6 +119,10 @@ juego.sobornar = function () {
   }
 };
 
+/**
+ * Realiza los cálculos para cobrar la renta de cada construcción
+ * @param {String} tipo de edificio
+ */
 juego.cobrarConstruccion = function (tipo) {
   switch (tipo) {
     case "xibiu":
@@ -151,11 +151,11 @@ juego.cobrarConstruccion = function (tipo) {
  * Estructura if/else de título más importante (= el que se muestra) a menos.
  */
 juego.comprobarBadges = function () {
-  if (this.contarEdificios("hotel") > 2) {
+  if (this.contarEdificios("hotel") >= 2) {
     this.badge = "Empresari Ecològic";
   } else if (
-    this.contarEdificios("casa") > 2 &&
-    this.contarEdificios("xalet") > 2
+    this.contarEdificios("casa") >= 2 &&
+    this.contarEdificios("xalet") >= 2
   ) {
     this.badge = "Gran Empresari";
     // Una vez puede construir un hotel, aunque luego caiga por crisis podrá seguir construyéndolo.
@@ -165,17 +165,18 @@ juego.comprobarBadges = function () {
   } else {
     this.badge = "es Padrí";
   }
+  document.getElementById("juegoBadge").innerHTML = this.badge;
 };
 
 /**
- * Cuenta cuántos edificios de un tipo hay en el array. TODO, usarla en la suma de alquileres?
- * Para reduce, ver: https://www.w3schools.com/jsref/jsref_reduce.asp
+ * Cuenta cuántos edificios de un tipo hay en el array.
  * @param {String} tipo
  */
 juego.contarEdificios = function (tipo) {
-  var total = this.construcciones.reduce(function (n, val) {
+  let total = this.construcciones.reduce(function (n, val) {
     return n + (val === tipo);
   }, 0);
+  console.log("contar " + tipo + ": " + total);
   return total;
 };
 
@@ -294,12 +295,12 @@ juego.construir = function (posicion) {
     pintarConstruccion(this.tipoSeleccionado, posicion[0], posicion[1]);
     this.actualizarTablero(this.tipoSeleccionado, posicion[0], posicion[1]);
     this.cobrarConstruccion(this.tipoSeleccionado);
-    this.comprobarBadges();
     // Sonido:
     let sonidoConstruccion = new sound("../resources/sound/build.wav");
     sonidoConstruccion.play();
     document.getElementById("tablero").style.cursor = "pointer"; // devuelvo el cursor a su version original
     this.tipoSeleccionado = null;
+    this.comprobarBadges();
   } else {
     let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
     sonidoProhibido.play();
@@ -480,7 +481,6 @@ juego.eventoSorpresa = function () {
   this.comprobarBadges();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoBadge").innerHTML = juego.badges;
-  mostrarEventosDinero(evento.toUpperCase() + "!!!");
   this.manejarInactivos();
 };
 
@@ -490,7 +490,6 @@ juego.eventoSorpresa = function () {
 juego.eventoCrisis = function () {
   // 1. Quito las casas en .construcciones
   this.construcciones.filter((edificio) => {
-    //TODO comprobar que esto está bien formulado
     return edificio != "casa";
   });
 
@@ -615,7 +614,6 @@ juego.seleccionarDemolicion = function () {
  */
 juego.demoler = function (posicion) {
   if (this.comprobarSiEdificio(posicion)) {
-    console.log("borro edificio en " + posicion);
     this.borrarEdificio(posicion);
     let sonidoDemoler = new sound("../resources/sound/demolish.wav");
     sonidoDemoler.play();
@@ -630,7 +628,7 @@ juego.demoler = function (posicion) {
     this.comprobarBadges();
     this.manejarInactivos();
   } else {
-    console.log("No hay edificio para demoler."); //TODO este mensaje es para pruebas
+    console.log("No hay edificio para demoler."); //este mensaje es para pruebas
   }
   this.tipoSeleccionadoDemoler = false;
 };
@@ -706,7 +704,6 @@ juego.manejarInactivos = function () {
     document.getElementById("hotel").style.color = "black";
     document.getElementById("hotel").style.cursor = "grab";
   }
-  //no manejo soborno/traslado/construccion; funcionaran diferente?? TODO pensar
 };
 
 /**
