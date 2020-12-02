@@ -22,9 +22,9 @@ import {
   columnasJuego,
 } from "./game_configuracion.js";
 
+//TODO ELIMINAR, ya creamos el objeto con los parámetros introducidos en la pantalla de inicio
 /* export var juego = new Object();
- */
-/* juego.nickname = "En Pep";
+juego.nickname = "En Pep";
 juego.badge = "";
 juego.dinero = 500;
 juego.construcciones = [];
@@ -36,6 +36,7 @@ juego.contadorEdificio = 0; //manera simple de saber qué se construye; funciona
 juego.tipoSeleccionado = null; */
 
 export var juego = parametrosJuego();
+
 /**
  * Función para recuperar los parámetros de juego enviados por GET
  */
@@ -54,8 +55,8 @@ export function parametrosJuego() {
       mapa = valores[1];
     } else if (valores[0].includes("dificultad")) {
       dificultad = valores[1];
-    } else if (valores[0].includes("personaje")) {
-      personaje = valores[1];
+    } else if (valores[0].includes("personaje")){
+      personaje = decodeURIComponent(valores[1]);//descodifico la URL de la imagen
     }
   });
 
@@ -88,6 +89,10 @@ juego.iniciar = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
+  let contenedor = document.getElementsByTagName("nav")[0].getElementsByTagName("div")[1];
+  let avatar = document.createElement("img");
+  avatar.src = juego.personaje;
+  contenedor.appendChild(avatar);
   // Intervalo de configuración de la renta:
   setInterval(() => {
     this.actualizar();
@@ -557,7 +562,6 @@ juego.seleccionarTraslado = function () {
  * TODO VICKY
  */
 juego.trasladar = function (posicion) {
-  //TODO, revisar estructura funcion demoler
   /* 1- comprobar que se selecciona una construccion
   2- comprobar que donde se quiere mover la construccion se puede construir
   3- mover construccion --> modificar la array de apoyo (this.tablero)
@@ -570,7 +574,7 @@ juego.trasladar = function (posicion) {
       for (let j = 0; j < filasJuego; j++) {
         if (
           this.tablero[i][j].idEdificio ==
-          this.tablero[posicion[0]][posicion[1]].idEdificio
+          this.tablero[posicion[0]][posicion[1]].idEdificio //0 es la fila de la casilla clicada, 1 la columna de la casilla clicada por el user
         ) {
           this.tablero[i][j].idEdificio = "";
           this.tablero[i][j].tipo = "null";

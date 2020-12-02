@@ -31,12 +31,15 @@
   background-color: var(--main-dark);
 }
 
-#personajesLista > div:hover .overlay {
+#personajesLista > div:hover .overlay,
+#gridPersonajes > div:hover .overlay {
   opacity: 0.5;
+  height: 130px;
 }
 
 /*Transición al pasar el ratón sobre la imagen*/
-#personajesLista > div {
+#personajesLista > div,
+#gridPersonajes > div {
   position: relative;
   cursor: pointer;
 }

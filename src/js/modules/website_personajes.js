@@ -37,13 +37,16 @@ function pintarPersonajesOpt() {
   carrusel.appendChild(slid0);
   carrusel.appendChild(slid1);
 
-  for (let i = 0; i < personajes.length; i++) {
-    let personaje = new Object();
-    personaje.id = personajes[i].id;
-    personaje.name = personajes[i].name;
-    personaje.motto = personajes[i].motto;
-    personaje.img = personajes[i].img;
+  let listaPersonajes = document.getElementById("personajesLista");
 
+  for (let i = 0; i < personajes.length; i++) {
+    //pinta el grid de seleccion de personaje
+    let personaje = pintarPersonajeGrid(i, listaPersonajes);
+    document
+      .getElementById(`${personaje.id}`)
+      .addEventListener("click", seleccionarPersonaje);
+
+    //pinta los personajes en el carrusel
     let slidhijo = document.createElement("div");
     let slidImg = document.createElement("img");
     slidImg.src = personaje.img;
@@ -67,24 +70,6 @@ function pintarPersonajesOpt() {
       slid3.appendChild(slidhijo);
       carrusel.appendChild(slid3);
     }
-
-    let listaPersonajes = document.getElementById("personajesLista");
-    let grid = document.createElement("div");
-    grid.id = personaje.id;
-    let gridImg = document.createElement("img");
-    gridImg.alt = personaje.name;
-    gridImg.src = personaje.img;
-    gridImg.style.border = "none";
-    gridImg.style.boxSizing = "border-box";
-    gridImg.classList.add("thumbnail");
-    grid.appendChild(gridImg);
-    let divOverlay = document.createElement("div");
-    divOverlay.classList.add("overlay");
-    grid.appendChild(divOverlay);
-    listaPersonajes.appendChild(grid);
-    document
-      .getElementById(`${personaje.id}`)
-      .addEventListener("click", seleccionarPersonaje);
   }
 
   if (screen.width < 800) {
@@ -102,24 +87,43 @@ function pintarPersonajesOpt() {
 function mostrarPersonajesInicio() {
   let gridPersonajes = document.getElementById("gridPersonajes");
 
-  for (let i = 0; i < personajes.length; i++) {
-    let personaje = new Object();
-    personaje.id = personajes[i].id;
-    personaje.name = personajes[i].name;
-    personaje.motto = personajes[i].motto;
-    personaje.img = personajes[i].img;
-
-    let gridImg = document.createElement("img");
-    gridImg.id = personaje.id;
-    gridImg.alt = personaje.name;
-    gridImg.src = personaje.img;
-    gridImg.classList.add("thumbnail");
-    gridPersonajes.appendChild(gridImg);
-
-/*     document
-    .getElementById(`${personaje.id}`)
-    .addEventListener("click", seleccionarPersonaje); *///TODO añadir id personaje al input hidden
+  for (let avatar = 0; avatar < personajes.length; avatar++) {
+    let personaje = pintarPersonajeGrid(avatar, gridPersonajes);
+    document
+      .getElementById(`${personaje.id}`)
+      .addEventListener("click", function(){
+        manejarBordes(personaje.id);
+        document.getElementById("personaje").value = personaje.img;//se envía la URL encriptada
+      });
   }
+}
+
+/**
+ * Función que crea los div de personajes
+ * @param {*} gridPersonajes nodo donde se añade un nuevo elemento
+ * @param {*} avatar posición del personaje dentro del json
+ */
+function pintarPersonajeGrid(avatar, gridPersonajes) {
+  let personaje = new Object();
+  personaje.id = personajes[avatar].id;
+  personaje.name = personajes[avatar].name;
+  personaje.motto = personajes[avatar].motto;
+  personaje.img = personajes[avatar].img;
+
+  let grid = document.createElement("div");
+  grid.id = personaje.id;
+  let gridImg = document.createElement("img");
+  gridImg.id = personaje.id;
+  gridImg.alt = personaje.name;
+  gridImg.src = personaje.img;
+  gridImg.classList.add("thumbnail");
+  grid.appendChild(gridImg);
+  let divOverlay = document.createElement("div");
+  divOverlay.classList.add("overlay");
+  grid.appendChild(divOverlay);
+  gridPersonajes.appendChild(grid);
+
+  return personaje;
 }
 
 /**

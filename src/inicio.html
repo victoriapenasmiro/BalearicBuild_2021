@@ -7,6 +7,7 @@
 
     <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles_pjs.css" />
 
     <!-- tipografías -->
     <!-- prettier-ignore -->
@@ -21,6 +22,7 @@
     <!--JQuery para importar Header y footer-->
     <!-- prettier-ignore -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <!-- scripts -->
     <script type="module" src="js/scripts.js"></script>
@@ -67,17 +69,7 @@
                 <h4>
                   Elige un personaje:
                 </h4>
-                <div id="gridPersonajes"> <!-- TODO no es responsive, no es mandatory que esta pantalla sea responsive -->
-<!--                   <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-                  <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
-   -->
-                </div>
+                <div id="gridPersonajes"></div>
                 <input type="hidden" name="personaje" id="personaje" value="avatar" /><!-- todo rellenar value enf uncion del personaje seleccionado -->
               </div>
               <button type="submit" value="Submit">¡GAME START!</button>

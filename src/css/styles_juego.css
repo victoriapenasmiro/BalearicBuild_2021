@@ -1,85 +1,98 @@
 :root {
-    --main-color: #8e231b;
-    --main-dark: #5b0000;
-    --secondary: #000000;
-    --secondary-light: #212121;
-    --surface: #dddddd;
-    --error: #8e651b;
-  }
+  --main-color: #8e231b;
+  --main-dark: #5b0000;
+  --secondary: #000000;
+  --secondary-light: #212121;
+  --surface: #dddddd;
+  --error: #8e651b;
+  background: black;
+}
 
-:root{
-    background: black;
+p {
+  font-family: Open Sans, sans-serif;
+  font-size: 1rem;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+span {
+  font-family: Open Sans, sans-serif;
+  font-size: 1rem;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
 }
 
-main > div:first-child,             /* todo esto es temporal */
+/* main > div:first-child */
+main > nav,             /* todo esto es temporal */
 main > div:last-child {
-    padding: 1rem;
-    background-color: black;
-    color: white;
-    min-height: 10vh;
-    display: flex;
-    justify-content: space-between;
+  padding: 1rem;
+  background-color: black;
+  color: white;
+  min-height: 10vh;
+  display: flex;
+  justify-content: space-between;
 }
 
-main > div:first-child img {
-    width: 20px;
+main > nav img {
+  width: 60px;
+  border-radius: 50%;
 }
 
-main > div:nth-child(2) {
+/* main > div:nth-child(2) {
     flex-grow: 1;
 }
-
+ */
 #juegoTablero {
-    margin: 0 auto;
-    margin-bottom: 0.5%;
-    background-color: rgb(223, 223, 223);
-    cursor: pointer;
-    box-sizing: border-box;
+  margin: 0 auto;
+  margin-bottom: 0.5%;
+  background-color: rgb(223, 223, 223);
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
-#eventoDinero { /* TODO arreglar esto, no son los looks que tocan */
-    position: fixed;
-    z-index: 99;
-    color: black;
-    background: white;
-    border: 2px solid var(--main-color);
-    top: 8%;
-    left: 1.5%;
+#eventoDinero {
+  /* TODO arreglar esto, no son los looks que tocan */
+  position: fixed;
+  z-index: 99;
+  color: black;
+  background: white;
+  border: 2px solid var(--main-color);
+  top: 8%;
+  left: 1.5%;
 }
 
 #juegoInferiorCentro {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
-.botonEdificio { /*TODO estos colores son sólo para pruebas */
-    margin-left: 0.3rem;
-    margin-right: 0.3rem;
-    width: 5rem;
-    padding: 0;
-    text-align: center;
-    border: 3px solid white;
-    color: black;
-    text-transform: uppercase;
-    background-color: var(--main-color);
-    cursor: grab;
-    box-sizing: border-box;
+.botonEdificio {
+  /*TODO estos colores son sólo para pruebas */
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  width: 5rem;
+  padding: 0;
+  text-align: center;
+  border: 3px solid white;
+  color: black;
+  text-transform: uppercase;
+  background-color: var(--main-color);
+  cursor: grab;
+  box-sizing: border-box;
 }
 
 .botonEdificio > img {
-    height: 3rem;
-    margin: 0 auto;
-    box-sizing: border-box;
+  height: 3rem;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .botonEdificio > p {
-    margin: 0 auto;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
 }
