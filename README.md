@@ -130,6 +130,8 @@ Cabe destacar que hemos realizado algunas ampliaciones en el desarrollo responsi
 
 2. Hemos adaptador el grid de personajes en diferentes resoluciones para que en ningún momento quede descuadrado.
 
+Las pantallas de *Inicio al juego* y la del *Juego* no están optimizadas a responsive, ya que no era una requerimiento de la práctica. La del *Inicio al juego* no está optimizada para resoluciones inferiores a 1300.
+
 ### Transiciones:
 #### Aviso de cookies:
 Se ha implementado una transición sobre el modal de aviso de cookies dónde empieza oculto y con un width de un 20% y hace un scroll from top al centro de la pantalla y aumenta hasta tener un with del 50%.
@@ -188,7 +190,7 @@ Esto se ha logrado con el siguiente fragmento de código:
 >}
 
 #### Transición de thumbnails:
-Se ha implementado una transición en el hover de las imagenes en formato thumbnail de la pantalla de personajes. Esta transición transcurre durante 0.5 segundos y únicamente al hacer 'hover' sobre fotos de thumbnail.
+Se ha implementado una transición en el hover de las imagenes en formato thumbnail de la pantalla de personajes y en la pantalla de inicio de juego. Esta transición transcurre durante 0.5 segundos y únicamente al hacer 'hover' sobre fotos de thumbnail.
 
 >.overlay {
 >  transition: .5s ease;
@@ -288,8 +290,15 @@ En el caso de que se rechazen, aparece un alert que informa que para juagr es ne
 ### Pantalla del juego:
 El código de desarrollo del juego es, posiblemente, el programa más largo que hemos escrito hasta el momento. Su base es el archivo main.js, que importa (a su vez o desde sus archivos importados) una serie de módulos entre los que cabe señalar un objeto 'juego' con sus métodos, una serie de funciones de pintado y 'transcripción' de canvas, y un archivo .js con variables de configuración.
 
-#### Inicio del juego:
-El juego comienza al cargarse la página de juego. En el archivo main.js  //TODO completar
+### Pantalla inicio del juego:
+En la pantalla de inicio de juego, dónde se carga los datos de configuración, se indica el personaje
+y el nickname se recogen los parámetros mediante un form y se envían al juego por GET, en vez de utilizar LocalStorage.
+
+#### Pantalla de juego:
+El juego comienza al cargarse la página de juego. En el archivo main.js El Juego se crea con un constructor con parámetros, realizando un split de la URL se setean los atributos del objeto "juego".
+Esto se realiza mediante la función _**parametrosJuego()**_
+
+//TODO completar
 
 #### Canvas:
 Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente.

@@ -96,6 +96,7 @@ iframe {
 
 .thumbnail {
   width: 100px;
+  height: 130px;
 }
 
 #asidePrincipal {
@@ -333,6 +334,8 @@ form > div:last-of-type > div {
   grid-template-columns: repeat(4,1fr);
   grid-gap: 20px;
   margin-bottom: 35px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 /* responsive design tablet + desktop */

@@ -12,7 +12,7 @@ export function dibujarTablero() {
   // así lo hago dependiente del tamaño de la ventana ORIGINAL: primero calculo y luego transfiero
   var viewportAnchura = window.innerWidth;
   let tableroAnchura = Number((viewportAnchura * 70) / 100);    //TODO FINAL ver si 70% va bien en toda resolucion
-  repeticion = tableroAnchura / columnasJuego;
+  repeticion = tableroAnchura / columnasJuego; //obtengo el tamaño de la casilla
   let tableroAltura = Number(repeticion * filasJuego);
   canvasDiv.style.width = tableroAnchura + "px";
   canvasDiv.style.height = tableroAltura + "px";
@@ -57,7 +57,7 @@ export function generarArrayTablero() {
       let casilla = new Object();
       casilla.idEdificio = 0;
       casilla.tipo = null;
-      casilla.origenTipo = null;
+      casilla.origenTipo = null; //es la casilla donde empieza la construccion
       casilla.terreno = null;
       arrayTablero[i][j] = casilla;
     }
@@ -94,7 +94,7 @@ export function pintarConstruccion(tipo, fila, columna) {
     case "xibiu":
       img.addEventListener('load', function() {
       }, false);
-      img.src = 'images/edif_xibiu.png';
+      img.src = 'images/edif_xibiu.png'; //fila * repeticion, para convertir a pixeles
       ctx.drawImage(img, (fila * repeticion), (columna * repeticion), (repeticion * 2), (repeticion * 2));
       break;
     case "casa":
