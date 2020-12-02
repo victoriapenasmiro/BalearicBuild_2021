@@ -445,7 +445,6 @@ juego.manejarSorpresa = function () {
  */
 juego.eventoSorpresa = function () {
   let eventos = ["crisi", "promoció", "infracció", "premi"];
-  //TODO meterle la imagen, q no aparezca por consola solo
   let evento = eventos[Math.floor(Math.random() * eventos.length)];
   console.log(evento);
   switch (evento) {
