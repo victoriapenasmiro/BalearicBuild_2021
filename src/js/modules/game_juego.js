@@ -438,19 +438,19 @@ juego.eventoSorpresa = function () {
     case "crisi":
       if (listaEdificios.includes("casa")) {
         this.eventoCrisis();
-        //this.mostrarImgEvento("/images/event_crisi.png");
+        this.mostrarImgEvento("/images/event_crisi.png");
       }
       break;
     case "promoció":
       if (listaEdificios.includes("xibiu")) {
         this.eventoPromocion();
-        //this.mostrarImgEvento("/images/event_promocio.png");
+        this.mostrarImgEvento("/images/event_promocio.png");
       }
       break;
     case "infracció":
       if (listaEdificios.includes("xibiu")) {
         this.dinero -= cantidadSorpresa;
-        //this.mostrarImgEvento("/images/event_infraccio.png");
+        this.mostrarImgEvento("/images/event_infraccio.png");
       }
       break;
     case "premi":
@@ -460,7 +460,7 @@ juego.eventoSorpresa = function () {
       ) {
         //si no está vacío y no tiene chabolas
         this.dinero += cantidadSorpresa;
-        //this.mostrarImgEvento("/images/event_premi.png");
+        this.mostrarImgEvento("/images/event_premi.png");
       }
       break;
   }
