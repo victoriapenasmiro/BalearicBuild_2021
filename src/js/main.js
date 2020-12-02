@@ -28,6 +28,14 @@ window.onload = function () {
     juego.seleccionarDemolicion();
   });
 
+  document.getElementById("cancelar").addEventListener("click", function () {
+    juego.cancelarEvento();                       //esto me permite cancelar cualquier evento que haya seleccionado antes: construir, demoler...
+  });
+
+  document.getElementById("salir").addEventListener("click", function () {
+    //TODO añadir
+  });
+
   document.getElementById("xibiu").addEventListener("click", function () {
     juego.elegirConstruccion("xibiu");
   });

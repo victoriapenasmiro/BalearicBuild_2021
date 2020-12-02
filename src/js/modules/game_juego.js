@@ -40,38 +40,39 @@ export var juego = parametrosJuego();
 /**
  * Función para recuperar los parámetros de juego enviados por GET
  */
+
 export function parametrosJuego() {
   //Recupera los parametros de la URL
   let queryString = window.location.search;
   let parametrosJuego = queryString.split("&");
-  let nick,mapa,dificultad,personaje;
-  
+  let nick, mapa, dificultad, personaje;
+
   parametrosJuego.forEach((element) => {
     let valores = element.split("=");
-    if (valores[0].includes("nickname")){
+    if (valores[0].includes("nickname")) {
       nick = valores[1];
-    } else if (valores[0].includes("mapa")){
+    } else if (valores[0].includes("mapa")) {
       mapa = valores[1];
-    } else if (valores[0].includes("dificultad")){
+    } else if (valores[0].includes("dificultad")) {
       dificultad = valores[1];
     } else if (valores[0].includes("personaje")){
       personaje = decodeURIComponent(valores[1]);//descodifico la URL de la imagen
     }
   });
 
-  juego = new Juego(nick,mapa,dificultad,personaje); //creo el juego
+  juego = new Juego(nick, mapa, dificultad, personaje); //creo el juego
 
   return juego;
 }
 
 /* CONSTRUCTOR */
-function Juego(nickname, mapa, dificultad,personaje) {
+function Juego(nickname, mapa, dificultad, personaje) {
   this.nickname = nickname;
   this.mapa = mapa;
   this.dificultad = dificultad;
   this.personaje = personaje;
   this.badge = "";
-  this.dinero = 500;
+  this.dinero = 50000;
   this.construcciones = [];
   this.tablero = generarArrayTablero();
   this.soborno = false;
@@ -167,7 +168,7 @@ juego.comprobarBadges = function () {
 };
 
 /**
- * Cuenta cuántos edificios de un tipo hay en el array. TODO, usarla en la suna de alquileres?
+ * Cuenta cuántos edificios de un tipo hay en el array. TODO, usarla en la suma de alquileres?
  * Para reduce, ver: https://www.w3schools.com/jsref/jsref_reduce.asp
  * @param {String} tipo
  */
@@ -244,13 +245,16 @@ function ocultarEventosDinero(tiempo) {
   );
 }
 
+/**
+ * Maneja el evento de click sobre el tablero en función del botón que se haya pulsado antes.
+ */
 juego.seleccionarEvento = function () {
-  let posicion = tomarPosicionClick(); //TODO mirar event
+  let posicion = tomarPosicionClick();
   if (this.tipoSeleccionado != null) {
     this.construir(posicion);
-  } else if (this.tipoSeleccionadoTrasladar == true) {
+  } else if (this.tipoSeleccionadoTrasladar) {
     this.trasladar(posicion);
-  } else if (this.tipoSeleccionadoDemoler == true) {
+  } else if (this.tipoSeleccionadoDemoler) {
     this.demoler(posicion);
   }
 };
@@ -416,6 +420,7 @@ juego.dibujarConstrucciones = function () {
     for (let j = 0; i < filasJuego; i++) {
       //si es el origen de una casa (es decir, origentipo == true)
       if (this.tablero[i][j].origenTipo) {
+        console.log("pinto casa en " + i + "-" + j);
         pintarConstruccion(this.tablero[i][j].tipo, i, j); //TODO comprobar la formulacion
       }
     }
@@ -446,16 +451,19 @@ juego.eventoSorpresa = function () {
     case "crisi":
       if (this.construcciones.includes("casa")) {
         this.eventoCrisis();
+        this.mostrarImgEvento("/images/event_crisi.png");
       }
       break;
     case "promoció":
       if (this.construcciones.includes("xibiu")) {
         this.eventoPromocion();
+        this.mostrarImgEvento("/images/event_promocio.png");
       }
       break;
     case "infracció":
       if (this.construcciones.includes("xibiu")) {
         this.dinero -= cantidadSorpresa;
+        this.mostrarImgEvento("/images/event_infraccio.png");
       }
       break;
     case "premi":
@@ -465,6 +473,7 @@ juego.eventoSorpresa = function () {
       ) {
         //si no está vacío y no tiene chabolas
         this.dinero += cantidadSorpresa;
+        this.mostrarImgEvento("/images/event_premi.png");
       }
       break;
   }
@@ -479,63 +488,63 @@ juego.eventoSorpresa = function () {
  * Pierde todos los edificios de tipo casa.
  */
 juego.eventoCrisis = function () {
-  // 1. Quito las chabolas en .construcciones
+  // 1. Quito las casas en .construcciones
   this.construcciones.filter((edificio) => {
     //TODO comprobar que esto está bien formulado
-    return edificio != "xibiu";
+    return edificio != "casa";
   });
 
-  // 2. Convierto las chabolas en la matriz bidimensional
+  // 2. Convierto las casas en la matriz bidimensional
   for (let i = 0; i < this.tablero.length; i++) {
     for (let j = 0; j < this.tablero[i].length; j++) {
-      if (this.tablero[i][j].tipo == "xibiu") {
+      if (this.tablero[i][j].tipo == "casa") {
         this.tablero[i][j].tipo = null;
-        this.tablero[i][j].origenTipo = null;
+        this.tablero[i][j].origenTipo = false;
+        this.tablero[i][j].idEdificio = 0;
       }
     }
   }
 
-  // 3. Limpio el tablero
+  // 3. Repinto el tablero
   borrarTablero();
-
-  // 4. Repinto el tablero
   dibujarTablero();
   this.dibujarConstrucciones();
 
-  // 5. Manejo badges e inactivos
+  // 4. Manejo badges e inactivos
   this.comprobarBadges();
   this.manejarInactivos();
 };
 
 /**
- * Todas las chabolas se convierten en casa.
+ * Todas las chabolas se convierten en casas.
  */
 juego.eventoPromocion = function () {
   // 1. Convierto las chabolas en casas en .construcciones
-  this.construcciones.map((edificio) => {
-    //TODO comprobar que esto está bien formulado
+  this.construcciones = this.construcciones.map((edificio) => {
     if (edificio == "xibiu") {
       return "casa";
     }
   });
+  console.log("construcciones");
+  console.log(this.construcciones);
 
   // 2. Convierto las chabolas en casas en la matriz bidimensional: igual tamaño
-  for (let i = 0; i < this.tablero.length; i++) {
-    for (let j = 0; j < this.tablero[i].length; j++) {
+  for (let i = 0; i < columnasJuego; i++) {
+    for (let j = 0; j < filasJuego; j++) {
       if (this.tablero[i][j].tipo == "xibiu") {
         this.tablero[i][j].tipo = "casa";
       }
     }
   }
+  console.log("construcciones");
+  console.log(this.tablero);
 
-  // 3. Limpio el tablero
+  // 3. Repinto el tablero
   borrarTablero();
-
-  // 4. Repinto el tablero
   dibujarTablero();
   this.dibujarConstrucciones();
 
-  // 5. Manejo badges e inactivos
+  // 4. Manejo badges e inactivos
   this.comprobarBadges();
   this.manejarInactivos();
 };
@@ -569,7 +578,7 @@ juego.trasladar = function (posicion) {
         ) {
           this.tablero[i][j].idEdificio = "";
           this.tablero[i][j].tipo = "null";
-          this.tablero[i][j].origenTipo = "null";
+          this.tablero[i][j].origenTipo = false;
         }
       }
     }
@@ -606,20 +615,11 @@ juego.seleccionarDemolicion = function () {
  */
 juego.demoler = function (posicion) {
   if (this.comprobarSiEdificio(posicion)) {
-    for (let i = 0; i < columnasJuego; i++) {
-      for (let j = 0; j < filasJuego; j++) {
-        if (
-          this.tablero[i][j].idEdificio ==
-          this.tablero[posicion[0]][posicion[1]].idEdificio
-        ) {
-          this.tablero[i][j].idEdificio = "";
-          this.tablero[i][j].tipo = "null";
-          this.tablero[i][j].origenTipo = "null";
-        }
-      }
-    }
+    console.log("borro edificio en " + posicion);
+    this.borrarEdificio(posicion);
     let sonidoDemoler = new sound("../resources/sound/demolish.wav");
     sonidoDemoler.play();
+
     // Repinto mapa:
     borrarTablero();
     dibujarTablero();
@@ -633,6 +633,37 @@ juego.demoler = function (posicion) {
     console.log("No hay edificio para demoler."); //TODO este mensaje es para pruebas
   }
   this.tipoSeleccionadoDemoler = false;
+};
+
+/**
+ * Borra un edicio del tablero y del array de construcciones partiendo de su posición.
+ * @param {*} posicion
+ */
+juego.borrarEdificio = function (posicion) {
+  let tipoBorrado = this.tablero[posicion[0]][posicion[1]].tipo;
+  let idBorrado = this.tablero[posicion[0]][posicion[1]].idEdificio;
+  console.log("tipo " + tipoBorrado);
+  for (let i = 0; i < columnasJuego; i++) {
+    for (let j = 0; j < filasJuego; j++) {
+      if (this.tablero[i][j].idEdificio == idBorrado) {
+        this.tablero[i][j].idEdificio = 0;
+        this.tablero[i][j].tipo = "null";
+        this.tablero[i][j].origenTipo = false;
+      }
+    }
+  }
+  let posicionBorrada = this.construcciones.indexOf(tipoBorrado);
+  this.construcciones.splice(posicionBorrada, posicionBorrada + 1);
+};
+
+/**
+ * Permite cancelar cualquier evento seleccionado previamente.
+ */
+juego.cancelarEvento = function () {
+  this.tipoSeleccionado = null;
+  this.tipoSeleccionadoDemoler = false;
+  this.tipoSeleccionadoTrasladar = false;
+  document.getElementById("tablero").style.cursor = "pointer";
 };
 
 /**
@@ -652,26 +683,25 @@ juego.manejarInactivos = function () {
     document.getElementById("casa").style.backgroundColor = "black";
     document.getElementById("casa").style.color = "white";
     document.getElementById("casa").style.cursor = "none";
-    //TODO: quitarle el listener?
   } else {
     document.getElementById("casa").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("casa").style.color = "black";
     document.getElementById("casa").style.cursor = "grab";
   }
-  if (juego.dinero < costeXalet) {
+  if (juego.dinero < costeXalet || !juego.xalet) {
     document.getElementById("xalet").style.backgroundColor = "black";
     document.getElementById("xalet").style.color = "white";
     document.getElementById("xalet").style.cursor = "none";
-  } else if (juego.xalet == true) {
+  } else {
     document.getElementById("xalet").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("xalet").style.color = "black";
     document.getElementById("xalet").style.cursor = "grab";
   }
-  if (juego.dinero < costeHotel) {
+  if (juego.dinero < costeHotel || !juego.hotel) {
     document.getElementById("hotel").style.backgroundColor = "black";
     document.getElementById("hotel").style.color = "white";
     document.getElementById("hotel").style.cursor = "none";
-  } else if (juego.hotel == true) {
+  } else {
     document.getElementById("hotel").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("hotel").style.color = "black";
     document.getElementById("hotel").style.cursor = "grab";
