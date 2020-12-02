@@ -1,4 +1,4 @@
-import { juego } from "./modules/game_juego.js";
+import { juego,parametrosJuego } from "./modules/game_juego.js";
 import { dibujarTablero } from "./modules/game_canvas.js";
 
 /**

@@ -22,9 +22,9 @@ import {
   columnasJuego,
 } from "./game_configuracion.js";
 
-export var juego = new Object();
-
-juego.nickname = "En Pep";
+/* export var juego = new Object();
+ */
+/* juego.nickname = "En Pep";
 juego.badge = "";
 juego.dinero = 500;
 juego.construcciones = [];
@@ -33,12 +33,41 @@ juego.soborno = false;
 juego.xalet = false;
 juego.hotel = false;
 juego.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
-juego.tipoSeleccionado = null;
+juego.tipoSeleccionado = null; */
+
+export var juego = parametrosJuego();
+/**
+ * Función para recuperar los parámetros de juego enviados por GET
+ */
+export function parametrosJuego() {
+  //Recupera los parametros de la URL
+  let queryString = window.location.search;
+  let parametrosJuego = queryString.split("&");
+  let nick,mapa,dificultad,personaje;
+  
+  parametrosJuego.forEach((element) => {
+    let valores = element.split("=");
+    if (valores[0].includes("nickname")){
+      nick = valores[1];
+    } else if (valores[0].includes("mapa")){
+      mapa = valores[1];
+    } else if (valores[0].includes("dificultad")){
+      dificultad = valores[1];
+    } else if (valores[0].includes("personaje")){
+      personaje = valores[1];
+    }
+  });
+
+  juego = new Juego(nick,mapa,dificultad,personaje); //creo el juego
+
+  return juego;
+}
 
 /* CONSTRUCTOR */
-function Juego(nickname, personaje) {
-  //TODO mapa y dificultad
+function Juego(nickname, mapa, dificultad,personaje) {
   this.nickname = nickname;
+  this.mapa = mapa;
+  this.dificultad = dificultad;
   this.personaje = personaje;
   this.badge = "";
   this.dinero = 500;
@@ -389,7 +418,8 @@ juego.dibujarConstrucciones = function () {
 };
 
 /**
- * Determina si se va a producir un evento sorpresa o no. La posibilidad de que se produzca es del 50%.
+ * Determina si se va a producir un evento sorpresa o no.
+ * La posibilidad de que se produzca es del 50%.
  */
 juego.manejarSorpresa = function () {
   let randomBoolean = Math.random() < 0.5;
@@ -399,7 +429,8 @@ juego.manejarSorpresa = function () {
 };
 
 /**
- * Controla los eventos aleatorios: si se llama, elige una de las cuatro opciones y la desarrolla.
+ * Controla los eventos aleatorios: si se llama,
+ * elige una de las cuatro opciones y la desarrolla.
  */
 juego.eventoSorpresa = function () {
   let eventos = ["crisi", "promoció", "infracció", "premi"];
@@ -517,7 +548,14 @@ juego.seleccionarTraslado = function () {
  * TODO VICKY
  */
 juego.trasladar = function (posicion) {
-  //TODO copiado de demoler
+  //TODO, revisar estructura funcion demoler
+  /* 1- comprobar que se selecciona una construccion
+  2- comprobar que donde se quiere mover la construccion se puede construir
+  3- mover construccion --> modificar la array de apoyo (this.tablero)
+  4- repinto el mapa
+  */
+
+  //COPY DEMOLER
   if (this.comprobarSiEdificio(posicion)) {
     for (let i = 0; i < columnasJuego; i++) {
       for (let j = 0; j < filasJuego; j++) {

@@ -34,14 +34,14 @@
         </section>
         <section>
             <h3>¡Elije tus opciones para empezar a jugar!</h3>
-            <form>
+            <form id="parametros" action="juego.html" method="get">
               <div>
                 <label for="nickname"><strong>Nickname:</strong></label>
-                <input type="text" id="nickname" name="nickname" />
+                <input type="text" id="nickname" name="nickname" required/>
                 <h4>Elige un mapa:</h4>
                 <select name="mapa" id="mapa">
                   <option value="mapa1">Mapa 1</option>
-                  <option value="mapa1">Mapa 1</option>
+                  <option value="mapa1">Mapa 2</option>
                 </select>
                 <h4>
                   Dificultades económicas:
@@ -59,9 +59,9 @@
                   id="dificultadDificil"
                   name="dificultad"
                   value="dificultadDificil"
+                  checked="checked"
                 />
                 <label for="dificultadDificil">Estudiante de FP ($)</label><br />
-                <input type="hidden" name="">
               </div>
               <div>
                 <h4>
@@ -78,6 +78,7 @@
                   <img class="thumbnail" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/480/public/media/image/2013/12/25886-principal.png?itok=HhRtLBb2" alt="" width="">
    -->
                 </div>
+                <input type="hidden" name="personaje" id="personaje" value="avatar" /><!-- todo rellenar value enf uncion del personaje seleccionado -->
               </div>
               <button type="submit" value="Submit">¡GAME START!</button>
         </section>
@@ -113,7 +114,7 @@
             relevante posible. Para poder navegar por nuestra web debes
             aceptarlas. 🍪 🍪 🍪
           </p>
-          <button>¡ENTENDIDO,GRACIAS!</button>
+          <button type="button">¡ENTENDIDO,GRACIAS!</button>
           <div>
             <a href="#">RECHAZAR</a>
             <a href="#">MÁS INFORMACIÓN</a>
