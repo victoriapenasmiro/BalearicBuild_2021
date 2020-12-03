@@ -8,33 +8,44 @@
   background: black;
 }
 
+html, body {
+  margin: 0; 
+  height: 100%; 
+  overflow: hidden
+}
+
 @font-face {
   font-family: "Corleone";
   src: url("resources/fonts/Corleone.TTF");
 }
 
 span,
-nav p,
-#eventoDinero {
+nav p {
   font-family: Corleone, sans-serif;
   font-size: 1.5rem;
   font-weight: 100;
   letter-spacing: 2px;
 }
 
-p {
+p,
+#eventoDinero {
   font-family: Open Sans, sans-serif;
   font-size: 1rem;
 }
 
 h1 {
   font-family: Corleone, sans-serif;
+  margin-top: 1.5rem;
   font-weight: 400;
   letter-spacing: 3px;
   text-decoration: underline;
   text-decoration-color: var(--main-color);
   text-align: center;
   font-size: 3.5rem;
+  margin: 0 auto;
+  margin-top: 4vh;
+  color: white;
+  box-sizing: border-box;
 }
 
 h2 {
@@ -45,6 +56,18 @@ h2 {
   letter-spacing: 2px;
 }
 
+hr {
+  margin: 0;
+  margin-top: -4vh;
+  margin-bottom: 2vh;
+  padding: 0;
+  width: 100vw;
+  border: none;
+  height: 5px;
+  background-color: var(--main-color);
+  box-sizing: border-box;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -52,25 +75,45 @@ main {
 }
 
 /* main > div:first-child */
-main > nav,             /* todo esto es temporal */
+main > nav,  
 main > div:last-child {
   background-color: black;
   color: var(--surface);
   min-height: 10vh;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
+  box-sizing: border-box;
 }
 
-main > nav img {
-  width: 60px;
+main > nav {
+  justify-content: space-between;
+  padding-left: 1vw;
+  padding-right: 7vw;
+}
+
+main > div:last-child {
+  justify-content: space-evenly;
+}
+
+nav > div > p {
+  color: var(--main-color);
+  margin-top: -1vh;
+  box-sizing: border-box;
+}
+
+#imgPj {
+  width: 10vh;
+  position: fixed;
+  top: 4vh;
+  right: 2vw;
+  box-sizing: border-box;
+}
+
+#imgPj > img {
+  width: 100%;
+  border: 4px solid var(--main-color);
   border-radius: 50%;
-  margin-bottom: 1em;
-}
-
-nav {
-  padding-left: 3em;
-  padding-right: 3em;
+  box-shadow: 0.5rem 0.3rem 0.5rem -0.5rem var(--main-dark);
 }
 
 #construcciones {
@@ -79,29 +122,21 @@ nav {
   top: 200px;
 }
 
-#construcciones > img {
-  margin: 0.5rem;
-}
-
 #juegoTablero {
   margin: 0 auto;
   margin-bottom: 0.5%;
-  background-color: var(--error);/* TODO deberíamos renombrar esta var y justificarlo en el readmi */
+  background-color: var(--error);
   cursor: pointer;
   box-sizing: border-box;
+  box-shadow: 0.3rem 0.3rem 0.5rem -0.5rem var(--error);
 }
 
 #eventoDinero {
-  /* TODO arreglar esto, no son los looks que tocan */
   position: fixed;
   z-index: 99;
-  color: black;
-  background: var(--surface);
-  border: 2px solid var(--main-color);
-  top: 8%;
-  left: 1.5%;
-  padding: 40px;
-  border-radius: 40%;
+  color: var(--surface);
+  top: 22vh;
+  left: 2vh;
 }
 
 p#juegoBadge {
@@ -142,6 +177,7 @@ p#juegoBadge {
   border: 3px solid var(--error);/* TODO, RENOMBRAR VAR */
   text-transform: uppercase;
   cursor: grab;
+  box-shadow: 0.3rem 0.3rem 0.5rem -0.5rem var(--error);
   box-sizing: border-box;
   margin: 1rem;
 }
@@ -166,5 +202,5 @@ p#juegoBadge {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  top: 20%;
+  top: 25%;
 }

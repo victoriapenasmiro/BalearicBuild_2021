@@ -19,4 +19,4 @@ export var rentaHotel = 3000;
 
 export var costeSoborno = 1200;
 export var dineroDificil = 500;
-export var dineroFacil = 20800;
+export var dineroFacil = 2800;

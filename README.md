@@ -310,10 +310,11 @@ En la pantalla de inicio de juego, dónde se carga los datos de configuración, 
 y el nickname se recogen los parámetros mediante un form y se envían al juego por GET, en vez de utilizar LocalStorage.
 
 #### Pantalla de juego:
-El juego comienza al cargarse la página de juego. En el archivo main.js El Juego se crea con un constructor con parámetros, realizando un split de la URL se setean los atributos del objeto "juego".
-Esto se realiza mediante la función _**parametrosJuego()**_
+El juego comienza al cargarse la página de juego. En el archivo main.js El Juego se crea con un constructor con parámetros, realizando un split de la URL se setean los atributos del objeto "juego". Esto se realiza mediante la función _**parametrosJuego()**_
 
 //TODO completar
+
+Como detalle de interés, hemos jugado con el cambio de colores de diferentes elementos en función de los eventos correspondientes. Para utilizar los colores específicos que queríamos incluir nos hemos ayudado de explicaciones como la que hay en https://stackoverflow.com/questions/13712697/set-background-color-in-hex
 
 #### Canvas:
 Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente.

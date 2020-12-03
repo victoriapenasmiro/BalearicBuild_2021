@@ -24,6 +24,8 @@ import {
   dineroDificil,
 } from "./game_configuracion.js";
 
+//TODO: añadir link a la pagina principal en boton de salir (mas q evento)
+
 export var juego = parametrosJuego();
 
 /**
@@ -69,7 +71,7 @@ function Juego(nickname, mapa, dificultad, personaje) {
   this.xalet = false;
   this.hotel = false;
   this.contadorEdificio = 0; //manera simple de saber qué se construye; funciona como un id para cada construcción
-  this.tipoSeleccionado = null; //hace ref a la propiedad indicada
+  this.tipoSeleccionado = null; //hacen ref a la propiedad indicada
   this.tipoSeleccionadoDemoler = false;
   this.tipoSeleccionadoTrasladar = false;
 }
@@ -82,9 +84,7 @@ juego.iniciar = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
-  let contenedor = document
-    .getElementsByTagName("nav")[0]
-    .getElementsByTagName("div")[2];
+  let contenedor = document.getElementById("imgPj");
   let avatar = document.createElement("img");
   avatar.src = juego.personaje;
   contenedor.appendChild(avatar);
@@ -107,16 +107,17 @@ juego.iniciar = function () {
 juego.sobornar = function () {
   if (document.getElementById("juegoDinero").innerHTML >= costeSoborno) {
     //TODO: q avise con una animación cuando tienes el dinero suficiente
-    //TODO: q una vez clicado se vuelva rojo y no se pueda volver a sobornar
     juego.dinero -= costeSoborno;
     juego.xalet = true;
     document.getElementById("juegoDinero").innerHTML = juego.dinero;
     mostrarEventosDinero("soborno -" + costeSoborno);
     this.soborno = true;
+    // Ya clicado, se vuelve rojo y no se puede volver a sobornar:
+    document.getElementById("soborno").style.color = "rgb(142, 35, 27)";
     this.comprobarBadges();
     this.manejarInactivos();
   } else {
-    mostrarEventosDinero("No tens $$ per surbornar!");
+    mostrarEventosDinero("suborn sense $$!");
   }
 };
 
@@ -264,11 +265,9 @@ juego.seleccionarEvento = function () {
   }
 };
 
-/*********** TODO REORDENAR ?¿?¿? **************/
-
 /*************** TRASLADO ***************/
 //solo necesaria para guardar la posición de origen en los traslados
-var posOrigenTraslado = null;
+var posOrigenTraslado = null; //TODO: Vicky, y si conviertes estas dos cosas en atributos de juego? es mejor práctica q var global
 
 //variable que se utiliza para ir modificando el evento para el traslado
 var cambioEvento = seleccionarCasa;
@@ -279,7 +278,7 @@ var cambioEvento = seleccionarCasa;
  * segundo click coge posición de destino y traslada
  */
 function accionTraslado() {
-  cambioEvento(); 
+  cambioEvento();
 }
 
 /**
@@ -298,11 +297,9 @@ function moverADestino() {
  */
 function seleccionarCasa() {
   let origen = tomarPosicionClick();
-  if (juego.comprobarSiEdificio(origen)) { //controlo que en el primer click haya una casa
+  if (juego.comprobarSiEdificio(origen)) {
+    //controlo que en el primer click haya una casa
     cambioEvento = moverADestino;
-    console.log(
-      "casa seleccionada para trasladar, a la espera de recibir posicion destino"
-    );
   } else {
     let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
     sonidoProhibido.play();
@@ -485,36 +482,42 @@ juego.eventoSorpresa = function () {
   let evento = eventos[Math.floor(Math.random() * eventos.length)];
   console.log(evento);
   let listaEdificios = this.obtenerListaEdificios();
+  let sonidoEventoNegativo = new sound("../resources/sound/silbato.wav");
+  let sonidoEventoPositivo = new sound("../resources/sound/aplauso.wav");
   switch (evento) {
     case "crisi":
       if (listaEdificios.includes("casa")) {
-        this.eventoCrisis();
         this.mostrarImgEvento("images/event_crisi.png");
+        sonidoEventoNegativo.play();
+        this.eventoCrisis();
+        
       }
       break;
     case "promoció":
       if (listaEdificios.includes("xibiu")) {
-        this.eventoPromocion();
         this.mostrarImgEvento("images/event_promocio.png");
+        sonidoEventoPositivo.play();
+        this.eventoPromocion();
       }
       break;
     case "infracció":
       if (listaEdificios.includes("xibiu")) {
-        this.dinero -= cantidadSorpresa;
         this.mostrarImgEvento("images/event_infraccio.png");
+        sonidoEventoNegativo.play();
+        this.dinero -= cantidadSorpresa;
       }
       break;
     case "premi":
       if (listaEdificios.length != 0 && !listaEdificios.includes("xibiu")) {
         //si no está vacío y no tiene chabolas
-        this.dinero += cantidadSorpresa;
         this.mostrarImgEvento("images/event_premi.png");
+        sonidoEventoPositivo.play();
+        this.dinero += cantidadSorpresa;
       }
       break;
   }
-  this.comprobarBadges();
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
-  document.getElementById("juegoBadge").innerHTML = juego.badges;
+  this.comprobarBadges();
   this.manejarInactivos();
 };
 
@@ -527,9 +530,9 @@ juego.mostrarImgEvento = function (imagen) {
   let img = document.createElement("img");
   img.id = "sorpresa";
   img.src = imagen;
-  img.alt = "crisi";
+  img.alt = "evento sorpresa";
   main.insertBefore(img, main.firstChild);
-  setTimeout(() => img.remove(), 3000);
+  setTimeout(() => img.remove(), 3500);
 };
 
 /**
@@ -551,10 +554,6 @@ juego.eventoCrisis = function () {
   borrarTablero();
   dibujarTablero();
   this.dibujarConstrucciones();
-
-  // Manejo badges e inactivos
-  this.comprobarBadges();
-  this.manejarInactivos();
 };
 
 /**
@@ -574,10 +573,6 @@ juego.eventoPromocion = function () {
   borrarTablero();
   dibujarTablero();
   this.dibujarConstrucciones();
-
-  // Manejo badges e inactivos
-  this.comprobarBadges();
-  this.manejarInactivos();
 };
 
 /**
@@ -627,7 +622,6 @@ juego.trasladar = function (posicion, nuevaPosicion) {
 
   this.tipoSeleccionadoTrasladar = false;
   posOrigenTraslado = null;
-
 };
 
 /**
@@ -718,7 +712,7 @@ juego.manejarInactivos = function () {
     document.getElementById("xibiu").style.color = "white";
     document.getElementById("xibiu").style.cursor = "none";
   } else {
-    document.getElementById("xibiu").style.backgroundColor = "rgb(142, 35, 27)"; //ver https://stackoverflow.com/questions/13712697/set-background-color-in-hex
+    document.getElementById("xibiu").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("xibiu").style.color = "black";
     document.getElementById("xibiu").style.cursor = "grab";
   }
