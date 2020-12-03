@@ -5,8 +5,6 @@ export var cantidadSorpresa = 1000;
 export var filasJuego = 15;
 export var columnasJuego = 30;
 
-//TODO: todo esto no sería mejor en constantes??? DECIDIR/CAMBIAR
-
 export var costeXibiu = 500;
 export var rentaXibiu = 100;
 
@@ -20,3 +18,5 @@ export var costeHotel = 10100;
 export var rentaHotel = 3000;
 
 export var costeSoborno = 1200;
+export var dineroDificil = 500;
+export var dineroFacil = 20800;
