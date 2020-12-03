@@ -251,14 +251,65 @@ function ocultarEventosDinero(tiempo) {
  */
 juego.seleccionarEvento = function () {
   let posicion = tomarPosicionClick();
+
   if (this.tipoSeleccionado != null) {
     this.construir(posicion);
   } else if (this.tipoSeleccionadoTrasladar) {
-    this.trasladar(posicion);
+    if (posOrigenTraslado == null) {
+      posOrigenTraslado = tomarPosicionClick();
+    }
+    accionTraslado();
   } else if (this.tipoSeleccionadoDemoler) {
     this.demoler(posicion);
   }
 };
+
+/*********** TODO REORDENAR ?¿?¿? **************/
+
+/*************** TRASLADO ***************/
+//solo necesaria para guardar la posición de origen en los traslados
+var posOrigenTraslado = null;
+
+//variable que se utiliza para ir modificando el evento para el traslado
+var cambioEvento = seleccionarCasa;
+
+/**
+ * Esta función se encarga de activar correlativamente los dos eventos
+ * que necesita el traslado, primer click coge posición de origen
+ * segundo click coge posición de destino y traslada
+ */
+function accionTraslado() {
+  cambioEvento(); 
+}
+
+/**
+ * Función que obtiene la posición de destino de una casa a trasladar
+ * y resetea el valor del evento del tablero al inicial
+ */
+function moverADestino() {
+  cambioEvento = seleccionarCasa; //cambio evento, espera la posicion de origen
+  let nuevaPosicion = tomarPosicionClick();
+  juego.trasladar(posOrigenTraslado, nuevaPosicion);
+}
+
+/**
+ * Función que cambia el evento en el tablero, esperando un
+ * segundo click para obtener la posicion de destino
+ */
+function seleccionarCasa() {
+  let origen = tomarPosicionClick();
+  if (juego.comprobarSiEdificio(origen)) { //controlo que en el primer click haya una casa
+    cambioEvento = moverADestino;
+    console.log(
+      "casa seleccionada para trasladar, a la espera de recibir posicion destino"
+    );
+  } else {
+    let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
+    sonidoProhibido.play();
+    document.getElementById("tablero").style.cursor = "pointer";
+  }
+}
+/*************** END TRASLADO ***************/
 
 /**
  * Toma un edificio y lo construye, es decir, lo añade al tablero y a la matriz de juego.
@@ -454,10 +505,7 @@ juego.eventoSorpresa = function () {
       }
       break;
     case "premi":
-      if (
-        listaEdificios.length != 0 &&
-        !listaEdificios.includes("xibiu")
-      ) {
+      if (listaEdificios.length != 0 && !listaEdificios.includes("xibiu")) {
         //si no está vacío y no tiene chabolas
         this.dinero += cantidadSorpresa;
         this.mostrarImgEvento("images/event_premi.png");
@@ -481,10 +529,7 @@ juego.mostrarImgEvento = function (imagen) {
   img.src = imagen;
   img.alt = "crisi";
   main.insertBefore(img, main.firstChild);
-  setTimeout(
-    () => (img.remove()),
-    3000
-  );
+  setTimeout(() => img.remove(), 3000);
 };
 
 /**
@@ -536,23 +581,53 @@ juego.eventoPromocion = function () {
 };
 
 /**
- * TODO COMPLETAR VICKY
+ * Al elegir traslado, realiza las operaciones básicas.
  */
 juego.seleccionarTraslado = function () {
-  //TODO ¿podría unificarse con seleccionarDemolicion(), no???
-  this.seleccionarDemolicion();
+  if (this.tablero.length > 0) {
+    //sólo puedo trasladar si hay algún edificio en lista
+    document.getElementById("tablero").style.cursor = "grab";
+    this.tipoSeleccionadoTrasladar = true;
+  }
 };
 
 /**
- * Toma una construcción y la cambia de sitio.
- * TODO VICKY
+ * Toma una construcción seleccionada y la traslada.
  */
-juego.trasladar = function (posicion) {
-  /* 1- comprobar que se selecciona una construccion
-  2- comprobar que donde se quiere mover la construccion se puede construir
-  3- mover construccion --> modificar la array de apoyo (this.tablero)
-  4- repinto el mapa
-  */
+juego.trasladar = function (posicion, nuevaPosicion) {
+  if (this.comprobarSiEdificio(posicion)) {
+    if (this.comprobarSiConstruible(nuevaPosicion)) {
+      let tipoSeleccionado = this.tablero[posicion[1]][posicion[0]].tipo;
+      this.borrarEdificio(posicion);
+      let sonidoDemoler = new sound("../resources/sound/demolish.wav");
+      sonidoDemoler.play();
+
+      this.actualizarTablero(
+        tipoSeleccionado,
+        nuevaPosicion[1],
+        nuevaPosicion[0]
+      );
+
+      // Repinto mapa:
+      borrarTablero();
+      dibujarTablero();
+      this.dibujarConstrucciones();
+
+      let sonidoConstruccion = new sound("../resources/sound/build.wav");
+      sonidoConstruccion.play();
+    } else {
+      let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
+      sonidoProhibido.play();
+    }
+  } else {
+    console.log("No hay edificio para demoler.");
+  }
+
+  document.getElementById("tablero").style.cursor = "pointer";
+
+  this.tipoSeleccionadoTrasladar = false;
+  posOrigenTraslado = null;
+
 };
 
 /**

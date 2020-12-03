@@ -331,6 +331,14 @@ Entre las páginas consultadas para resolver este problema, las más útiles han
 #### Construcción de edificios.
 La construcción, el traslado y la demolición de edificios comparten buena parte de su operativa. Las tres siguen el mismo procedimiento genérico: se pulsa el botón para seleccionar qué se va a hacer (por ejemplo, construir una chabola), se activa una variable del objeto *juego* asociada a este concepto, se pulsa sobre el canvas en el punto en que se desea operar, se selecciona la función correcta en base a la variable modificada anteriormente y se le pasan las coordenadas, se realizan las operaciones sobre el tablero, y se manejan los cambios.
 
+* En el desarrollo de la funcionalidad para trasladar un edificio, hemos encontrado complicaciones, porqué necesitabamos que se pudieran realizar dos eventos distintos al clicas sobre el tablero, un primer evento que capturase el edificio y la posición inicial, y otro evento que capturase la posición final y ejecutase el traslado.
+
+Se intentó declarando nuevamente el addEventListener sobre el tablero, cada vez que se hacía un nuevo click, pero no se machacan correctamente y el juego se quedaba "bloqueado", tampoco mostraban errores en consola. Se probó aplicando removeEventListener al lanzar el primer click, y volviendolo a resetear en el segundo, pero tampoco funcionaba. Para descartar problemas, se intentó realizar los mismo pero con la propiedad *onclick* sin éxito.
+
+Finalmente, en *stackoverflow* encontramos una posible solución: [https://stackoverflow.com/questions/30754195/javascript-replace-event-listener](https://stackoverflow.com/questions/30754195/javascript-replace-event-listener).
+
+
+
 //TODO completar
 
 #### Eventos de tiempo:
@@ -388,6 +396,8 @@ if (ganancias != 0) {
 
 Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/ y se pueden encontrar en la carpeta *src/sound/* del proyecto.
 
+//TODO comentamos donde se han cargado sonidos ???
+
 #### Juego 'perdido':
 Haciendo pruebas de desarrollo vimos que podía darse (en determinadas condiciones) un caso peculiar: que el jugador se quedase sin dinero. Tras hablarlo con el profesor en hora de clase, consideramos que esto hacía que fuera posible 'perder' el juego. Entendemos así que hay dos condiciones para perder el juego:
 
@@ -404,6 +414,8 @@ Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con e
 * Cuando se hace hover sobre una construcción posible, el cursor pasa a ser de estilo *grab*: es una mano cerrada para agarrar la construcción que se quiere.
 
 * Cuando se ha elegido una construcción y se quiere seleccionar dónde colocarla, el cursor en hover sobre el canvas pasa a tener estilo *grabbing* para mejor señalar la casilla elegida.
+
+* Cuando se selecciona traslado, pero se clica en una celda vacía, el cursor para de *grabbing* a *pointer*, ya que no es posible realizar esa acción.
 
 * Cuando el usuario no puede pulsar un pseudo-botón (por ejemplo, porque no tiene dinero para construir un tipo de edificio) el cursor desaparece al hacer hover sobre ese botón.
 

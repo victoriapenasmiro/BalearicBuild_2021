@@ -23,7 +23,7 @@ window.onload = function () {
   });
 
   document.getElementById("traslado").addEventListener("click", function () {
-    juego.seleccionarTraslado();    //funcion creada pero no desarrollada, TODO
+    juego.seleccionarTraslado();   //funcion creada pero no desarrollada, TODO
   });
 
   document.getElementById("demolicion").addEventListener("click", function () {
