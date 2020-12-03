@@ -1,7 +1,7 @@
 import { GET_TODOS } from "./modules/website_personajes.js";
 
 $(document).ready(() => {
-  /* $("head").load("head.html"); */ //No utilizar, no carga bien
+  /* $("head").load("head.html"); No utilizar, no carga bien */
   $("footer").load("footer.html");
   $("header").load("header.html", start);
 });

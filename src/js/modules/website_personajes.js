@@ -100,8 +100,8 @@ function mostrarPersonajesInicio() {
 
 /**
  * Función que crea los div de personajes
- * @param {*} gridPersonajes nodo donde se añade un nuevo elemento
- * @param {*} avatar posición del personaje dentro del json
+ * @param {Object} gridPersonajes nodo donde se añade un nuevo elemento
+ * @param {int} avatar posición del personaje dentro del json
  */
 function pintarPersonajeGrid(avatar, gridPersonajes) {
   let personaje = new Object();
@@ -185,6 +185,7 @@ function manejarBordes(id) {
   }
   document.getElementById(id).style.border = "4px solid rgb(142, 35, 27)";
   document.getElementById(id).style.height = "92%";
+  document.getElementById(id).style.width = "100px";
 }
 
 /***************************** DEPRECATED *****************************/

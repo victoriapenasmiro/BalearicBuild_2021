@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BalearicBuilding - JUEGO</title>
-
-    <!-- FontAwesome: -->
-    <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
-
     <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="css/styles_juego.css" />
+
+    <!-- FontAwesome-->
+    <!-- prettier-ignore -->
+    <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous" ></script>
 
     <!-- Scripts -->
     <script src="js/main.js" type="module"></script>
@@ -20,10 +20,15 @@
     <main>
       <!-- Barra superior: -->
       <nav>
-        <div>$$ <span id="juegoDinero"></span></div>
         <div>
-          <!-- <img src="images/pj.png" alt="personaje" /> -->
-          <span id="juegoNickname"></span>, <span id="juegoBadge"></span>
+          <span>$$ </span><span id="juegoDinero"></span>
+          <p id="juegoBadge"></p>
+        </div>
+        <div>
+          <h1>Balearic Build</h1>
+        </div>
+        <div>
+          <h2 id="juegoNickname"></h2>
         </div>
       </nav>
 
@@ -33,36 +38,46 @@
         <canvas id="tablero"></canvas>
       </div>
 
+      <!-- construcciones: -->
+      <div id="construcciones">
+        <img src="images/logosimple.png" alt="Logo BB" height="80" />
+        <div class="botonEdificio" id="xibiu">
+          <img src="images/edif_xibiu.png" alt="xibiu" />
+          <p>Xibiu</p>
+        </div>
+        <div class="botonEdificio" id="casa">
+          <img src="images/edif_casa.png" alt="casa" />
+          <p>Casa</p>
+        </div>
+        <div class="botonEdificio" id="xalet">
+          <img src="images/edif_xalet.png" alt="xalet" />
+          <p>Xalet</p>
+        </div>
+        <div class="botonEdificio" id="hotel">
+          <img src="images/edif_hotel.png" alt="hotel" />
+          <p>Hotel</p>
+        </div>
+      </div>
+
       <!-- Barras inferiores: -->
       <div>
-        <div id="juegoInferiorIzq">
-          <span title="subornar!" id="soborno" class="far fa-money-bill-alt"></span>
+        <div id="juegoInferior">
+          <span
+            title="subornar!"
+            id="soborno"
+            class="far fa-money-bill-alt"
+          ></span>
           <span title="moure!" id="traslado" class="fas fa-arrows-alt"></span>
           <span title="demolir!" id="demolicion" class="fas fa-trash"></span>
-        </div>
-        <div id="juegoInferiorCentro">
-          <div class="botonEdificio" id="xibiu">
-            <img src="images/edif_xibiu.png" alt="xibiu" />
-            <p>Xibiu</p>
-          </div>
-          <div class="botonEdificio" id="casa">
-            <img src="images/edif_casa.png" alt="casa" />
-            <p>Casa</p>
-          </div>
-          <div class="botonEdificio" id="xalet">
-            <img src="images/edif_xalet.png" alt="xalet" />
-            <p>Xalet</p>
-          </div>
-          <div class="botonEdificio" id="hotel">
-            <img src="images/edif_hotel.png" alt="hotel" />
-            <p>Hotel</p>
-          </div>
-        </div>
-        <div id="juegoInferiorDcha">
-          <span title="cancelar operació!" id="cancelar" class="fas fa-ban"></span>
+          <span
+            title="cancelar operació!"
+            id="cancelar"
+            class="fas fa-ban"
+          ></span>
           <span title="sortir!" id="salir" class="fas fa-power-off"></span>
         </div>
       </div>
     </main>
+    <footer></footer>
   </body>
 </html>

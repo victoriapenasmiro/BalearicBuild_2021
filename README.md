@@ -200,6 +200,21 @@ Se ha implementado una transición en el hover de las imagenes en formato thumbn
 >  opacity: 0.5;
 >}
 
+#### Transición iconos juego:
+Se ha implementado una transición en la botonera central bajo el canvas del juego. En el hover, las imagenes se hacen más grandes y cambiar su color de formar linear en 0.3 segundos. El código dónde se ha implementado es:
+
+>.fas,
+>.far {
+> ...
+>  transition: 0.3s linear;
+>}
+
+>.fas:hover,
+>.far:hover {
+>  color: var(--main-dark)!important;
+>  font-size: 30px;
+>}
+
 ## Modificaciones de sketch a wireframe y a prototipo:
 1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.
 

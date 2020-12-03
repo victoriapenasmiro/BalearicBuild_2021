@@ -55,8 +55,8 @@ export function parametrosJuego() {
       mapa = valores[1];
     } else if (valores[0].includes("dificultad")) {
       dificultad = valores[1];
-    } else if (valores[0].includes("personaje")){
-      personaje = decodeURIComponent(valores[1]);//descodifico la URL de la imagen
+    } else if (valores[0].includes("personaje")) {
+      personaje = decodeURIComponent(valores[1]); //descodifico la URL de la imagen
     }
   });
 
@@ -89,7 +89,9 @@ juego.iniciar = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
-  let contenedor = document.getElementsByTagName("nav")[0].getElementsByTagName("div")[1];
+  let contenedor = document
+    .getElementsByTagName("nav")[0]
+    .getElementsByTagName("div")[2];
   let avatar = document.createElement("img");
   avatar.src = juego.personaje;
   contenedor.appendChild(avatar);
@@ -451,19 +453,19 @@ juego.eventoSorpresa = function () {
     case "crisi":
       if (this.construcciones.includes("casa")) {
         this.eventoCrisis();
-        this.mostrarImgEvento("/images/event_crisi.png");
+        this.mostrarImgEvento("images/event_crisi.png");
       }
       break;
     case "promoció":
       if (this.construcciones.includes("xibiu")) {
         this.eventoPromocion();
-        this.mostrarImgEvento("/images/event_promocio.png");
+        this.mostrarImgEvento("images/event_promocio.png");
       }
       break;
     case "infracció":
       if (this.construcciones.includes("xibiu")) {
         this.dinero -= cantidadSorpresa;
-        this.mostrarImgEvento("/images/event_infraccio.png");
+        this.mostrarImgEvento("images/event_infraccio.png");
       }
       break;
     case "premi":
@@ -473,7 +475,7 @@ juego.eventoSorpresa = function () {
       ) {
         //si no está vacío y no tiene chabolas
         this.dinero += cantidadSorpresa;
-        this.mostrarImgEvento("/images/event_premi.png");
+        this.mostrarImgEvento("images/event_premi.png");
       }
       break;
   }
@@ -482,6 +484,23 @@ juego.eventoSorpresa = function () {
   document.getElementById("juegoBadge").innerHTML = juego.badges;
   mostrarEventosDinero(evento.toUpperCase() + "!!!");
   this.manejarInactivos();
+};
+
+/**
+ * Función para mostrar la imagen del evento sorpresa en el centro del tablero
+ * @param {String} imagen ruta de la imagen
+ */
+juego.mostrarImgEvento = function (imagen) {
+  let main = document.getElementsByTagName("main")[0];
+  let img = document.createElement("img");
+  img.id = "sorpresa";
+  img.src = imagen;
+  img.alt = "crisi";
+  main.insertBefore(img, main.firstChild);
+  setTimeout(
+    () => (img.remove()),
+    3000
+  );
 };
 
 /**

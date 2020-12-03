@@ -1,4 +1,4 @@
-import { juego,parametrosJuego } from "./modules/game_juego.js";
+import { juego } from "./modules/game_juego.js";
 import { dibujarTablero } from "./modules/game_canvas.js";
 
 /*TODO revisar BUG: había contruidos dos xibius hace unos minutos, me he olvidado de la pantalla,
@@ -7,7 +7,9 @@ y ahora entro y veo que han desaparecido, pero se siguen sumando rentas*/
 /**
  * Inicio del juego.
  */
+
 window.onload = function () {
+  
   //TODO: coger lo que recibo para parámetros y meterlo por constructor
   dibujarTablero();
   juego.iniciar();
