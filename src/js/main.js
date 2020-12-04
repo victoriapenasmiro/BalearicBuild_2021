@@ -23,7 +23,7 @@ window.onload = function () {
   });
 
   document.getElementById("traslado").addEventListener("click", function () {
-    juego.seleccionarTraslado();   //funcion creada pero no desarrollada, TODO
+    juego.seleccionarTraslado();
   });
 
   document.getElementById("demolicion").addEventListener("click", function () {
@@ -35,7 +35,7 @@ window.onload = function () {
   });
 
   document.getElementById("salir").addEventListener("click", function () {
-    //TODO añadir
+    juego.salir();
   });
 
   document.getElementById("xibiu").addEventListener("click", function () {

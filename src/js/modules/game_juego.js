@@ -24,8 +24,6 @@ import {
   dineroDificil,
 } from "./game_configuracion.js";
 
-//TODO: añadir link a la pagina principal en boton de salir (mas q evento)
-
 export var juego = parametrosJuego();
 
 /**
@@ -116,6 +114,7 @@ juego.sobornar = function () {
     document.getElementById("soborno").style.color = "rgb(142, 35, 27)";
     this.comprobarBadges();
     this.manejarInactivos();
+    this.animarSoborno();
   } else {
     mostrarEventosDinero("suborn sense $$!");
   }
@@ -190,6 +189,7 @@ juego.actualizar = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
   this.manejarInactivos();
+  this.animarSoborno();
 };
 
 /**
@@ -474,6 +474,37 @@ juego.manejarSorpresa = function () {
 };
 
 /**
+ * Si el usuario elige salir, le lanza a la función gameOver con el mensaje correspondiente
+ */
+juego.salir = function () {
+  let.mensaje = "por decisión propia";
+  this.mostrarGameOver(mensaje);
+};
+
+/**
+ * Comprueba si se cumplen las condiciones de perder el juego y llama a la función de información.
+ */
+juego.comprobarGameOver = function () {
+  let dinero = document.getElementById("juegoDinero");
+  let mensaje = "";
+  if (dinero < juego) {
+    mensaje = "por bancarrota";
+    this.mostrarGameOver(mensaje);
+  } else if (dinero < costeXibiu && this.obtenerListaEdificios().length == 0) {
+    mensaje = "por falta de recursos";
+    this.mostrarGameOver(mensaje);
+  }
+};
+
+/**
+ * Informa al usuario por pantalla cuando hay un game over
+ */
+juego.mostrarGameOver = function () {
+  borrarTablero();
+  //TODO COMPLETAR
+};
+
+/**
  * Controla los eventos aleatorios: si se llama,
  * elige una de las cuatro opciones y la desarrolla.
  */
@@ -490,7 +521,6 @@ juego.eventoSorpresa = function () {
         this.mostrarImgEvento("images/event_crisi.png");
         sonidoEventoNegativo.play();
         this.eventoCrisis();
-        
       }
       break;
     case "promoció":
@@ -519,6 +549,7 @@ juego.eventoSorpresa = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   this.comprobarBadges();
   this.manejarInactivos();
+  this.animarSoborno();
 };
 
 /**
@@ -742,6 +773,18 @@ juego.manejarInactivos = function () {
     document.getElementById("hotel").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("hotel").style.color = "black";
     document.getElementById("hotel").style.cursor = "grab";
+  }
+};
+
+/**
+ * Controla el botón de sobornar: si es posible sobornar le asigna una clase con brillo concreto.
+ */
+juego.animarSoborno = function () {
+  let botonSoborno = document.getElementById("soborno");
+  if (!this.soborno) {
+    botonSoborno.classList.add("iluminado");
+  } else {
+    botonSoborno.classList.remove("iluminado");
   }
 };
 

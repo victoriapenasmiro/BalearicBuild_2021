@@ -204,3 +204,7 @@ p#juegoBadge {
   margin-right: auto;
   top: 25%;
 }
+
+#iluminado {
+  box-shadow: 0 0 60px 30px var(--error);
+}
