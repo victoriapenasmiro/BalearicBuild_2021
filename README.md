@@ -338,15 +338,13 @@ Aparte hemos visto necesario desarrollar una función llamada borrarTablero() qu
 #### Construcción de edificios.
 La construcción, el traslado y la demolición de edificios comparten buena parte de su operativa. Las tres siguen el mismo procedimiento genérico: se pulsa el botón para seleccionar qué se va a hacer (por ejemplo, construir una chabola), se activa una variable del objeto *juego* asociada a este concepto, se pulsa sobre el canvas en el punto en que se desea operar, se selecciona la función correcta en base a la variable modificada anteriormente y se le pasan las coordenadas, se realizan las operaciones sobre el tablero, y se manejan los cambios.
 
-* En el desarrollo de la funcionalidad para trasladar un edificio, hemos encontrado complicaciones, porqué necesitabamos que se pudieran realizar dos eventos distintos al clicas sobre el tablero, un primer evento que capturase el edificio y la posición inicial, y otro evento que capturase la posición final y ejecutase el traslado.
+En el desarrollo de la funcionalidad para trasladar un edificio hemos encontrado complicaciones, por que necesitábamos que se pudieran realizar dos eventos distintos al clicar sobre el tablero, un primer evento que capturase el edificio y la posición inicial, y otro evento que capturase la posición final y ejecutase el traslado.
 
-Se intentó declarando nuevamente el addEventListener sobre el tablero, cada vez que se hacía un nuevo click, pero no se machacan correctamente y el juego se quedaba "bloqueado", tampoco mostraban errores en consola. Se probó aplicando removeEventListener al lanzar el primer click, y volviendolo a resetear en el segundo, pero tampoco funcionaba. Para descartar problemas, se intentó realizar los mismo pero con la propiedad *onclick* sin éxito.
+Se intentó declarando nuevamente el addEventListener sobre el tablero, cada vez que se hacía un nuevo click, pero no se machacan correctamente y el juego se quedaba "bloqueado", tampoco mostraban errores en consola. Se probó aplicando removeEventListener al lanzar el primer click, y volviendolo a resetear en el segundo, pero tampoco funcionaba. Para descartar problemas, se intentó realizar lo mismo pero con la propiedad *onclick* sin éxito.
 
 Finalmente, en *stackoverflow* encontramos una posible solución: [https://stackoverflow.com/questions/30754195/javascript-replace-event-listener](https://stackoverflow.com/questions/30754195/javascript-replace-event-listener).
 
-
-
-//TODO completar
+El desarrollo de la construcción y de la demolición, por contraste, fueron bastante directos.
 
 #### Eventos de tiempo:
 Existen dos tipos de eventos de tiempo: los de actualización de datos y pantalla y los de eventos sorpresa. Ambos tipos tienen sus tiempos guardados en el archivo *game_configuracion.js*, y ambos se llaman desde la función de inicio del juego de la siguiente manera:
@@ -403,7 +401,11 @@ if (ganancias != 0) {
 
 Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/ y se pueden encontrar en la carpeta *src/sound/* del proyecto.
 
-//TODO comentamos donde se han cargado sonidos ???
+Se han cargado sonidos en varios momentos específicos del juego, entre otros:
+* Sonido de una caja registradora cerrándose cuando se contabilizan las rentas.
+* Aplausos cuando se produce un evento positivo, como una promoción o un premio.
+* Silbato de árbitro cuando se produce un evento negativo, como una infracción o una crisis.
+* Sonido de 'error' típico de máquina cuando se intenta construir un edificio donde no se puede.
 
 #### Juego 'perdido':
 Haciendo pruebas de desarrollo vimos que podía darse (en determinadas condiciones) un caso peculiar: que el jugador se quedase sin dinero. Tras hablarlo con el profesor en hora de clase, consideramos que esto hacía que fuera posible 'perder' el juego. Entendemos así que hay dos condiciones para perder el juego:
