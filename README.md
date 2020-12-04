@@ -317,7 +317,7 @@ El juego comienza al cargarse la página de juego. En el archivo main.js El Jueg
 Como detalle de interés, hemos jugado con el cambio de colores de diferentes elementos en función de los eventos correspondientes. Para utilizar los colores específicos que queríamos incluir nos hemos ayudado de explicaciones como la que hay en https://stackoverflow.com/questions/13712697/set-background-color-in-hex
 
 #### Canvas:
-Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente.
+Hemos visto adecuado separar el desarrollo del canvas y sus funciones relacionadas principales en un módulo independiente (en el archivo game_canvas.js).
 
 La generación del grid sobre el canvas nos ha resultado muy problemática por el tratamiento que hace el tag *canvas* de los estilos *width* y *height*; finalmente nos ha obligado a generar el canvas en sí dentro de un div específico para el tablero de juego, a fin de poder trabajar como procede con las coordenadas.
 
@@ -327,7 +327,13 @@ Entre las páginas consultadas para resolver este problema, las más útiles han
 * https://stackoverflow.com/questions/7545863/canvas-distorts-drawing-how-do-i-get-the-scale-factor-between-the-set-size-and
 * https://stackoverflow.com/questions/59939839/difference-between-coordinates-in-pixels-and-coordinates-in-canvas-html
 
-//TODO completar
+La función dibujarTablero(), de creación de canvas, se complementa con la función generarArrayTablero(). El objetivo de esta última es representar el canvas en una matriz bidimensional en que cada posición es un objeto que recoge todas las propiedades que necesitaremos para repitar esa casilla concreta cuando proceda. Estos atributos son:
+* idEdificio: refleja el concepto 'serial' para cada uno de los edificios que se irán construyendo; esto permite tener un identificador único para cada uno, lo que nos facilitará traslados y demoliciones.
+* tipo: originalmente *null*, muestra, cuando se construye un edificio, de qué tipo es. Facilita saber si la casilla está ocupada por algo.
+* origenTipo: true muestra la casilla superior izquierda de una construcción (es decir, su origen); false todos los demás casos.
+* terreno: recoge el tipo de terreno del mapa, a fin de poder hacer las comprobaciones necesarias (por ejemplo, si es mar no se puede construir). El valor básico, *null*, se emplea para el terreno básico, en que se puede construir sin ningún problema.
+
+Aparte hemos visto necesario desarrollar una función llamada borrarTablero() que limpia completamente lo que hay pintado sobre el canvas y lo convierte en un contenedor vacío. Esto nos permite re-dibujar el tablero y todas las construcciones del mismo de manera limpia cada vez que lo necesitemos.
 
 #### Construcción de edificios.
 La construcción, el traslado y la demolición de edificios comparten buena parte de su operativa. Las tres siguen el mismo procedimiento genérico: se pulsa el botón para seleccionar qué se va a hacer (por ejemplo, construir una chabola), se activa una variable del objeto *juego* asociada a este concepto, se pulsa sobre el canvas en el punto en que se desea operar, se selecciona la función correcta en base a la variable modificada anteriormente y se le pasan las coordenadas, se realizan las operaciones sobre el tablero, y se manejan los cambios.
