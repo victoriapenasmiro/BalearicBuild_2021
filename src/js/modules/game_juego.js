@@ -270,49 +270,6 @@ juego.seleccionarEvento = function () {
   }
 };
 
-/*************** TRASLADO ***************/
-//solo necesaria para guardar la posición de origen en los traslados
-var posOrigenTraslado = null; //TODO: Vicky, y si conviertes estas dos cosas en atributos de juego? es mejor práctica q var global
-
-//variable que se utiliza para ir modificando el evento para el traslado
-var cambioEvento = seleccionarCasa;
-
-/**
- * Esta función se encarga de activar correlativamente los dos eventos
- * que necesita el traslado, primer click coge posición de origen
- * segundo click coge posición de destino y traslada
- */
-function accionTraslado() {
-  cambioEvento();
-}
-
-/**
- * Función que obtiene la posición de destino de una casa a trasladar
- * y resetea el valor del evento del tablero al inicial
- */
-function moverADestino() {
-  cambioEvento = seleccionarCasa; //cambio evento, espera la posicion de origen
-  let nuevaPosicion = tomarPosicionClick();
-  juego.trasladar(posOrigenTraslado, nuevaPosicion);
-}
-
-/**
- * Función que cambia el evento en el tablero, esperando un
- * segundo click para obtener la posicion de destino
- */
-function seleccionarCasa() {
-  let origen = tomarPosicionClick();
-  if (juego.comprobarSiEdificio(origen)) {
-    //controlo que en el primer click haya una casa
-    cambioEvento = moverADestino;
-  } else {
-    let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
-    sonidoProhibido.play();
-    document.getElementById("tablero").style.cursor = "pointer";
-  }
-}
-/*************** END TRASLADO ***************/
-
 /**
  * Toma un edificio y lo construye, es decir, lo añade al tablero y a la matriz de juego.
  * @param {String} tipo edificio que se va a construir.
@@ -469,6 +426,47 @@ juego.dibujarConstrucciones = function () {
   }
 };
 
+//Traslado: solo necesaria para guardar la posición de origen en los traslados
+var posOrigenTraslado = null; //TODO: Vicky, y si conviertes estas dos cosas en atributos de juego? es mejor práctica q var global
+
+//variable que se utiliza para ir modificando el evento para el traslado
+var cambioEvento = seleccionarCasa;
+
+/**
+ * Esta función se encarga de activar correlativamente los dos eventos
+ * que necesita el traslado, primer click coge posición de origen
+ * segundo click coge posición de destino y traslada
+ */
+function accionTraslado() {
+  cambioEvento();
+}
+
+/**
+ * Función que obtiene la posición de destino de una casa a trasladar
+ * y resetea el valor del evento del tablero al inicial
+ */
+function moverADestino() {
+  cambioEvento = seleccionarCasa; //cambio evento, espera la posicion de origen
+  let nuevaPosicion = tomarPosicionClick();
+  juego.trasladar(posOrigenTraslado, nuevaPosicion);
+}
+
+/**
+ * Función que cambia el evento en el tablero, esperando un
+ * segundo click para obtener la posicion de destino
+ */
+function seleccionarCasa() {
+  let origen = tomarPosicionClick();
+  if (juego.comprobarSiEdificio(origen)) {
+    //controlo que en el primer click haya una casa
+    cambioEvento = moverADestino;
+  } else {
+    let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
+    sonidoProhibido.play();
+    document.getElementById("tablero").style.cursor = "pointer";
+  }
+}
+
 /**
  * Determina si se va a producir un evento sorpresa o no.
  * La posibilidad de que se produzca es del 50%.
@@ -492,7 +490,7 @@ juego.salir = function () {
  * Comprueba si se cumplen las condiciones de perder el juego y llama a la función de información.
  */
 juego.comprobarGameOver = function () {
-  let dinero = document.getElementById("juegoDinero");
+  let dinero = document.getElementById("juegoDinero").innerHTML;
   let mensaje = "";
   if (dinero < 0) {
     mensaje = "por bancarrota";
@@ -659,7 +657,7 @@ juego.trasladar = function (posicion, nuevaPosicion) {
       sonidoProhibido.play();
     }
   } else {
-    console.log("No hay edificio para demoler.");
+    console.log("No hay edificio para trasladar.");
   }
 
   document.getElementById("tablero").style.cursor = "pointer";
@@ -709,13 +707,12 @@ juego.demoler = function (posicion) {
  * @param {*} posicion
  */
 juego.borrarEdificio = function (posicion) {
-  let tipoBorrado = this.tablero[posicion[1]][posicion[0]].tipo;
   let idBorrado = this.tablero[posicion[1]][posicion[0]].idEdificio;
   for (let i = 0; i < filasJuego; i++) {
     for (let j = 0; j < columnasJuego; j++) {
       if (this.tablero[i][j].idEdificio == idBorrado) {
         this.tablero[i][j].idEdificio = 0;
-        this.tablero[i][j].tipo = "null";
+        this.tablero[i][j].tipo = null;
         this.tablero[i][j].origenTipo = false;
       }
     }
