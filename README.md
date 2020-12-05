@@ -389,6 +389,8 @@ function ocultarEventosDinero(tiempo) {
   );
 }
 
+Para facilitar su cancelación cuando se da el caso de GameOver, estas funciones se han incluido dentro de atributos del objeto Juego; esto nos permite hacer, si procede, un *clear*.
+
 #### Sonidos:
 Para incluir sonidos al realizar determinadas acciones en el juego (por ejemplo, que suene una caja registradora al cobrar alquileres o que un martillo golpee varias veces una superficie al construir un edificio) hemos investigado varias opciones, hasta finalmente decidirnos por la solución encontrada en [el apartado de sonidos de juegos de w3s](https://www.w3schools.com/graphics/game_sound.asp). Se basa en desarrollar una función (en nuestro caso llamada sound(src)) para llevar a cabo las diferentes acciones de un posible sonido: que comience, que se pare...
 
@@ -413,7 +415,9 @@ Haciendo pruebas de desarrollo vimos que podía darse (en determinadas condicion
 1. Que el jugador quede en números rojos (es decir, su dinero baje de 0).
 2. Que el jugador pierda todas sus construcciones y tenga menos dinero que el necesario para construir una chabola (es decir, que no pueda hacer nada).
 
-//TODO programar
+Además, el juego termina si el usuario así lo desea y aprieta el botón de salir.
+
+En todos estos casos, el tablero de juego se borra y aparece el mensaje de *Game over* con el motivo correspondiente.
 
 #### Tratamiento del cursor:
 Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con el aspecto del cursor, para fomentar que las distinas opciones sean más instintivas para el usuario. Así, hemos tenido en cuenta los siguientes puntos:

@@ -65,7 +65,7 @@ function Juego(nickname, mapa, dificultad, personaje) {
   }
   this.personaje = personaje;
   this.badge = "";
-  this.tablero = generarArrayTablero();
+  this.tablero = generarArrayTablero(this.mapa);
   this.soborno = false;
   this.xalet = false;
   this.hotel = false;
@@ -79,7 +79,9 @@ function Juego(nickname, mapa, dificultad, personaje) {
  * Efectúa las operaciones iniciales del juego: sitúa propiedades en pantalla y define el canvas.
  */
 juego.iniciar = function () {
+  dibujarTablero(this.mapa);
   this.comprobarBadges();
+
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
@@ -87,12 +89,13 @@ juego.iniciar = function () {
   let avatar = document.createElement("img");
   avatar.src = juego.personaje;
   contenedor.appendChild(avatar);
+
   // Intervalo de configuración de la renta:
-  setInterval(() => {
+  this.intervaloBase = setInterval(() => {
     this.actualizar();
   }, tiempoRenta);
   // Intervalo de configuración de los eventos aleatorios:
-  setInterval(() => {
+  this.intervaloSorpresa = setInterval(() => {
     this.manejarSorpresa();
   }, tiempoSorpresa);
 
@@ -190,7 +193,8 @@ juego.actualizar = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
   this.manejarInactivos();
-  this.animarSoborno();
+  this.comprobarGameOver();
+  this.animarSoborno();   //TODO NO ME FUNCIONA
 };
 
 /**
@@ -398,6 +402,8 @@ juego.comprobarSiConstruible = function (posicion) {
           return false;
         } else if (this.tablero[i][j].tipo != null) {
           return false;
+        } else if (this.tablero[i][j].terreno == "agua") {
+          return false;
         }
       }
     }
@@ -488,7 +494,7 @@ juego.salir = function () {
 juego.comprobarGameOver = function () {
   let dinero = document.getElementById("juegoDinero");
   let mensaje = "";
-  if (dinero < juego) {
+  if (dinero < 0) {
     mensaje = "por bancarrota";
     this.mostrarGameOver(mensaje);
   } else if (dinero < costeXibiu && this.obtenerListaEdificios().length == 0) {
@@ -498,13 +504,16 @@ juego.comprobarGameOver = function () {
 };
 
 /**
- * Informa al usuario por pantalla cuando hay un game over
+ * Informa al usuario por pantalla cuando hay un game over;
+ * detiene los timers para que acabe el juego.
+ * @param {String} mensaje 
  */
 juego.mostrarGameOver = function (mensaje) {
   console.log("Game Over");
   borrarTablero();
+  clearInterval(this.intervaloBase);
+  clearInterval(this.intervaloSorpresa);
   pintarGameOver(mensaje);
-  //TODO COMPLETAR quitando los timers
 };
 
 /**
@@ -552,6 +561,7 @@ juego.eventoSorpresa = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   this.comprobarBadges();
   this.manejarInactivos();
+  this.comprobarGameOver();
   this.animarSoborno();
 };
 
@@ -586,7 +596,7 @@ juego.eventoCrisis = function () {
 
   // Repinto el tablero
   borrarTablero();
-  dibujarTablero();
+  dibujarTablero(this.mapa);
   this.dibujarConstrucciones();
 };
 
@@ -605,7 +615,7 @@ juego.eventoPromocion = function () {
 
   // Repinto el tablero
   borrarTablero();
-  dibujarTablero();
+  dibujarTablero(this.mapa);
   this.dibujarConstrucciones();
 };
 
@@ -639,7 +649,7 @@ juego.trasladar = function (posicion, nuevaPosicion) {
 
       // Repinto mapa:
       borrarTablero();
-      dibujarTablero();
+      dibujarTablero(this.mapa);
       this.dibujarConstrucciones();
 
       let sonidoConstruccion = new sound("../resources/sound/build.wav");
@@ -680,13 +690,14 @@ juego.demoler = function (posicion) {
 
     // Repinto mapa:
     borrarTablero();
-    dibujarTablero();
+    dibujarTablero(this.mapa);
     this.dibujarConstrucciones();
     document.getElementById("tablero").style.cursor = "pointer";
 
     // Manejo eventos
     this.comprobarBadges();
     this.manejarInactivos();
+    this.comprobarGameOver();
   } else {
     console.log("No hay edificio para demoler."); //este mensaje es para pruebas
   }
