@@ -4,6 +4,7 @@ import {
   generarArrayTablero,
   pintarConstruccion,
   tomarPosicionClick,
+  pintarGameOver
 } from "./game_canvas.js";
 import {
   tiempoRenta,
@@ -477,7 +478,7 @@ juego.manejarSorpresa = function () {
  * Si el usuario elige salir, le lanza a la función gameOver con el mensaje correspondiente
  */
 juego.salir = function () {
-  let.mensaje = "por decisión propia";
+  let mensaje = "por decisión propia";
   this.mostrarGameOver(mensaje);
 };
 
@@ -499,9 +500,11 @@ juego.comprobarGameOver = function () {
 /**
  * Informa al usuario por pantalla cuando hay un game over
  */
-juego.mostrarGameOver = function () {
+juego.mostrarGameOver = function (mensaje) {
+  console.log("Game Over");
   borrarTablero();
-  //TODO COMPLETAR
+  pintarGameOver(mensaje);
+  //TODO COMPLETAR quitando los timers
 };
 
 /**
