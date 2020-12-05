@@ -4,6 +4,7 @@ import {
   generarArrayTablero,
   pintarConstruccion,
   tomarPosicionClick,
+  pintarGameOver
 } from "./game_canvas.js";
 import {
   tiempoRenta,
@@ -23,8 +24,6 @@ import {
   dineroFacil,
   dineroDificil,
 } from "./game_configuracion.js";
-
-//TODO: añadir link a la pagina principal en boton de salir (mas q evento)
 
 export var juego = parametrosJuego();
 
@@ -66,7 +65,7 @@ function Juego(nickname, mapa, dificultad, personaje) {
   }
   this.personaje = personaje;
   this.badge = "";
-  this.tablero = generarArrayTablero();
+  this.tablero = generarArrayTablero(this.mapa);
   this.soborno = false;
   this.xalet = false;
   this.hotel = false;
@@ -80,7 +79,9 @@ function Juego(nickname, mapa, dificultad, personaje) {
  * Efectúa las operaciones iniciales del juego: sitúa propiedades en pantalla y define el canvas.
  */
 juego.iniciar = function () {
+  dibujarTablero(this.mapa);
   this.comprobarBadges();
+
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoNickname").innerHTML = juego.nickname;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
@@ -88,12 +89,13 @@ juego.iniciar = function () {
   let avatar = document.createElement("img");
   avatar.src = juego.personaje;
   contenedor.appendChild(avatar);
+
   // Intervalo de configuración de la renta:
-  setInterval(() => {
+  this.intervaloBase = setInterval(() => {
     this.actualizar();
   }, tiempoRenta);
   // Intervalo de configuración de los eventos aleatorios:
-  setInterval(() => {
+  this.intervaloSorpresa = setInterval(() => {
     this.manejarSorpresa();
   }, tiempoSorpresa);
 
@@ -116,6 +118,7 @@ juego.sobornar = function () {
     document.getElementById("soborno").style.color = "rgb(142, 35, 27)";
     this.comprobarBadges();
     this.manejarInactivos();
+    this.animarSoborno();
   } else {
     mostrarEventosDinero("suborn sense $$!");
   }
@@ -190,6 +193,8 @@ juego.actualizar = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   document.getElementById("juegoBadge").innerHTML = juego.badge;
   this.manejarInactivos();
+  this.comprobarGameOver();
+  this.animarSoborno();   //TODO NO ME FUNCIONA
 };
 
 /**
@@ -397,6 +402,8 @@ juego.comprobarSiConstruible = function (posicion) {
           return false;
         } else if (this.tablero[i][j].tipo != null) {
           return false;
+        } else if (this.tablero[i][j].terreno == "agua") {
+          return false;
         }
       }
     }
@@ -474,6 +481,42 @@ juego.manejarSorpresa = function () {
 };
 
 /**
+ * Si el usuario elige salir, le lanza a la función gameOver con el mensaje correspondiente
+ */
+juego.salir = function () {
+  let mensaje = "por decisión propia";
+  this.mostrarGameOver(mensaje);
+};
+
+/**
+ * Comprueba si se cumplen las condiciones de perder el juego y llama a la función de información.
+ */
+juego.comprobarGameOver = function () {
+  let dinero = document.getElementById("juegoDinero");
+  let mensaje = "";
+  if (dinero < 0) {
+    mensaje = "por bancarrota";
+    this.mostrarGameOver(mensaje);
+  } else if (dinero < costeXibiu && this.obtenerListaEdificios().length == 0) {
+    mensaje = "por falta de recursos";
+    this.mostrarGameOver(mensaje);
+  }
+};
+
+/**
+ * Informa al usuario por pantalla cuando hay un game over;
+ * detiene los timers para que acabe el juego.
+ * @param {String} mensaje 
+ */
+juego.mostrarGameOver = function (mensaje) {
+  console.log("Game Over");
+  borrarTablero();
+  clearInterval(this.intervaloBase);
+  clearInterval(this.intervaloSorpresa);
+  pintarGameOver(mensaje);
+};
+
+/**
  * Controla los eventos aleatorios: si se llama,
  * elige una de las cuatro opciones y la desarrolla.
  */
@@ -490,7 +533,6 @@ juego.eventoSorpresa = function () {
         this.mostrarImgEvento("images/event_crisi.png");
         sonidoEventoNegativo.play();
         this.eventoCrisis();
-        
       }
       break;
     case "promoció":
@@ -519,6 +561,8 @@ juego.eventoSorpresa = function () {
   document.getElementById("juegoDinero").innerHTML = juego.dinero;
   this.comprobarBadges();
   this.manejarInactivos();
+  this.comprobarGameOver();
+  this.animarSoborno();
 };
 
 /**
@@ -552,7 +596,7 @@ juego.eventoCrisis = function () {
 
   // Repinto el tablero
   borrarTablero();
-  dibujarTablero();
+  dibujarTablero(this.mapa);
   this.dibujarConstrucciones();
 };
 
@@ -571,7 +615,7 @@ juego.eventoPromocion = function () {
 
   // Repinto el tablero
   borrarTablero();
-  dibujarTablero();
+  dibujarTablero(this.mapa);
   this.dibujarConstrucciones();
 };
 
@@ -605,7 +649,7 @@ juego.trasladar = function (posicion, nuevaPosicion) {
 
       // Repinto mapa:
       borrarTablero();
-      dibujarTablero();
+      dibujarTablero(this.mapa);
       this.dibujarConstrucciones();
 
       let sonidoConstruccion = new sound("../resources/sound/build.wav");
@@ -646,13 +690,14 @@ juego.demoler = function (posicion) {
 
     // Repinto mapa:
     borrarTablero();
-    dibujarTablero();
+    dibujarTablero(this.mapa);
     this.dibujarConstrucciones();
     document.getElementById("tablero").style.cursor = "pointer";
 
     // Manejo eventos
     this.comprobarBadges();
     this.manejarInactivos();
+    this.comprobarGameOver();
   } else {
     console.log("No hay edificio para demoler."); //este mensaje es para pruebas
   }
@@ -742,6 +787,18 @@ juego.manejarInactivos = function () {
     document.getElementById("hotel").style.backgroundColor = "rgb(142, 35, 27)";
     document.getElementById("hotel").style.color = "black";
     document.getElementById("hotel").style.cursor = "grab";
+  }
+};
+
+/**
+ * Controla el botón de sobornar: si es posible sobornar le asigna una clase con brillo concreto.
+ */
+juego.animarSoborno = function () {
+  let botonSoborno = document.getElementById("soborno");
+  if (!this.soborno) {
+    botonSoborno.classList.add("iluminado");
+  } else {
+    botonSoborno.classList.remove("iluminado");
   }
 };
 
