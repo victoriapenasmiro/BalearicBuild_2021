@@ -359,7 +359,11 @@ juego.comprobarSiConstruible = function (posicion) {
           return false;
         } else if (this.tablero[i][j].tipo != null) {
           return false;
-        } else if (this.tablero[i][j].terreno == "agua") {
+        } else if (this.tablero[i][j].terreno == "mar") {
+          return false;
+        } else if (this.tablero[i][j].terreno == "platja") {
+          return false;
+        } else if (this.tablero[i][j].terreno == "zonaverda") {
           return false;
         }
       }
