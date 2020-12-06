@@ -161,12 +161,11 @@ juego.comprobarBadges = function () {
     // Convierto las zonas verdes a urbanizables:
     for (let i = 0; i < filasJuego; i++) {
       for (let j = 0; j < columnasJuego; j++) {
-        if (this.tablero[i][j].terreno == "zonaverda") {    //TODO comprobar
+        if (this.tablero[i][j].terreno == "zonaverda") { 
           this.tablero[i][j].terreno = "urbanitzable";
         }
       }
     }
-
   } else if (
     this.contarEdificios("casa") >= 2 &&
     this.contarEdificios("xalet") >= 2
