@@ -1,5 +1,5 @@
 import { filasJuego, columnasJuego } from "./game_configuracion.js";
-import { arenal } from "./game_mapas.js";
+import { arenal, puigpunyent, estrenc } from "./game_mapas.js";
 
 // Variable global para poder emplear en todo el proceso:
 var repeticion;
@@ -63,8 +63,86 @@ export function dibujarTablero(mapa) {
     ctx.fillStyle = "rgb(191, 179, 145)";
     ctx.fill();
     ctx.closePath();
-
   }
+
+  /* MAPA PUIGPUNYENT */
+  if (mapa == "puigpunyent") {
+    ctx.beginPath();
+    for (let i = 0; i < puigpunyent.zonaverda.length; i++) {
+      let listaFila = puigpunyent.zonaverda[i][0];
+      let listaColumna = puigpunyent.zonaverda[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          ctx.rect(j * repeticion, listaFila * repeticion, repeticion, repeticion);
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          ctx.rect(listaColumna[j] * repeticion, listaFila * repeticion, repeticion, repeticion);
+        }
+      }
+    }
+    ctx.fillStyle = "rgb(59, 94, 47)";
+    ctx.fill();
+    ctx.closePath();
+  }
+
+    /* MAPA ES TRENC */
+    if (mapa == "estrenc") {
+    
+      ctx.beginPath();
+      for (let i = 0; i < estrenc.mar.length; i++) {
+        let listaFila = estrenc.mar[i][0];
+        let listaColumna = estrenc.mar[i][1];
+        if (listaColumna[0] == "total") {
+          for (let j = 0; j < 30; j++) {
+            ctx.rect(j * repeticion, listaFila * repeticion, repeticion, repeticion);
+          }
+        } else {
+          for (let j = 0; j < listaColumna.length; j++) {
+            ctx.rect(listaColumna[j] * repeticion, listaFila * repeticion, repeticion, repeticion);
+          }
+        }
+      }
+      ctx.fillStyle = "rgb(68, 128, 128)";
+      ctx.fill();
+      ctx.closePath();
+  
+      ctx.beginPath();
+      for (let i = 0; i < estrenc.platja.length; i++) {
+        let listaFila = estrenc.platja[i][0];
+        let listaColumna = estrenc.platja[i][1];
+        if (listaColumna[0] == "total") {
+          for (let j = 0; j < 30; j++) {
+            ctx.rect(j * repeticion, listaFila * repeticion, repeticion, repeticion);
+          }
+        } else {
+          for (let j = 0; j < listaColumna.length; j++) {
+            ctx.rect(listaColumna[j] * repeticion, listaFila * repeticion, repeticion, repeticion);
+          }
+        }
+      }
+      ctx.fillStyle = "rgb(191, 179, 145)";
+      ctx.fill();
+      ctx.closePath();
+ 
+      ctx.beginPath();
+      for (let i = 0; i < estrenc.zonaverda.length; i++) {
+        let listaFila = estrenc.zonaverda[i][0];
+        let listaColumna = estrenc.zonaverda[i][1];
+        if (listaColumna[0] == "total") {
+          for (let j = 0; j < 30; j++) {
+            ctx.rect(j * repeticion, listaFila * repeticion, repeticion, repeticion);
+          }
+        } else {
+          for (let j = 0; j < listaColumna.length; j++) {
+            ctx.rect(listaColumna[j] * repeticion, listaFila * repeticion, repeticion, repeticion);
+          }
+        }
+      }
+      ctx.fillStyle = "rgb(59, 94, 47)";
+      ctx.fill();
+      ctx.closePath();
+    }
 
   // así dibujo los recuadros:
   ctx.strokeStyle = "black";
@@ -140,6 +218,65 @@ export function generarArrayTablero(mapa) {
     }
   }
 
+  /* PUIGPUNYENT */
+  if (mapa == "puigpunyent") {
+    for (let i = 0; i < puigpunyent.zonaverda.length; i++) {
+      let listaFila = puigpunyent.zonaverda[i][0];
+      let listaColumna = puigpunyent.zonaverda[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          arrayTablero[listaFila][j].terreno = "zonaverda";
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          arrayTablero[listaFila][listaColumna[j]].terreno = "zonaverda";
+        }
+      }
+    }
+  }
+
+  /* MAPA ES TRENC */
+  if (mapa == "estrenc") {
+    for (let i = 0; i < estrenc.mar.length; i++) {
+      let listaFila = estrenc.mar[i][0];
+      let listaColumna = estrenc.mar[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          arrayTablero[listaFila][j].terreno = "mar";
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          arrayTablero[listaFila][listaColumna[j]].terreno = "mar";
+        }
+      }
+    }
+    for (let i = 0; i < estrenc.platja.length; i++) {
+      let listaFila = estrenc.platja[i][0];
+      let listaColumna = estrenc.platja[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          arrayTablero[listaFila][j].terreno = "platja";
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          arrayTablero[listaFila][listaColumna[j]].terreno = "platja";
+        }
+      }
+    }
+    for (let i = 0; i < estrenc.zonaverda.length; i++) {
+      let listaFila = estrenc.zonaverda[i][0];
+      let listaColumna = estrenc.zonaverda[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          arrayTablero[listaFila][j].terreno = "zonaverda";
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          arrayTablero[listaFila][listaColumna[j]].terreno = "zonaverda";
+        }
+      }
+    }
+  }
 
   return arrayTablero;
 }

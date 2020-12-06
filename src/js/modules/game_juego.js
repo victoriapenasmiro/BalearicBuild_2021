@@ -161,6 +161,14 @@ juego.cobrarConstruccion = function (tipo) {
 juego.comprobarBadges = function () {
   if (this.contarEdificios("hotel") >= 2) {
     this.badge = "Empresari Ecològic";
+    // Convierto las zonas verdes a urbanizables:
+    for (let i = 0; i < filasJuego; i++) {
+      for (let j = 0; j < columnasJuego; j++) {
+        if (this.tablero[i][j].terreno == "zonaverda") { 
+          this.tablero[i][j].terreno = "urbanitzable";
+        }
+      }
+    }
   } else if (
     this.contarEdificios("casa") >= 2 &&
     this.contarEdificios("xalet") >= 2

@@ -337,6 +337,34 @@ La función dibujarTablero(), de creación de canvas, se complementa con la func
 
 Aparte hemos visto necesario desarrollar una función llamada borrarTablero() que limpia completamente lo que hay pintado sobre el canvas y lo convierte en un contenedor vacío. Esto nos permite re-dibujar el tablero y todas las construcciones del mismo de manera limpia cada vez que lo necesitemos.
 
+#### Mapas:
+Hemos decicido generar cuatro mapas:
+* Palma
+* S'Arenal
+* Puigpunyent
+* Es Trenc
+
+Cada mapa se guarda en un array de 'tipos' de suelo; los hemos separado en el módulo *game_mapas.js* para facilitar el trabajo.
+
+La generación de estos mapas nos permitió llevar un flujo de desarrollo muy cómodo. Comenzamos trabajando con el mapa de Palma, usando de fondo de canvas el color ocre de nuestra paleta original (ya que el gris del enunciado no resultaba apropiado para el aspecto del juego, y el ocre daba imagen de 'tierra construible').
+
+Una vez el flujo de juego era el correcto en el mapa de Palma, desarrollamos el de S'Arenal. Primero incluimos las partes de mar y las programamos; hecho esto, todo lo que hizo falta fue simplemente duplicar el sistema para incluir las partes de playa.
+
+Después pasamos a Puigpunyent, que combina zona urbanizable con zona verde. El desarrollo del aspecto visual del mapa fue análogo al del mapa anterior, pero hizo falta programar la reconversión de terrenos como Empresario Ecológico, cosa que hicimos al cambiar el badge con el fragmento de código:
+
+> if (this.contarEdificios("hotel") >= 2) {
+>    this.badge = "Empresari Ecològic";
+>    for (let i = 0; i < filasJuego; i++) {
+>      for (let j = 0; j < columnasJuego; j++) {
+>        if (this.tablero[i][j].terreno == "zonaverda") {
+>          this.tablero[i][j].terreno = "urbanitzable";
+>        }
+>      }
+>    }
+> }
+
+Con todo lo anterior solucionado, pudimos permitirnos crear el mapa de Es Trenc, que combina perfectamente todos los aspectos del juego.
+
 #### Construcción de edificios.
 La construcción, el traslado y la demolición de edificios comparten buena parte de su operativa. Las tres siguen el mismo procedimiento genérico: se pulsa el botón para seleccionar qué se va a hacer (por ejemplo, construir una chabola), se activa una variable del objeto *juego* asociada a este concepto, se pulsa sobre el canvas en el punto en que se desea operar, se selecciona la función correcta en base a la variable modificada anteriormente y se le pasan las coordenadas, se realizan las operaciones sobre el tablero, y se manejan los cambios.
 
