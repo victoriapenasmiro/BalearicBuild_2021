@@ -1,5 +1,5 @@
 import { filasJuego, columnasJuego } from "./game_configuracion.js";
-import { arenal } from "./game_mapas.js";
+import { arenal, puigpunyent } from "./game_mapas.js";
 
 // Variable global para poder emplear en todo el proceso:
 var repeticion;
@@ -63,7 +63,27 @@ export function dibujarTablero(mapa) {
     ctx.fillStyle = "rgb(191, 179, 145)";
     ctx.fill();
     ctx.closePath();
+  }
 
+  /* MAPA PUIGPUNYENT */
+  if (mapa == "puigpunyent") {
+    ctx.beginPath();
+    for (let i = 0; i < puigpunyent.zonaverda.length; i++) {
+      let listaFila = puigpunyent.zonaverda[i][0];
+      let listaColumna = puigpunyent.zonaverda[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          ctx.rect(j * repeticion, listaFila * repeticion, repeticion, repeticion);
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          ctx.rect(listaColumna[j] * repeticion, listaFila * repeticion, repeticion, repeticion);
+        }
+      }
+    }
+    ctx.fillStyle = "rgb(68, 128, 128)";
+    ctx.fill();
+    ctx.closePath();
   }
 
   // así dibujo los recuadros:
@@ -140,6 +160,21 @@ export function generarArrayTablero(mapa) {
     }
   }
 
+  if (mapa == "puigpunyent") {
+    for (let i = 0; i < puigpunyent.zonaverda.length; i++) {
+      let listaFila = puigpunyent.zonaverda[i][0];
+      let listaColumna = puigpunyent.zonaverda[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          arrayTablero[listaFila][j].terreno = "zonaverda";
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          arrayTablero[listaFila][listaColumna[j]].terreno = "zonaverda";
+        }
+      }
+    }
+  }
 
   return arrayTablero;
 }
