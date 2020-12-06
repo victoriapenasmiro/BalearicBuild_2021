@@ -7,7 +7,6 @@ $(document).ready(() => {
 });
 
 function start() {
-
   /**** SCROLL TO TOP ****/
   var botonTop = document.getElementById("botonTop");
 
@@ -30,11 +29,11 @@ function start() {
     .getElementsByClassName("modal_content")[0]
     .getElementsByTagName("button")[0];
 
-  // TODO podemos añadir la propiedad onclick o si o si debe ser addEventListenet?
-  btn.onclick = function () {
+  //intalo una cookie en el navegador que caduca en 1 dia
+  btn.addEventListener("click", function () {
     modal.style.display = "none";
-    setCookie("avisoCookies", "balearicBuild", 1); //intalo una cookie en el navegador que caduca en 1 dia
-  };
+    setCookie("avisoCookies", "balearicBuild", 1);
+  });
 
   //opción cookies rechazadas
   document
@@ -72,21 +71,20 @@ function start() {
   optionsList.forEach(removeActiveClass);
 
   /***** END RESETEO ESTILOS NAV *****/
- 
+
   // Scripts propios de las diferentes páginas:
   if (window.location.href.indexOf("personajes") > -1) {
     GET_TODOS();
-    
+
     document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[2].classList.add("active");
-
-
+      .getElementById("optionsMenu")
+      .getElementsByTagName("a")[2]
+      .classList.add("active");
   } else if (window.location.href.indexOf("inicio") == -1) {
-
     document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[0].classList.add("active");
+      .getElementById("optionsMenu")
+      .getElementsByTagName("a")[0]
+      .classList.add("active");
 
     // Mostrar/ocultar ranking seleccionado sidebar
     document.getElementsByClassName("fa-minus-square")[0].style.display =
@@ -139,26 +137,31 @@ function start() {
   } else if (window.location.href.indexOf("inicio") > -1) {
     GET_TODOS();
 
+    document.getElementById("startGame").addEventListener("click", function () {
+      if (document.getElementById("personaje").value == "") {
+        alert("Por favor, selecciona un personaje.");
+      } else {
+        document.getElementById("parametros").submit();
+      }
+    });
+
     document
-    .getElementById("optionsMenu")
-    .getElementsByTagName("a")[1].classList.add("active");
+      .getElementById("optionsMenu")
+      .getElementsByTagName("a")[1]
+      .classList.add("active");
 
     //añado estilos propios de esta landing, ya que en el CSS general,
     //no puedo diferenciar en función de la landing en la que está ubicado el usuario
+    document.getElementsByTagName("aside")[0].style.display = "flex";
+    document.getElementsByTagName("aside")[0].style.flexDirection = "column";
+    document.getElementsByTagName("aside")[0].style.alignItems = "flex-end";
     document
-    .getElementsByTagName("aside")[0].style.display = "flex";
+      .getElementsByTagName("aside")[0]
+      .getElementsByTagName("div")[1].style.width = "334px";
     document
-    .getElementsByTagName("aside")[0].style.flexDirection = "column";
-    document
-    .getElementsByTagName("aside")[0].style.alignItems = "flex-end";
-    document
-    .getElementsByTagName("aside")[0]
-    .getElementsByTagName("div")[1].style.width = "334px";
-    document
-    .getElementsByTagName("main")[0]
-    .getElementsByTagName("section")[1]
-    .getElementsByTagName("h3")[0].style.textAlign = "center";
-
+      .getElementsByTagName("main")[0]
+      .getElementsByTagName("section")[1]
+      .getElementsByTagName("h3")[0].style.textAlign = "center";
   }
 
   document
@@ -231,18 +234,21 @@ function activarTransicion() {
 /**** control aceptación aviso de cookies ****/
 //FORMATO cookies
 /* document.cookie =
-        "username=avisoCookies; expires=Thu, 29 Nov 2020 12:00:00 UTC; path=/;"; */
+  "username=avisoCookies; expires=Thu, 29 Nov 2020 12:00:00 UTC; path=/;"; */
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //seteo la fecha en milisengundos, desde el 1 Enero de 1970
-  var expires = "expires=" + d.toUTCString(); //seteo la fecha en formato Sat, 28 Nov 2020 08:13:24 GMT
+  //seteo la fecha en milisengundos, desde el 1 Enero de 1970
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  //seteo la fecha en formato Sat, 28 Nov 2020 08:13:24 GMT
+  var expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 function getCookie(cname) {
   var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie); //recupero todas las cookies instalas, separadas por ;
+  //recupero todas las cookies instalas, separadas por ;
+  var decodedCookie = decodeURIComponent(document.cookie);
   var listadoCookies = decodedCookie.split(";"); //creo una array con las cookies instaladas
   for (var i = 0; i < listadoCookies.length; i++) {
     //busco la cookie

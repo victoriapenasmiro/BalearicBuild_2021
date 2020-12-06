@@ -8,10 +8,11 @@
   background: black;
 }
 
-html, body {
-  margin: 0; 
-  height: 100%; 
-  overflow: hidden
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 @font-face {
@@ -75,7 +76,7 @@ main {
 }
 
 /* main > div:first-child */
-main > nav,  
+main > nav,
 main > div:last-child {
   background-color: black;
   color: var(--surface);
@@ -146,13 +147,19 @@ p#juegoBadge {
 .fas,
 .far {
   font-size: 25px;
-  padding-left: 1.5em;
   transition: 0.3s linear;
+}
+
+.fa-arrows-alt,
+.fa-trash,
+.fa-ban,
+.fa-power-off {
+  padding-left: 1.5em;
 }
 
 .fas:hover,
 .far:hover {
-  color: var(--main-dark)!important;
+  color: var(--main-dark) !important;
   font-size: 30px;
 }
 
@@ -174,7 +181,7 @@ p#juegoBadge {
   width: 5rem;
   padding: 0;
   text-align: center;
-  border: 3px solid var(--error);/* TODO, RENOMBRAR VAR */
+  border: 3px solid var(--error); /* TODO, RENOMBRAR VAR */
   text-transform: uppercase;
   cursor: grab;
   box-shadow: 0.3rem 0.3rem 0.5rem -0.5rem var(--error);
@@ -205,6 +212,7 @@ p#juegoBadge {
   top: 25%;
 }
 
-#iluminado {
-  box-shadow: 0 0 60px 30px var(--error);
+.iluminado {
+  filter: drop-shadow(0px 0px 4px var(--error));
+  text-shadow: 0px 0px 10px var(--error), 0px 0px 10px var(--error);
 }

@@ -73,7 +73,10 @@ function Juego(nickname, mapa, dificultad, personaje) {
   this.tipoSeleccionado = null; //hacen ref a la propiedad indicada
   this.tipoSeleccionadoDemoler = false;
   this.tipoSeleccionadoTrasladar = false;
+  this.posOrigenTraslado = null; //Necesaria para guardar la posición de origen en los traslados
+  this.cambioEvento = seleccionarCasa; // auxiliar para ir modificando el evento en el traslado
 }
+
 
 /**
  * Efectúa las operaciones iniciales del juego: sitúa propiedades en pantalla y define el canvas.
@@ -261,10 +264,10 @@ juego.seleccionarEvento = function () {
   if (this.tipoSeleccionado != null) {
     this.construir(posicion);
   } else if (this.tipoSeleccionadoTrasladar) {
-    if (posOrigenTraslado == null) {
-      posOrigenTraslado = tomarPosicionClick();
+    if (this.posOrigenTraslado == null) {
+      this.posOrigenTraslado = tomarPosicionClick();
     }
-    accionTraslado();
+    this.accionTraslado();
   } else if (this.tipoSeleccionadoDemoler) {
     this.demoler(posicion);
   }
@@ -430,29 +433,23 @@ juego.dibujarConstrucciones = function () {
   }
 };
 
-//Traslado: solo necesaria para guardar la posición de origen en los traslados
-var posOrigenTraslado = null; //TODO: Vicky, y si conviertes estas dos cosas en atributos de juego? es mejor práctica q var global
-
-//variable que se utiliza para ir modificando el evento para el traslado
-var cambioEvento = seleccionarCasa;
-
 /**
  * Esta función se encarga de activar correlativamente los dos eventos
  * que necesita el traslado, primer click coge posición de origen
  * segundo click coge posición de destino y traslada
  */
-function accionTraslado() {
-  cambioEvento();
+juego.accionTraslado = function () {
+  this.cambioEvento();
 }
 
 /**
  * Función que obtiene la posición de destino de una casa a trasladar
  * y resetea el valor del evento del tablero al inicial
  */
-function moverADestino() {
-  cambioEvento = seleccionarCasa; //cambio evento, espera la posicion de origen
+juego.moverADestino = function () {
+  this.cambioEvento = seleccionarCasa; //cambio evento, espera la posicion de origen
   let nuevaPosicion = tomarPosicionClick();
-  juego.trasladar(posOrigenTraslado, nuevaPosicion);
+  this.trasladar(this.posOrigenTraslado, nuevaPosicion);
 }
 
 /**
@@ -463,7 +460,7 @@ function seleccionarCasa() {
   let origen = tomarPosicionClick();
   if (juego.comprobarSiEdificio(origen)) {
     //controlo que en el primer click haya una casa
-    cambioEvento = moverADestino;
+    juego.cambioEvento = juego.moverADestino;
   } else {
     let sonidoProhibido = new sound("../resources/sound/forbidden.wav");
     sonidoProhibido.play();
@@ -637,14 +634,14 @@ juego.seleccionarTraslado = function () {
  */
 juego.trasladar = function (posicion, nuevaPosicion) {
   if (this.comprobarSiEdificio(posicion)) {
+    this.tipoSeleccionado = this.tablero[posicion[1]][posicion[0]].tipo;
     if (this.comprobarSiConstruible(nuevaPosicion)) {
-      let tipoSeleccionado = this.tablero[posicion[1]][posicion[0]].tipo;
       this.borrarEdificio(posicion);
       let sonidoDemoler = new sound("../resources/sound/demolish.wav");
       sonidoDemoler.play();
 
       this.actualizarTablero(
-        tipoSeleccionado,
+        this.tipoSeleccionado,
         nuevaPosicion[1],
         nuevaPosicion[0]
       );
@@ -667,7 +664,8 @@ juego.trasladar = function (posicion, nuevaPosicion) {
   document.getElementById("tablero").style.cursor = "pointer";
 
   this.tipoSeleccionadoTrasladar = false;
-  posOrigenTraslado = null;
+  this.posOrigenTraslado = null;
+  this.tipoSeleccionado = null;
 };
 
 /**

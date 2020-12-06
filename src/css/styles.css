@@ -109,7 +109,7 @@ iframe {
 }
 
 #asidePrincipal ul {
-  text-align: left !important; /* TODO, en este caso solo quiero alinear a la izquierda un componente del aside, creo que es justificable utilizar impoprtant */
+  text-align: left !important;/* TODO JUSTIFICAR ? */
 }
 
 aside > div:last-of-type {
@@ -229,7 +229,7 @@ i.fa-arrow-up {
 
 #botonTop:hover {
   color: white;
-  background-color: var(--secondary);
+  background-color: var(--main-dark);
 }
 
 /* Adaptación video YouTube */
@@ -524,7 +524,7 @@ form > div:last-of-type > div {
   }
 
   main > section:last-child > div:first-of-type > img {
-    margin-top: 3.5rem;
+    margin-top: 4.5rem;
     box-sizing: border-box;
   }
 

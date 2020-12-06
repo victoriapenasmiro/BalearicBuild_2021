@@ -195,11 +195,11 @@ function manejarBordes(id) {
  * @deprecated sustituida por pintarPersonajesOpt()
  */
 function pintarPersonajes() {
-  let slider = "<div class='mySlides fade'>"; //TODO optimizar con createElement + appendChild
+  let slider = "<div class='mySlides fade'>";
   let gridImg = "";
 
   for (let i = 0; i < personajes.length; i++) {
-    let personaje = new Object(); //TODO crear un método que contruya el objeto y lo devuelva
+    let personaje = new Object();
     personaje.id = personajes[i].id;
     personaje.name = personajes[i].name;
     personaje.motto = personajes[i].motto;

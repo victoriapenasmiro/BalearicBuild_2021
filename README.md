@@ -300,7 +300,9 @@ Además, para que el popup de cookies no salga en todas las páginas de la web p
 
 Para realizar esta ampliación, nos hemos basado en el siguiente tutorial de w3schools: [https://www.w3schools.com/js/js_cookies.asp](https://www.w3schools.com/js/js_cookies.asp).
 
-En el caso de que se rechazen, aparece un alert que informa que para juagr es necesario aceptar el popup de cookies, y se cierra momentaneamente el modal permitiendo la navegación, pero al cambiar de pantalla o recargarla volverá a aparecer hasta que quede aceptado.
+En el caso de que se rechazen, aparece un alert que informa que para jugar es necesario aceptar el popup de cookies, y se cierra momentaneamente el modal permitiendo la navegación, pero al cambiar de pantalla o recargarla volverá a aparecer hasta que quede aceptado.
+
+Se ha intentado crear el popup de forma dinámica con elementos del DOM, pero no funcionaba bien la transición, por ese motivo, hemos decidio incluirlo manualmente en todas las pantallas.
 
 ### Pantalla del juego:
 El código de desarrollo del juego es, posiblemente, el programa más largo que hemos escrito hasta el momento. Su base es el archivo main.js, que importa (a su vez o desde sus archivos importados) una serie de módulos entre los que cabe señalar un objeto 'juego' con sus métodos, una serie de funciones de pintado y 'transcripción' de canvas, y un archivo .js con variables de configuración.
@@ -409,6 +411,24 @@ Se han cargado sonidos en varios momentos específicos del juego, entre otros:
 * Silbato de árbitro cuando se produce un evento negativo, como una infracción o una crisis.
 * Sonido de 'error' típico de máquina cuando se intenta construir un edificio donde no se puede.
 
+###### ERROR en consola:
+Al cargar los sonidos, algunos navegadores como Chrome intentan cargar un fichero llamado favicon.ico que no encuentra, y por lo tanto muestra el siguiente error:
+
+~~~
+GET http://127.0.0.1:5500/favicon.ico 404 (Not Found)
+~~~
+
+Aparentemente es un BUG del navegador, hemos encontrado las referencias en las siguientes páginas:
+
+* [StackOverflow](https://stackoverflow.com/questions/61545121/chrome-browser-get-favicon-ico-each-time-an-audio-object-is-played)
+* [Bugs Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2)
+
+Hemos decidido poner un parche para evitar todos los errores en consola, no es la solución pero es la mejor forma que hemos encontrado para corregirlo. Este parche, lo hemos descubierto en [StackOverflow](https://stackoverflow.com/questions/31075893/im-getting-favicon-ico-error). Lo que hemos realizado es:
+
+* Hemos creado un fichero en *src* llamado *favicon.ico*.
+* Lo cargamos como recurso en el *head* de juego.html.
+
+
 #### Juego 'perdido':
 Haciendo pruebas de desarrollo vimos que podía darse (en determinadas condiciones) un caso peculiar: que el jugador se quedase sin dinero. Tras hablarlo con el profesor en hora de clase, consideramos que esto hacía que fuera posible 'perder' el juego. Entendemos así que hay dos condiciones para perder el juego:
 
@@ -435,7 +455,12 @@ Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con e
 Más allá de la configuración inicial por css, todos estos cambios en el cursor se gestionan a través del código javascript.
 
 ## Consideraciones finales:
-//TODO completar
+
+Ha sido genial trabajar en equipo, consideramos que nos hemos complementado muy bien. La comunicación y la agilidad de trabajo ha ido incrementando y mejorando cada dia. Además, cada una nos hemos enfocado principalmente a la parte que más nos atrae de este área, lo que nos ha ayudado a disfrutar más de la práctica, aunque sin dejar de lado los aspectos que menos controlamos.
+
+En definitiva, hemos trabajado en equipo intentando utilizar el mismo estilo y formato en el código,para que pasase desapercibido quién ha desarrollado cada función y de esta forma, el código es único en estilo, como si lo hubiera hecho la misma persona. 
+
+//TODO completar Maria, algo más ?
 
 ## Releases:
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
