@@ -1,4 +1,5 @@
 import { filasJuego, columnasJuego } from "./game_configuracion.js";
+import { arenal } from "./game_mapas.js";
 
 // Variable global para poder emplear en todo el proceso:
 var repeticion;
@@ -22,29 +23,47 @@ export function dibujarTablero(mapa) {
   canvas.height = canvas.offsetHeight;
   let ctx = canvas.getContext("2d");
 
-  //así adapto el canvas al mapa; si es Palma no hago nada.
+  //así adapto el canvas al mapa; si es Palma no hago nada porque todo es urbanizable.
+
+  /* MAPA S'ARENAL */
   if (mapa == "arenal") {
-    for (let i = 0; i < columnasJuego; i++) {
-      for (let j = 8; j < filasJuego; j++) {
-        ctx.beginPath();
-        if (j == 8) {
-          //así redondeo estos bordes
-          let iBordes8 = [0, 1, 28, 29];
-          if (iBordes8.includes(i)) {
-            ctx.rect(i * repeticion, j * repeticion, repeticion, repeticion); // para la fila 8
-          }
-        } else if (j == 9) {
-          let iBordes9 = [0, 1, 2, 3, 4, 5, 24, 25, 26, 27, 28, 29];
-          if (iBordes9.includes(i)) {
-            ctx.rect(i * repeticion, j * repeticion, repeticion, repeticion); // para la fila 9
-          }
-        } else {
-          ctx.rect(i * repeticion, j * repeticion, repeticion, repeticion);
+    
+    ctx.beginPath();
+    for (let i = 0; i < arenal.mar.length; i++) {
+      let listaFila = arenal.mar[i][0];
+      let listaColumna = arenal.mar[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          ctx.rect(j * repeticion, listaFila * repeticion, repeticion, repeticion);
         }
-        ctx.fillStyle = "rgb(68, 128, 128)";
-        ctx.fill();
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          ctx.rect(listaColumna[j] * repeticion, listaFila * repeticion, repeticion, repeticion);
+        }
       }
     }
+    ctx.fillStyle = "rgb(68, 128, 128)";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    for (let i = 0; i < arenal.platja.length; i++) {
+      let listaFila = arenal.platja[i][0];
+      let listaColumna = arenal.platja[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          ctx.rect(j * repeticion, listaFila * repeticion, repeticion, repeticion);
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          ctx.rect(listaColumna[j] * repeticion, listaFila * repeticion, repeticion, repeticion);
+        }
+      }
+    }
+    ctx.fillStyle = "rgb(191, 179, 145)";
+    ctx.fill();
+    ctx.closePath();
+
   }
 
   // así dibujo los recuadros:
@@ -90,24 +109,37 @@ export function generarArrayTablero(mapa) {
   }
 
   // Ahora adapto el array tablero al mapa; si es Palma no tengo que hacer nada.
-  for (let i = 8; i < filasJuego; i++) {
-    for (let j = 0; j < columnasJuego; j++) {
-      if (i == 8) {
-        //para calcular los bordes redondeados
-        let iBordes8 = [0, 1, 28, 29];
-        if (iBordes8.includes(j)) {
-          arrayTablero[i][j].terreno = "agua"; // para la fila 8
-        }
-      } else if (i == 9) {
-        let iBordes9 = [0, 1, 2, 3, 4, 5, 24, 25, 26, 27, 28, 29];
-        if (iBordes9.includes(j)) {
-          arrayTablero[i][j].terreno = "agua"; // para la fila 9
+
+  /* MAPA S'ARENAL */
+  if (mapa == "arenal") {
+    for (let i = 0; i < arenal.mar.length; i++) {
+      let listaFila = arenal.mar[i][0];
+      let listaColumna = arenal.mar[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          arrayTablero[listaFila][j].terreno = "mar";
         }
       } else {
-        arrayTablero[i][j].terreno = "agua";
+        for (let j = 0; j < listaColumna.length; j++) {
+          arrayTablero[listaFila][listaColumna[j]].terreno = "mar";
+        }
+      }
+    }
+    for (let i = 0; i < arenal.platja.length; i++) {
+      let listaFila = arenal.platja[i][0];
+      let listaColumna = arenal.platja[i][1];
+      if (listaColumna[0] == "total") {
+        for (let j = 0; j < 30; j++) {
+          arrayTablero[listaFila][j].terreno = "platja";
+        }
+      } else {
+        for (let j = 0; j < listaColumna.length; j++) {
+          arrayTablero[listaFila][listaColumna[j]].terreno = "platja";
+        }
       }
     }
   }
+
 
   return arrayTablero;
 }
