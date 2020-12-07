@@ -35,56 +35,54 @@
           <h1>Empezar juego</h1>
         </section>
         <section>
-            <h3>¡Elije tus opciones para empezar a jugar!</h3>
-            <form id="parametros" action="juego.html" method="get">
-              <div>
-                <label for="nickname"><strong>Nickname:</strong></label>
-                <input type="text" id="nickname" name="nickname" required/>
-                <h4>Elige un mapa:</h4>
-                <select name="mapa" id="mapa">
-                  <option value="palma">Palma Ciutat</option>
-                  <option value="arenal">S'Arenal</option>
-                  <option value="puigpunyent">Puigpunyent</option>
-                  <option value="estrenc">Es Trenc</option>
-                </select>
-                <h4>
-                  Dificultades económicas:
-                </h4>
-                <input
-                  type="radio"
-                  id="dificultadFacil"
-                  name="dificultad"
-                  value="dificultadFacil"
-                />
-                <label for="dificultadFacil">Político profesional ($$$$$)</label
-                ><br />
-                <input
-                  type="radio"
-                  id="dificultadDificil"
-                  name="dificultad"
-                  value="dificultadDificil"
-                  checked="checked"
-                />
-                <label for="dificultadDificil">Estudiante de FP ($)</label><br />
-              </div>
-              <div>
-                <h4>
-                  Elige un personaje:
-                </h4>
-                <div id="gridPersonajes"></div>
-                <input type="hidden" name="personaje" id="personaje" value=""/>
-              </div>
-              <button type="button" value="Submit" id="startGame">GAME START!</button>
-            </form>
+          <h3>¡Elije tus opciones para empezar a jugar!</h3>
+          <form id="parametros" action="juego.html" method="get">
+            <div>
+              <label for="nickname"><strong>Nickname:</strong></label>
+              <input type="text" id="nickname" name="nickname" required />
+              <h4>Elige un mapa:</h4>
+              <select name="mapa" id="mapa">
+                <option value="palma">Palma Ciutat</option>
+                <option value="arenal">S'Arenal</option>
+                <option value="puigpunyent">Puigpunyent</option>
+                <option value="estrenc">Es Trenc</option>
+              </select>
+              <h4>Dificultades económicas:</h4>
+              <input
+                type="radio"
+                id="dificultadFacil"
+                name="dificultad"
+                value="dificultadFacil"
+              />
+              <label for="dificultadFacil">Político profesional ($$$$$)</label
+              ><br />
+              <input
+                type="radio"
+                id="dificultadDificil"
+                name="dificultad"
+                value="dificultadDificil"
+                checked="checked"
+              />
+              <label for="dificultadDificil">Estudiante de FP ($)</label><br />
+            </div>
+            <div>
+              <h4>Elige un personaje:</h4>
+              <div id="gridPersonajes"></div>
+              <input type="hidden" name="personaje" id="personaje" value="" />
+            </div>
+            <button type="button" value="Submit" id="startGame">
+              GAME START!
+            </button>
+          </form>
         </section>
       </main>
       <aside>
         <div id="asidePrincipal">
           <h2>¿Cómo elijo mapa?</h2>
           <p>
-            Elegir mapa puede ser una tarea complicada. Para facilitártelo,
-            aquí tienes un resumen rápido de los mapas disponibles... o, si lo prefieres,
-            puedes dejarlo al azar. Alea iacta est!
+            Elegir mapa puede ser una tarea complicada. Para facilitártelo, aquí
+            tienes un resumen rápido de los mapas disponibles... o, si lo
+            prefieres, puedes dejarlo al azar. Alea iacta est!
           </p>
           <hr />
           <h3><i>Palma Ciutat</i></h3>
@@ -95,17 +93,20 @@
           <hr />
           <h3><i>S'Arenal</i></h3>
           <p>
-            Fachada marítima con amplias zonas de playa. ¡Hazte de oro con los hoteles!
+            Fachada marítima con amplias zonas de playa. ¡Hazte de oro con los
+            hoteles!
           </p>
           <hr />
           <h3><i>Puigpunyent</i></h3>
           <p>
-            Para los amantes de los paisajes de interior. Cuidado con las zonas protegidas y no urbanizables...
+            Para los amantes de los paisajes de interior. Cuidado con las zonas
+            protegidas y no urbanizables...
           </p>
           <hr />
           <h3><i>Es Trenc</i></h3>
           <p>
-            Sol, playa, y construcciones en zonas "protegidas". ¡Vive la especulación urbanística más mallorquina!
+            Sol, playa, y construcciones en zonas "protegidas". ¡Vive la
+            especulación urbanística más mallorquina!
           </p>
         </div>
         <div>

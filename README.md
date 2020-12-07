@@ -97,11 +97,9 @@ Esta tipografía se ha cargado en el css general, y no en la cabecera de cada p�
 ~~~
 @font-face {
   font-family: "Corleone";
-  src: url("src/fonts/Corleone.TTF");
+  src: url("/resources/fonts/Corleone.TTF");
 }
 ~~~
-
-Debido a esto, la consola devuelve un error styles.css:1 GET http://127.0.0.1:5500/css/src/fonts/Corleone.TTF net::ERR_ABORTED 404 (Not Found), ya que espera obtener el código desde el head de cada página.
 
 * La fuente de los textos que no son encabezados, hemos seleccionado una tipografía de [Google Fonts, Open Sans](https://fonts.google.com/specimen/Open+Sans). El motivo es porqué queríamos una tipografía bastante limpia, clara y de fácil lectura.
 
@@ -131,6 +129,8 @@ Cabe destacar que hemos realizado algunas ampliaciones en el desarrollo responsi
 2. Hemos adaptador el grid de personajes en diferentes resoluciones para que en ningún momento quede descuadrado.
 
 Las pantallas de *Inicio al juego* y la del *Juego* no están optimizadas a responsive, ya que no era una requerimiento de la práctica. La del *Inicio al juego* no está optimizada para resoluciones inferiores a 1300.
+
+3. Se ha creado un menú con un diseño especifico para dispositivos móviles.
 
 ### Transiciones:
 #### Aviso de cookies:
@@ -481,6 +481,20 @@ Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con e
 * Cuando el usuario no puede pulsar un pseudo-botón (por ejemplo, porque no tiene dinero para construir un tipo de edificio) el cursor desaparece al hacer hover sobre ese botón.
 
 Más allá de la configuración inicial por css, todos estos cambios en el cursor se gestionan a través del código javascript.
+
+## Refactorización CSS:
+Se han utilizado las siguientes herramientas para validar y refactorizar el CSS:
+
+* [Stylelint](https://stylelint.io/)
+* [CSS LINT](http://csslint.net/)
+
+Stylelint mostraba errores por la ordenación de los elementos del CSS, sugería que situasemos unos elementos antes de otros, etc, en estos casos, no se algunos casos no se ha tomado acción en este punto porqué considerabamos que era más fácil e intuitivo mantener la ordenación tal cual estaba.
+
+Por otro lado, en algunas ocasiones hemos añadido comentarios para destacar dónde empieza y dónde termina _(/* END ...*/)_ la definición de estilos en un bloque de código determinado.
+
+CSS Lint muestra muchas recomendaciones que no se pueden llevar a cabo ya que indica que se deben unificar estilos, o que se repiten declaraciones en los mismos elementos, pero se trata de diferentes estilos según el responsive.
+
+Consideramos que esta herramienta es útil para una análisis superficial, pero muestra advertencias en cosas que no debería. Por ejemplo, da por error el uso de variables de colores en root.
 
 ## Consideraciones finales:
 

@@ -1,6 +1,4 @@
-/* TODO eventualmente esto unificarlo */
-/* SLIDER: */
-
+/* SLIDER - CARRUSEL DE PERSONAJES */
 .mySlides {
   display: none;
   background-color: var(--main-color);
@@ -37,7 +35,7 @@
   height: 130px;
 }
 
-/*Transición al pasar el ratón sobre la imagen*/
+/* Transición al pasar el ratón sobre la imagen */
 #personajesLista > div,
 #gridPersonajes > div {
   position: relative;
@@ -135,7 +133,6 @@
     text-decoration: underline;
     text-decoration-color: var(--main-color);
   }
-
 }
 
 /* GRID PERSONAJES - Responsive adaptado para resoluciones de hasta 1100px */
@@ -192,9 +189,6 @@
   #personajeSeleccion {
     display: flex;
     flex-direction: column;
-  }
-  
-  #personajeSeleccion {
     text-align: center;
     width: 500px;
     margin: 0 auto;
@@ -211,7 +205,7 @@
   }
 }
 
-/*responsive design mobile*/
+/* Responsive design mobile */
 @media screen and (max-width: 799px) {
   .mySlides img {
     width: 80px;
@@ -221,7 +215,7 @@
   #personajes > h2 {
     text-align: center;
     margin-bottom: -1rem;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     box-sizing: border-box;
   }
 }

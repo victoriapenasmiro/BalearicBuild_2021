@@ -1,19 +1,20 @@
 @font-face {
   font-family: "Corleone";
-  src: url("resources/fonts/Corleone.TTF");
+  src: url("/resources/fonts/Corleone.TTF");
 }
 
 :root {
   --main-color: #8e231b;
   --main-dark: #5b0000;
-  --secondary: #000000;
+  --secondary: #000;
   --secondary-light: #212121;
-  --surface: #dddddd;
+  --surface: #ddd;
   --error: #8e651b;
 }
 
+/* scroll to TOP 'suave' */
 html {
-  scroll-behavior: smooth; /* para que haga la vuelta 'suave' */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -69,6 +70,11 @@ a {
   font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
+  color: var(--main-color);
+}
+
+a:hover {
+  color: var(--main-dark);
 }
 
 hr {
@@ -109,7 +115,7 @@ iframe {
 }
 
 #asidePrincipal ul {
-  text-align: left !important;/* TODO JUSTIFICAR ? */
+  text-align: left !important;
 }
 
 aside > div:last-of-type {
@@ -155,8 +161,7 @@ nav a {
   font-size: 1.25rem;
 }
 
-nav a:hover,
-nav a:selected {
+nav a:hover {
   border-bottom: 3px solid var(--secondary);
   padding-bottom: 2px;
   color: var(--secondary);
@@ -200,8 +205,9 @@ a > .fa-envelope {
   padding-bottom: 5px;
 }
 
+/* icono del arrow up centrado */
 i.fa-arrow-up {
-  display: contents; /*para centrar el icono del arrow up*/
+  display: contents;
 }
 
 .active {
@@ -331,7 +337,7 @@ form > button {
 
 form > div:last-of-type > div {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
   margin-bottom: 35px;
   margin-left: 50px;
@@ -347,7 +353,7 @@ form > div:last-of-type > div {
       "footer footer footer footer";
   }
 
-  /* MENU DESKTOP*/
+  /* MENU DESKTOP */
   header {
     display: flex;
   }
@@ -368,11 +374,6 @@ form > div:last-of-type > div {
     display: inline-flex;
   }
 
-  nav > div:last-of-type > a:nth-last-child(2) i {
-    align-self: center;
-    padding-left: 5%;
-  }
-
   nav > div > a:last-of-type {
     display: none;
   }
@@ -381,7 +382,12 @@ form > div:last-of-type > div {
     margin-right: 2.5%;
     margin-left: 2.5%;
   }
-  /* END MENU DESKTOP*/
+
+  nav > div:last-of-type > a:nth-last-child(2) i {
+    align-self: center;
+    padding-left: 5%;
+  }
+  /* END MENU DESKTOP */
 
   main > hr {
     display: none;
@@ -407,26 +413,24 @@ form > div:last-of-type > div {
     display: none;
   }
 
-  main,
-  aside {
+  main {
+    margin-left: 4vw;
+    margin-right: 1.5vw;
     margin-top: 5vh;
     margin-bottom: 5vh;
     box-sizing: border-box;
   }
 
-  main {
-    margin-left: 4vw;
-    margin-right: 1.5vw;
+  main p {
+    text-align: justify;
   }
 
   aside {
     margin-left: 1.5vw;
     margin-right: 4vw;
     box-sizing: border-box;
-  }
-
-  main p {
-    text-align: justify;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
   }
 
   aside h2 {
@@ -437,7 +441,7 @@ form > div:last-of-type > div {
   aside h3 {
     font-family: Open Sans, sans-serif;
     font-size: 1.6rem;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     margin-bottom: 0.5rem;
     box-sizing: border-box;
   }
@@ -447,6 +451,11 @@ form > div:last-of-type > div {
     height: 5px;
     background-color: var(--main-color);
     margin-top: 1.7rem;
+  }
+
+  i.fa-minus-square,
+  i.fa-plus-square {
+    display: none;
   }
 
   #asidePrincipal {
@@ -465,21 +474,21 @@ form > div:last-of-type > div {
     margin-left: auto;
   }
 
-  main > section:first-child {
-    background-color: var(--surface);
-    border: solid 3px var(--secondary-light);
-    padding: 0.3%;
-    margin-bottom: 3%;
-    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
-    box-sizing: border-box;
-  }
-
-#video {
+  #video {
     background-color: var(--surface);
     border: solid 3px var(--secondary-light);
     display: grid;
     grid-template-columns: 2fr 1fr;
     padding: 6%;
+    margin-bottom: 3%;
+    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
+    box-sizing: border-box;
+  }
+
+  main > section:first-child {
+    background-color: var(--surface);
+    border: solid 3px var(--secondary-light);
+    padding: 0.3%;
     margin-bottom: 3%;
     box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
     box-sizing: border-box;
@@ -609,11 +618,6 @@ form > div:last-of-type > div {
     color: var(--secondary-light);
   }
 
-  i.fa-minus-square,
-  i.fa-plus-square {
-    display: none;
-  }
-
   /* Modal Aviso de cookies */
   .modal_start {
     width: 20%;
@@ -654,30 +658,46 @@ form > div:last-of-type > div {
   /* End Modal Aviso de cookies */
 }
 
-/*responsive design mobile*/
+/* Responsive design mobile */
 @media screen and (max-width: 799px) {
-  /*diseño MENU MOVIL */
+  /* Diseño MENU MOVIL */
+  nav > div {
+    display: none;
+  }
+
   header > div:first-of-type {
     width: fit-content;
     float: right;
+  }
+
+  nav a {
+    display: block;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  nav a:not(:last-of-type) {
+    border-bottom: 1px solid white;
   }
 
   nav a:nth-last-of-type(2) {
     display: none;
   }
 
-  nav > div {
-    display: none;
-  }
-
-  nav a {
-    display: block;
+  #optionsMenu {
+    width: 100%;
   }
 
   #menu a.icon {
     display: block;
     position: absolute;
     right: 20px;
+  }
+
+  .active {
+    color: var(--main-color);
+    padding-bottom: 2rem;
+    font-size: 1.5rem;
   }
 
   i.fas.fa-times {
@@ -698,6 +718,10 @@ form > div:last-of-type > div {
 
   h3 {
     font-size: 1.8rem;
+  }
+
+  i.fa-envelope {
+    margin-left: 15px;
   }
 
   .grid-container {
@@ -726,19 +750,19 @@ form > div:last-of-type > div {
     margin-top: 20px;
   }
 
-  main > section:nth-of-type(3) > div > img {
+  main > section:last-of-type > div > img {
     width: 100%;
   }
 
-  main > section:nth-of-type(3) > div:first-of-type > h2 {
+  main > section:last-of-type > div:first-of-type > h2 {
     text-align: center;
   }
 
-  main > section:nth-of-type(3) > div:last-of-type {
+  main > section:last-of-type > div:last-of-type {
     display: none;
   }
 
-  main > section:last-of-type > button:last-of-type {
+  main > section:last-of-type > button {
     margin-top: 25px;
   }
 
@@ -757,12 +781,12 @@ form > div:last-of-type > div {
 
   .modal_start {
     width: auto;
- }
+  }
 
   .modal_content {
     padding-bottom: 20px;
     left: auto;
-    margin:15px
+    margin: 15px;
   }
 
   .modal_content > button {
@@ -771,8 +795,8 @@ form > div:last-of-type > div {
   }
 
   .modal_content > div {
-  grid-column-end: 4;
-  text-align: center;
-}
+    grid-column-end: 4;
+    text-align: center;
+  }
   /* End Modal Aviso de cookies */
 }
