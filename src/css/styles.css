@@ -573,7 +573,11 @@ form > div:last-of-type > div {
     grid-area: p2;
   }
 
-  main > section:last-child > div:nth-of-type(2) > img,
+  main > section:last-child > div:nth-of-type(2) > img {
+    padding-top: 50px;
+    padding-right: 20px;
+  }
+
   main > section:last-child > div:last-of-type > img {
     padding-right: 20px;
   }

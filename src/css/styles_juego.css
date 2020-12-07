@@ -119,7 +119,7 @@ nav > div > p {
 
 #construcciones {
   position: absolute;
-  right: 120px;
+  right: 2%;
   top: 200px;
 }
 
@@ -136,7 +136,7 @@ nav > div > p {
   position: fixed;
   z-index: 99;
   color: var(--surface);
-  top: 22vh;
+  top: 8.5rem;
   left: 2vh;
 }
 
