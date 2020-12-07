@@ -94,12 +94,10 @@ La principal dificultad con esta paleta ha sido decidir un tono de error: como e
 
 Esta tipografía se ha cargado en el css general, y no en la cabecera de cada página con el objetivo de utilizarlo en todas las pantallas:
 
-~~~
-@font-face {
-  font-family: "Corleone";
-  src: url("/resources/fonts/Corleone.TTF");
-}
-~~~
+>@font-face {
+>  font-family: "Corleone";
+>  src: url("/resources/fonts/Corleone.TTF");
+>}
 
 * La fuente de los textos que no son encabezados, hemos seleccionado una tipografía de [Google Fonts, Open Sans](https://fonts.google.com/specimen/Open+Sans). El motivo es porqué queríamos una tipografía bastante limpia, clara y de fácil lectura.
 
@@ -214,6 +212,12 @@ Se ha implementado una transición en la botonera central bajo el canvas del jue
 >  color: var(--main-dark)!important;
 >  font-size: 30px;
 >}
+
+#### Imágenes:
+Para crear esta página hemos empleado un amplio abanico de imágenes, entre las que cabe incluir:
+* *Lineart* de los diferentes tipos de edificios y generación del logo personalizado: hemos recurrido a https://publicdomainvectors.org/
+* Fotografías reales.
+* Capturas de pantalla del propio juego.
 
 ## Modificaciones de sketch a wireframe y a prototipo:
 1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.

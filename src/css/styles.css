@@ -358,9 +358,10 @@ form > div:last-of-type > div {
     display: flex;
   }
 
-  /* TODO: pensar y hacer un logo en condiciones */
   header > a > img {
-    box-shadow: 0.5rem 0.5rem 0.5rem -0.5rem var(--secondary-light);
+    margin-bottom: -0.5rem;
+    box-sizing: border-box;
+    height: 70px;
   }
 
   nav {
