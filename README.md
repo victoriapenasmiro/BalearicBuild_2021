@@ -215,7 +215,7 @@ Se ha implementado una transición en la botonera central bajo el canvas del jue
 
 #### Imágenes:
 Para crear esta página hemos empleado un amplio abanico de imágenes, entre las que cabe incluir:
-* *Lineart* de los diferentes tipos de edificios y generación del logo personalizado: hemos recurrido a https://publicdomainvectors.org/
+* *Lineart* de los diferentes tipos de edificios y generación del logo personalizado, con vectores básicos de https://publicdomainvectors.org/
 * Fotografías reales.
 * Capturas de pantalla del propio juego.
 
@@ -500,13 +500,15 @@ CSS Lint muestra muchas recomendaciones que no se pueden llevar a cabo ya que in
 
 Consideramos que esta herramienta es útil para una análisis superficial, pero muestra advertencias en cosas que no debería. Por ejemplo, da por error el uso de variables de colores en root.
 
+## Tareas pendientes en la entrega final:
+Estamos muy satisfechas con el trabajo entregado, dado que hemos sido capaces de completar, en el poco tiempo disponible, todas nuestras metas; hemos desarrollado todas las funcionalidades que queríamos desarrollar.
+
+Si cabe señalar algo, es que en el último momento nos ha faltado un día o dos para refactorizar adecuadamente el tratamiento de los mapas en el archivo *game_canvas.js*. Si bien el código es adecuado y no sobra una sola línea, nos hubiera gustado haber podido mejorarlo todavía más.
+
 ## Consideraciones finales:
+Ha sido genial trabajar en equipo; consideramos que nos hemos complementado muy bien. La comunicación y la agilidad de trabajo ha ido incrementando y mejorando cada dia. Además, cada una nos hemos enfocado principalmente a la parte que más nos atrae de este área, lo que nos ha ayudado a disfrutar más de la práctica, aunque sin dejar de lado los aspectos que menos controlamos.
 
-Ha sido genial trabajar en equipo, consideramos que nos hemos complementado muy bien. La comunicación y la agilidad de trabajo ha ido incrementando y mejorando cada dia. Además, cada una nos hemos enfocado principalmente a la parte que más nos atrae de este área, lo que nos ha ayudado a disfrutar más de la práctica, aunque sin dejar de lado los aspectos que menos controlamos.
-
-En definitiva, hemos trabajado en equipo intentando utilizar el mismo estilo y formato en el código,para que pasase desapercibido quién ha desarrollado cada función y de esta forma, el código es único en estilo, como si lo hubiera hecho la misma persona. 
-
-//TODO completar Maria, algo más ?
+En definitiva, hemos trabajado en equipo intentando utilizar el mismo estilo y formato en el código, para que pasase desapercibido quién ha desarrollado cada función y de esta forma, el código es único en estilo, como si lo hubiera hecho la misma persona. 
 
 ## Releases:
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
