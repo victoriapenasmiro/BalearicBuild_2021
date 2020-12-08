@@ -283,8 +283,10 @@ document
 
 ### Detalles de las pantallas 'básicas':
 
-#### Slider / Carrusel pantalla de personajes:
-Para programar el carrusel de la página de personajes con animación, nos hemos basado en [este tutorial de w3schools](https://www.w3schools.com/howto/howto_js_slideshow.asp).
+### Pantalla Home:
+La pantalla principal, la home, se ha desarrollado con Grid y Flexbox principalmente. Se ha modificado ligeramente el diseño original planteado en los wireframes, lo hemos justificado en el siguiente punto  del README: __*Modificaciones de sketch a wireframe y a prototipo*__.
+
+Los enlaces a las diferentes secciones de la web, de los tres elementos *button* de la segunda section de la Home (ver en YouTube, Consultar Personajes, Jugar YA), se han cargado como un evento onclick directamente en el HTML, no tienen ningún evento más asociado, son como elementos *a*.
 
 #### Header / footer:
 Para 'importar' tanto el header como el footer hemos partido de las explicaciones enlazadas en el classroom de la asignatura, partiendo de la comprensión del código explicativo original en github.
@@ -306,19 +308,24 @@ Para realizar esta ampliación, nos hemos basado en el siguiente tutorial de w3s
 
 En el caso de que se rechazen, aparece un alert que informa que para jugar es necesario aceptar el popup de cookies, y se cierra momentaneamente el modal permitiendo la navegación, pero al cambiar de pantalla o recargarla volverá a aparecer hasta que quede aceptado.
 
-Se ha intentado crear el popup de forma dinámica con elementos del DOM, pero no funcionaba bien la transición, por ese motivo, hemos decidio incluirlo manualmente en todas las pantallas.
+Se ha intentado crear el popup de forma dinámica con elementos del DOM, pero no funcionaba bien la transición, por ese motivo, hemos decidio incluirlo manualmente en todas las pantallas excepto en la del juego.
 
-### Pantalla del juego:
-El código de desarrollo del juego es, posiblemente, el programa más largo que hemos escrito hasta el momento. Su base es el archivo main.js, que importa (a su vez o desde sus archivos importados) una serie de módulos entre los que cabe señalar un objeto 'juego' con sus métodos, una serie de funciones de pintado y 'transcripción' de canvas, y un archivo .js con variables de configuración.
+### Pantalla Personajes:
+La pantalla de personajes, se ha desarrollado con Grid y Flexbox principalmente. Los diferentes elementos se obtienen del [JSON que proporciona la API](https://my-json-server.typicode.com/classicoman2/fakeRESTserver/personatges), y tanto el carrusel como el el grid se crean mediante funciones de creación del DOM.
+
+#### Slider / Carrusel pantalla de personajes:
+Para programar el carrusel de la página de personajes con animación, nos hemos basado en [este tutorial de w3schools](https://www.w3schools.com/howto/howto_js_slideshow.asp).
 
 ### Pantalla inicio del juego:
-En la pantalla de inicio de juego, dónde se carga los datos de configuración, se indica el personaje
-y el nickname se recogen los parámetros mediante un form y se envían al juego por GET, en vez de utilizar LocalStorage.
+En la pantalla de inicio de juego, se ha desarrollado con flexbox principalmente y el grid de personajes, se generando con funciones de creación del DOM, obteniendo los datos del [JSON que proporciona la API](https://my-json-server.typicode.com/classicoman2/fakeRESTserver/personatges).
 
-#### Pantalla de juego:
+En esta pantalla, es dónde se cargan los datos de configuración, se indica el personaje y el nickname se recogen los parámetros mediante un form y se envían al juego por GET, en vez de utilizar LocalStorage.
+
+### Pantalla de juego:
+
+El código de desarrollo del juego es, posiblemente, el programa más largo que hemos escrito hasta el momento. Su base es el archivo main.js, que importa (a su vez o desde sus archivos importados) una serie de módulos entre los que cabe señalar un objeto 'juego' con sus métodos, una serie de funciones de pintado y 'transcripción' de canvas, y un archivo .js con variables de configuración.
+
 El juego comienza al cargarse la página de juego. En el archivo main.js El Juego se crea con un constructor con parámetros, realizando un split de la URL se setean los atributos del objeto "juego". Esto se realiza mediante la función _**parametrosJuego()**_
-
-//TODO completar
 
 Como detalle de interés, hemos jugado con el cambio de colores de diferentes elementos en función de los eventos correspondientes. Para utilizar los colores específicos que queríamos incluir nos hemos ayudado de explicaciones como la que hay en https://stackoverflow.com/questions/13712697/set-background-color-in-hex
 
