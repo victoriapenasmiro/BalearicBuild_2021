@@ -95,10 +95,10 @@ La principal dificultad con esta paleta ha sido decidir un tono de error: como e
 Esta tipografía se ha cargado en el css general, y no en la cabecera de cada página con el objetivo de utilizarlo en todas las pantallas:
 
 ~~~
->@font-face {
->  font-family: "Corleone";
->  src: url("/resources/fonts/Corleone.TTF");
->}
+> @font-face {
+>   font-family: "Corleone";
+>   src: url("/resources/fonts/Corleone.TTF");
+> }
 ~~~
 
 * La fuente de los textos que no son encabezados, hemos seleccionado una tipografía de [Google Fonts, Open Sans](https://fonts.google.com/specimen/Open+Sans). El motivo es porqué queríamos una tipografía bastante limpia, clara y de fácil lectura.
