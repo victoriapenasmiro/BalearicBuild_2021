@@ -167,6 +167,10 @@ nav a:hover {
   color: var(--secondary);
 }
 
+nav a:nth-child(6):hover > i.fa-envelope {
+  color: var(--secondary);
+}
+
 button {
   background-color: var(--main-color);
   border: 2px solid var(--secondary);
@@ -499,6 +503,7 @@ form > div:last-of-type > div {
     display: flex;
     flex-direction: column;
     margin-left: 5%;
+    justify-content: center;
   }
 
   main > section:nth-child(2) > div:last-child > button {
