@@ -94,10 +94,12 @@ La principal dificultad con esta paleta ha sido decidir un tono de error: como e
 
 Esta tipografía se ha cargado en el css general, y no en la cabecera de cada página con el objetivo de utilizarlo en todas las pantallas:
 
+~~~
 >@font-face {
 >  font-family: "Corleone";
 >  src: url("/resources/fonts/Corleone.TTF");
 >}
+~~~
 
 * La fuente de los textos que no son encabezados, hemos seleccionado una tipografía de [Google Fonts, Open Sans](https://fonts.google.com/specimen/Open+Sans). El motivo es porqué queríamos una tipografía bastante limpia, clara y de fácil lectura.
 
@@ -177,6 +179,7 @@ La segunda transición se encuentra en el elemento 'aside' de la homepage y afec
 
 Esto se ha logrado con el siguiente fragmento de código:
 
+~~~
 >aside img {
 >  ...
 >  border-radius: 50%;
@@ -186,10 +189,12 @@ Esto se ha logrado con el siguiente fragmento de código:
 >aside img:hover {
 >  transform: rotate(360deg);
 >}
+~~~
 
 #### Transición de thumbnails:
 Se ha implementado una transición en el hover de las imagenes en formato thumbnail de la pantalla de personajes y en la pantalla de inicio de juego. Esta transición transcurre durante 0.5 segundos y únicamente al hacer 'hover' sobre fotos de thumbnail.
 
+~~~
 >.overlay {
 >  transition: .5s ease;
 >}
@@ -197,10 +202,12 @@ Se ha implementado una transición en el hover de las imagenes en formato thumbn
 >#personajesLista > div:hover .overlay {
 >  opacity: 0.5;
 >}
+~~~
 
 #### Transición iconos juego:
 Se ha implementado una transición en la botonera central bajo el canvas del juego. En el hover, las imagenes se hacen más grandes y cambiar su color de formar linear en 0.3 segundos. El código dónde se ha implementado es:
 
+~~~
 >.fas,
 >.far {
 > ...
@@ -212,6 +219,7 @@ Se ha implementado una transición en la botonera central bajo el canvas del jue
 >  color: var(--main-dark)!important;
 >  font-size: 30px;
 >}
+~~~
 
 #### Imágenes:
 Para crear esta página hemos empleado un amplio abanico de imágenes, entre las que cabe incluir:
@@ -253,10 +261,12 @@ Por otro lado, hemos tenido problemas en la carga de imágenes del archivo .json
 
 Finalmente, la solución de ambos problemas vino de la mano. Mediante la siguiente función, controlamos que las funciones que debían ejecutarse al cargar el DOM, no se lanzasen hasta que estuviera completamente cargado el archivo header.html, que era el principal que nos daba problemas:
 
+~~~
 >$(document).ready(() => {
 >  ...
 >  $("header").load("header.html", start);
 >});
+~~~
 
 3. Hemos tenido problemas para añadir propiedades de css con llevas un guión intermedio mediante js, el siguiente código daba error:
 
@@ -294,10 +304,12 @@ Para 'importar' tanto el header como el footer hemos partido de las explicacione
 #### Head:
 Quisimos crear un archivo para agrupar los elementos del head comunes en todas las pantallas, pero daba conflictos ya que había elementos propios de cada pantalla y se machacaban. Finalmente esta opción no se ha implementado y se ha dejado comentada en js/scripts.js
 
+~~~
 >$(document).ready(() => {
 >/* $("head").load("head.html"); */ //No utilizar, no carga bien
 >...
 >});
+~~~
 
 #### Aviso de cookies + ampliación: instalación cookie en el navegador:
 Se ha configurado el modal del aviso de cookies basándonos en el siguiente tutorial de w3schools: [https://www.w3schools.com/howto/howto_css_modals.asp](https://www.w3schools.com/howto/howto_css_modals.asp).
@@ -414,21 +426,21 @@ Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por e
 
 Esto se ha desarrollado fundamentalmente mediante la siguiente función:
 
-function mostrarEventosDinero(texto) {
-  let infoDinero = document.getElementById("eventoDinero");
-  infoDinero.innerHTML = texto;
-  infoDinero.style.display = "block";
-  ocultarEventosDinero(6000);
-}
+>function mostrarEventosDinero(texto) {
+>  let infoDinero = document.getElementById("eventoDinero");
+>  infoDinero.innerHTML = texto;
+>  infoDinero.style.display = "block";
+>  ocultarEventosDinero(6000);
+>}
 
 Esta función recibe el texto que queremos que se muestre por pantalla (por ejemplo, '+renta casa: 250'), lo mete en el elemento correspondiente del DOM, y fuerza que el style.display de este elemento se muestre. Por último llama a una función que establece un timer (en este ejemplo de 6 segundos), al final del cual el elemento deja de mostrarse en la página con display = 'none'.
 
-function ocultarEventosDinero(tiempo) {
-  setTimeout(
-    () => (document.getElementById("eventoDinero").style.display = "none"),
-    tiempo
-  );
-}
+>function ocultarEventosDinero(tiempo) {
+>  setTimeout(
+>    () => (document.getElementById("eventoDinero").style.display = "none"),
+>    tiempo
+>  );
+>}
 
 Para facilitar su cancelación cuando se da el caso de GameOver, estas funciones se han incluido dentro de atributos del objeto Juego; esto nos permite hacer, si procede, un *clear*.
 
@@ -437,10 +449,10 @@ Para incluir sonidos al realizar determinadas acciones en el juego (por ejemplo,
 
 Cuando se desea llamar a un sonido en una función concreta, primero se instancia el nuevo sonido, pasándole por parámetro dónde se encuentra el archivo de sonido correspondiente, y luego se llama a la función apropiada. A título de ejemplo puede ver el siguiente fragmento de código:
 
-if (ganancias != 0) {
-    let sonidoDinero = new sound("src/sound/cash.mp3");
-    sonidoDinero.play();
-}
+>if (ganancias != 0) {
+>    let sonidoDinero = new sound("src/sound/cash.mp3");
+>    sonidoDinero.play();
+>}
 
 Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/ y se pueden encontrar en la carpeta *src/sound/* del proyecto.
 
