@@ -140,6 +140,8 @@ function start() {
     document.getElementById("startGame").addEventListener("click", function () {
       if (document.getElementById("personaje").value == "") {
         alert("Por favor, selecciona un personaje.");
+      } else if (document.getElementById("nickname").value == ""){
+        alert("Por favor, indica un nickname para jugar.");
       } else {
         document.getElementById("parametros").submit();
       }
