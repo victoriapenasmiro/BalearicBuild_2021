@@ -182,12 +182,12 @@ function menuMobile() {
   let iconPrincipal = document.getElementsByClassName("fa fa-bars")[0];
   if (link.style.display === "inline-block") {
     link.style.display = "none";
-    menu.style.backgroundColor = "var(--main-color)";
+    menu.style.backgroundColor = "var(--secondary)";
     iconTanca.style.display = "none";
     iconPrincipal.style.display = "inline-block";
   } else {
     link.style.display = "inline-block";
-    menu.style.backgroundColor = "var(--secondary)";
+    menu.style.backgroundColor = "var(--main-color)";
     iconPrincipal.style.display = "none";
     iconTanca.style.display = "inline-block";
   }
