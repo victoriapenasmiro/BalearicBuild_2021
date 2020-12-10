@@ -1,11 +1,11 @@
 # BalearicBuild_2021
 Repositorio proyecto P2 + Pc2.
 
-## Autores:
+## Autores 👯‍♀️ :
 * Maria Victoria Peñas
 * María Rabanales
 
-## Lenguajes:
+## Lenguajes 🖥️ :
 * HTML
 * CSS
 * JavaScript
@@ -13,7 +13,7 @@ Repositorio proyecto P2 + Pc2.
 * Markdown
 * JQuery (marginal)
 
-## Objetivos:
+## Objetivos 📌 :
 El objetivo central de este proyecto es desarrollar un sistema de páginas web en torno a un juego de estrategia online llamado BalearicBuilding.
 
 Como sub-objetivos podemos destacar:
@@ -24,14 +24,14 @@ Como sub-objetivos podemos destacar:
 * El desarrollo de nuestra familiariedad con el proceso de búsqueda de resolución de problemas y conflictos al programar, aprendiendo tanto a buscar como a analizar los resultados obtenidos con rapidez y en profundidad.
 * El fomento de nuestra creatividad e inspiración a la hora no sólo de diseñar el aspecto físico del proyecto, sino también del código.
 
-## Información previa para la buena visualización del proyecto:
+## Información previa para la buena visualización del proyecto ❗ :
 Vemos necesario señalar las siguientes consideraciones previas para poder analizar bien el proyecto:
 
 1. La fuente principal del proyecto no es nativa de Google Fonts y debe instalarse previamente; consultar el apartado de 'fuentes'.
 
 2. Es necesario recargar las pantallas al cambiar de resolución *desktop* a *mobile*, es decir, al jugar con el navegador: los scripts se deben de cargar de nuevo porque, lógicamente, el slider y el grid son diferentes en móvil.
 
-## Flujo de trabajo - GIT:
+## Flujo de trabajo - GIT 👩‍💻 :
 Desde el primer momento se ha visto importante establecer un proceso de trabajo común para facilitar el trabajo en equipo y evitar 'machacar' código. Así, se ha establecido el siguiente proceso de trabajo con GIT:
 
 > Se va a trabajar mediante ramas. Se creará una rama por funcionalidad. El proceso será el siguiente:
@@ -60,7 +60,7 @@ Desde el primer momento se ha visto importante establecer un proceso de trabajo 
 > ~~~
 > 6. Volver al paso 1 para desarrollar otra cosa.
 
-## Diseño:
+## Diseño 🎨 :
 El proceso de diseño de esta web ha partido de 'sketches', tanto para desktop como para móvil, ideados en común durante las horas de clase. Obtenido el visto bueno desarrollamos los diferentes wireframes con la herramienta MOCKPLUS, muy completa y adecuada para desarrollar proyectos en equipo.
 
 Se ha buscado un diseño limpio, con una paleta de colores muy definida y contrastada, fondos blancos y claros y ángulos rectos. Todas las páginas tienen un formato común con cabecera-cuerpo-pie; para facilitar el trabajo tanto la cabecera como el pie se importan desde archivos separados.
@@ -113,7 +113,7 @@ Hemos estado investigando y aparentemente se trata de un error propio de Chrome,
 
 Fuente: [https://discourse.roots.io/t/mime-type-text-html-not-a-supported-stylesheet-mime-type/11636/8](https://discourse.roots.io/t/mime-type-text-html-not-a-supported-stylesheet-mime-type/11636/8)
 
-### Responsive:
+### Responsive 📱 :
 Hemos establecido los siguientes criterios para el diseño responsive:
 * Versión Móvil: max-width: 799px
 * Versión Desktop: min-width: 800px
@@ -132,7 +132,7 @@ Las pantallas de *Inicio al juego* y la del *Juego* no están optimizadas a resp
 
 3. Se ha creado un menú con un diseño especifico para dispositivos móviles.
 
-### Transiciones:
+### Transiciones ⚙️:
 #### Aviso de cookies:
 Se ha implementado una transición sobre el modal de aviso de cookies dónde empieza oculto y con un width de un 20% y hace un scroll from top al centro de la pantalla y aumenta hasta tener un with del 50%.
 
@@ -221,13 +221,13 @@ Se ha implementado una transición en la botonera central bajo el canvas del jue
 >}
 ~~~
 
-#### Imágenes:
+#### Imágenes 🎞️ :
 Para crear esta página hemos empleado un amplio abanico de imágenes, entre las que cabe incluir:
 * *Lineart* de los diferentes tipos de edificios y generación del logo personalizado, con vectores básicos de https://publicdomainvectors.org/
 * Fotografías reales.
 * Capturas de pantalla del propio juego.
 
-## Modificaciones de sketch a wireframe y a prototipo:
+## Modificaciones de sketch a wireframe y a prototipo 📝 :
 1. Al plantear el sketch no tuvimos en cuenta la necesidad de incluir un botón de 'volver arriba', cuyo estilo tuvimos que idear directamente en el wireframe.
 
 2. El diseño original del contenido del cuerpo implicaba que el texto y las imágenes estaban directamente sobre el fondo blanco de la página en general. Si bien esta idea, a priori, nos parecía muy limpia y elegante, en la práctica no tardamos en ver que daba sensación de desorden y falta de control. Para solucionarlo optamos por incluir el contenido central en contenedores 'div' extras, con bordes remarcados y un fondo gris que destacara sobre el blanco original, hiciera buen contraste con la letra, y facilitara la ordenación visual de los diferentes tipos de contenido.
@@ -238,13 +238,13 @@ Para crear esta página hemos empleado un amplio abanico de imágenes, entre las
 
 5. Hemos eliminado los *pipes* separadores entre la opciones de menú, porqué estéticamente nos ha gustado más destacar el active con un *underline*.
 
-### Links de webs de juegos similares:
+### Links de webs de juegos similares 🔖 :
 Para desarrollar estas páginas hemos consultado diversos juegos de estrategia online, entre los que destacan los siguientes:
 * https://www.wesnoth.org/
 * http://www.freeciv.org/
 * https://play0ad.com/
 
-### Problemas encontrados en el diseño de las páginas iniciales:
+### Problemas encontrados en el diseño de las páginas iniciales 😣 :
 1. Una de las dificultades que nos hemos encontrado ha sido trabajar con las pseudoclases *:first-child, :nth-child(), :last-child*, no conseguíamos seleccionar los elementos que esperábamos y finalmente, enocntramos que la mejor opción es utilizar las siguientes para evitar estos problema *:first-of-type,:nth-of-type(), :last-of-type*.
 
     * Fuentes:
@@ -289,7 +289,7 @@ document
 ~~~
 
 
-## Desarrollo de código:
+## Desarrollo de código 🎮 :
 
 ### Detalles de las pantallas 'básicas':
 
@@ -505,7 +505,7 @@ Durante los diferentes puntos del desarrollo del juego hemos buscado jugar con e
 
 Más allá de la configuración inicial por css, todos estos cambios en el cursor se gestionan a través del código javascript.
 
-## Refactorización CSS:
+## Refactorización CSS 🖌️ :
 Se han utilizado las siguientes herramientas para validar y refactorizar el CSS:
 
 * [Stylelint](https://stylelint.io/)
@@ -519,17 +519,20 @@ CSS Lint muestra muchas recomendaciones que no se pueden llevar a cabo ya que in
 
 Consideramos que esta herramienta es útil para una análisis superficial, pero muestra advertencias en cosas que no debería. Por ejemplo, da por error el uso de variables de colores en root.
 
-## Tareas pendientes en la entrega final:
+## Video presentación del proyecto 📹 :
+Hemos realizado un único video con la presentanción tanto de la página web como del juego, lo hemos realizado totalmente en inglés. Se puede visualizar desde la Home de la página web o accedienciendo directamente a YouTube desde este [link](https://youtu.be/BrWE2bEPe8c).
+
+## Tareas pendientes en la entrega final ✋ :
 Estamos muy satisfechas con el trabajo entregado, dado que hemos sido capaces de completar, en el poco tiempo disponible, todas nuestras metas; hemos desarrollado todas las funcionalidades que queríamos desarrollar.
 
 Si cabe señalar algo, es que en el último momento nos ha faltado un día o dos para refactorizar adecuadamente el tratamiento de los mapas en el archivo *game_canvas.js*. Si bien el código es adecuado y no sobra una sola línea, nos hubiera gustado haber podido mejorarlo todavía más.
 
-## Consideraciones finales:
+## Consideraciones finales 💫 :
 Ha sido genial trabajar en equipo; consideramos que nos hemos complementado muy bien. La comunicación y la agilidad de trabajo ha ido incrementando y mejorando cada dia. Además, cada una nos hemos enfocado principalmente a la parte que más nos atrae de este área, lo que nos ha ayudado a disfrutar más de la práctica, aunque sin dejar de lado los aspectos que menos controlamos.
 
 En definitiva, hemos trabajado en equipo intentando utilizar el mismo estilo y formato en el código, para que pasase desapercibido quién ha desarrollado cada función y de esta forma, el código es único en estilo, como si lo hubiera hecho la misma persona. 
 
-## Releases:
+## Releases 📅 :
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
 * [Versión 2.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v2.0): 28 de noviembre de 2021
 * [Versión 3.0](link): TBA
