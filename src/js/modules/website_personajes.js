@@ -81,8 +81,7 @@ function pintarPersonajesOpt() {
 }
 
 /**
- * Función que pinta el grid de personajes en formato thumbnail
- * en la pantalla de INICIO
+ * Función que pinta el grid de personajes en formato thumbnail en la pantalla de INICIO
  */
 function mostrarPersonajesInicio() {
   let gridPersonajes = document.getElementById("gridPersonajes");
@@ -120,6 +119,8 @@ function pintarPersonajeGrid(avatar, gridPersonajes) {
   grid.appendChild(gridImg);
   let divOverlay = document.createElement("div");
   divOverlay.classList.add("overlay");
+  divOverlay.style.boxSizing = "border-box";
+  // Comentado con el profesor: no hay respuestas de stackoverflow.
   grid.appendChild(divOverlay);
   gridPersonajes.appendChild(grid);
 

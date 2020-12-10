@@ -22,22 +22,22 @@
           updateTransition();
         }
 
-        // Get the modal
+        // Tomamos el modal
         var modal = document.getElementById("myModal");
 
-        // Get the <span> element that closes the modal
+        // Tomamos el elemento <span> que cierra el modal
         var btn = document
           .getElementsByClassName("modal_content")[0]
           .getElementsByTagName("button")[0];
 
-        // TODO podemos añadir la propiedad onclick o si o si debe ser addEventListenet?
+        // Decidimos mantener la propiedad 'onclick'
         btn.onclick = function () {
           modal.style.display = "none";
           setCookie("avisoCookies", "balearicBuild", 1); //intalo una cookie en el navegador que caduca en 1 dia
         };
 
         // Cuando el usuario hace click fuera del modal, este se cierra
-        // TODO, Está implementado pero no lo utilizamos, mantengo por si cambio de idea
+        // Está implementado pero no lo utilizamos; lo mantenemos por si cambiamos de idea.
         window.onclick = function (event) {
           if (event.target == modal) {
             modal.style.display = "none";
@@ -46,9 +46,6 @@
       };
 
       /**** control aceptación aviso de cookies ****/
-      //FORMATO cookies 
-      /* document.cookie =
-        "username=avisoCookies; expires=Thu, 29 Nov 2020 12:00:00 UTC; path=/;"; */
 
       function setCookie(cname, cvalue, exdays) {
         var d = new Date();

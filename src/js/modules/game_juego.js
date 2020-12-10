@@ -111,7 +111,6 @@ juego.iniciar = function () {
  */
 juego.sobornar = function () {
   if (document.getElementById("juegoDinero").innerHTML >= costeSoborno) {
-    //TODO: q avise con una animación cuando tienes el dinero suficiente
     juego.dinero -= costeSoborno;
     juego.xalet = true;
     document.getElementById("juegoDinero").innerHTML = juego.dinero;
@@ -205,7 +204,7 @@ juego.actualizar = function () {
   document.getElementById("juegoBadge").innerHTML = juego.badge;
   this.manejarInactivos();
   this.comprobarGameOver();
-  this.animarSoborno();   //TODO NO ME FUNCIONA
+  this.animarSoborno();
 };
 
 /**

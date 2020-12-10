@@ -16,7 +16,7 @@ Repositorio proyecto P2 + Pc2.
 ## Objetivos 📌 :
 El objetivo central de este proyecto es desarrollar un sistema de páginas web en torno a un juego de estrategia online llamado BalearicBuilding.
 
-Como sub-objetivos podemos destacar:
+Como subobjetivos podemos destacar:
 
 * La ampliación y mejora de nuestros conocimientos de programación en los diferentes lenguajes, haciendo énfasis en el proceso de optimización y eficiencia en las funciones.
 * El desarrollo de habilidades de trabajo en equipo, con intención de hacer varias sesiones de *pair programming* a través de herramientas online.
@@ -87,7 +87,7 @@ La principal dificultad con esta paleta ha sido decidir un tono de error: como e
 * Pantalla Inicio - Home: los textos tienen un adecuado contraste con su color de fondo, al ser en negro sobre gris claro o en blanco sobre negro, dependiendo del elemento.
 * Pantalla Personajes: sigue el diseño de la pantalla de inicio.
 * Pantalla Login: sigue el diseño de la pantalla de inicio.
-* Pantalla de Juego: //TODO completar
+* Pantalla de Juego: el fondo de la pantalla de juego es oscuro, siguiendo el ejemplo de numerosos juegos de estrategia, por lo que se ha buscado el contraste con letras blancas y colores vibrantes de nuestra paleta habitual.
 
 ### Fuentes:
 * Hemos descargado la [tipografía Corleone](https://www.dafont.com/es/corleone.font) para utilizar en los titulos H1 y H2 y en el logo, así como en algunos elementos puntuales del juego. El motivo principal por el cual hemos seleccionado esta tipografía es que hemos querido basarnos en el estilo de [EL PADRINO](https://www.filmaffinity.com/es/film809297.html), ya que el juego trata de mafia y corrupción. No hemos optado utilizar la misma tipografía para todos los encabezados, porqué sino queda muy agresivo a la vista.
@@ -369,7 +369,9 @@ Hemos decicido generar cuatro mapas:
 
 Cada mapa se guarda en un array de 'tipos' de suelo; los hemos separado en el módulo *game_mapas.js* para facilitar el trabajo.
 
-La generación de estos mapas nos permitió llevar un flujo de desarrollo muy cómodo. Comenzamos trabajando con el mapa de Palma, usando de fondo de canvas el color ocre de nuestra paleta original (ya que el gris del enunciado no resultaba apropiado para el aspecto del juego, y el ocre daba imagen de 'tierra construible').
+Una alternativa a cargar mapas 'pre-hechos' en el juego hubiera sido que cada mapa se generara aleatoriamente al comenzar la partida. Cuando comenzamos a pensar en el desarrollo del proyecto decidimos descartar esta idea por los problemas que podían surgir de generar mapa aleatorios, y que en consecuencia habría que controlar: por ejemplo, que el mapa se generase sin ningún espacio de construcción lo suficientemente amplio.
+
+En cualquier caso, la generación de estos mapas nos permitió llevar un flujo de desarrollo muy cómodo. Comenzamos trabajando con el mapa de Palma, usando de fondo de canvas el color ocre de nuestra paleta original (ya que el gris del enunciado no resultaba apropiado para el aspecto del juego, y el ocre daba imagen de 'tierra construible').
 
 Una vez el flujo de juego era el correcto en el mapa de Palma, desarrollamos el de S'Arenal. Primero incluimos las partes de mar y las programamos; hecho esto, todo lo que hizo falta fue simplemente duplicar el sistema para incluir las partes de playa.
 
@@ -444,6 +446,17 @@ Esta función recibe el texto que queremos que se muestre por pantalla (por ejem
 
 Para facilitar su cancelación cuando se da el caso de GameOver, estas funciones se han incluido dentro de atributos del objeto Juego; esto nos permite hacer, si procede, un *clear*.
 
+Aparte, queremos destacar el tratamiento dado al icono de *soborno*, que aparece iluminado con un fondo dorado cuando todavía no se ha hecho un soborno y hay fondos para hacerlo. Esto se ha conseguido jugando con el elemento concreto del icono y la clase *iluminado*. El código que controla esta funcionalidad es el siguiente:
+
+>juego.animarSoborno = function () {
+>  let botonSoborno = document.getElementById("soborno");
+>  if (!this.soborno) {
+>    botonSoborno.classList.add("iluminado");
+>  } else {
+>    botonSoborno.classList.remove("iluminado");
+>  }
+>};
+
 #### Sonidos:
 Para incluir sonidos al realizar determinadas acciones en el juego (por ejemplo, que suene una caja registradora al cobrar alquileres o que un martillo golpee varias veces una superficie al construir un edificio) hemos investigado varias opciones, hasta finalmente decidirnos por la solución encontrada en [el apartado de sonidos de juegos de w3s](https://www.w3schools.com/graphics/game_sound.asp). Se basa en desarrollar una función (en nuestro caso llamada sound(src)) para llevar a cabo las diferentes acciones de un posible sonido: que comience, que se pare...
 
@@ -511,9 +524,9 @@ Se han utilizado las siguientes herramientas para validar y refactorizar el CSS:
 * [Stylelint](https://stylelint.io/)
 * [CSS LINT](http://csslint.net/)
 
-Stylelint mostraba errores por la ordenación de los elementos del CSS, sugería que situasemos unos elementos antes de otros, etc, en estos casos, no se algunos casos no se ha tomado acción en este punto porqué considerabamos que era más fácil e intuitivo mantener la ordenación tal cual estaba.
+Stylelint mostraba errores por la ordenación de los elementos del CSS; sugería que situásemos unos elementos antes de otros, etc. En estos casosno se ha tomado acción en este punto, porque consideramos que es más fácil e intuitivo mantener la ordenación tal cual estaba.
 
-Por otro lado, en algunas ocasiones hemos añadido comentarios para destacar dónde empieza y dónde termina _(/* END ...*/)_ la definición de estilos en un bloque de código determinado.
+Por otro lado, en algunas ocasiones hemos añadido comentarios para destacar dónde empieza y dónde termina _(/* END/FIN ...*/)_ la definición de estilos en un bloque de código determinado.
 
 CSS Lint muestra muchas recomendaciones que no se pueden llevar a cabo ya que indica que se deben unificar estilos, o que se repiten declaraciones en los mismos elementos, pero se trata de diferentes estilos según el responsive.
 
@@ -521,6 +534,10 @@ Consideramos que esta herramienta es útil para una análisis superficial, pero 
 
 ## Video presentación del proyecto 📹 :
 Hemos realizado un único video con la presentanción tanto de la página web como del juego, lo hemos realizado totalmente en inglés. Se puede visualizar desde la Home de la página web o accedienciendo directamente a YouTube desde este [link](https://youtu.be/BrWE2bEPe8c).
+
+El vídeo se ha elaborado enteramente en inglés.
+
+Por diferencias en el software de grabación empleado, el volumen del vídeo es en ocasiones desigual; esto se solventa cambiando el volumen del reproductor en cada momento.
 
 ## Tareas pendientes en la entrega final ✋ :
 Estamos muy satisfechas con el trabajo entregado, dado que hemos sido capaces de completar, en el poco tiempo disponible, todas nuestras metas; hemos desarrollado todas las funcionalidades que queríamos desarrollar.
@@ -530,9 +547,9 @@ Si cabe señalar algo, es que en el último momento nos ha faltado un día o dos
 ## Consideraciones finales 💫 :
 Ha sido genial trabajar en equipo; consideramos que nos hemos complementado muy bien. La comunicación y la agilidad de trabajo ha ido incrementando y mejorando cada dia. Además, cada una nos hemos enfocado principalmente a la parte que más nos atrae de este área, lo que nos ha ayudado a disfrutar más de la práctica, aunque sin dejar de lado los aspectos que menos controlamos.
 
-En definitiva, hemos trabajado en equipo intentando utilizar el mismo estilo y formato en el código, para que pasase desapercibido quién ha desarrollado cada función y de esta forma, el código es único en estilo, como si lo hubiera hecho la misma persona. 
+En definitiva, hemos trabajado en equipo intentando utilizar el mismo estilo y formato en el código, para que pasase desapercibido quién ha desarrollado cada función; además, hemos colaborado en la revisión del código de la otra persona, y nos hemos enfrentado en equipo a los problemas que iban surgiendo. De esta forma, el código es único en estilo, como si lo hubiera hecho la misma persona. 
 
 ## Releases 📅 :
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
 * [Versión 2.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v2.0): 28 de noviembre de 2021
-* [Versión 3.0](link): TBA
+* [Versión 3.0]((https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v3.0): 10 de diciembre de 2021

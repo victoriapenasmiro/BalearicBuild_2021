@@ -181,7 +181,7 @@ p#juegoBadge {
   width: 5rem;
   padding: 0;
   text-align: center;
-  border: 3px solid var(--error); /* TODO, RENOMBRAR VAR */
+  border: 3px solid var(--error);
   text-transform: uppercase;
   cursor: grab;
   box-shadow: 0.3rem 0.3rem 0.5rem -0.5rem var(--error);

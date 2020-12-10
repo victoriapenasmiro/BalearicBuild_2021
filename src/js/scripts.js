@@ -19,7 +19,7 @@ function start() {
   window.onscroll = function () {
     controlarBotonTop();
   };
-  /**** END SCROLL TO TOP ****/
+  /**** FIN SCROLL TO TOP ****/
 
   /**** AVISO DE COOKIES ****/
   var modal = document.getElementById("myModal");
@@ -29,13 +29,13 @@ function start() {
     .getElementsByClassName("modal_content")[0]
     .getElementsByTagName("button")[0];
 
-  //intalo una cookie en el navegador que caduca en 1 dia
+  // Con esto instalamos una cookie en el navegador que caduca en 1 día:
   btn.addEventListener("click", function () {
     modal.style.display = "none";
     setCookie("avisoCookies", "balearicBuild", 1);
   });
 
-  //opción cookies rechazadas
+  // opción cookies rechazadas:
   document
     .getElementsByClassName("modal_content")[0]
     .getElementsByTagName("a")[0]
@@ -45,19 +45,19 @@ function start() {
     });
 
   if (!getCookie("avisoCookies")) {
-    //si no se ha aceptado el aviso de cookies, lo muestro
+    // si no se ha aceptado el aviso de cookies, lo muestro:
     activarTransicion();
   } else {
     modal.style.display = "none";
   }
 
-  // Cuando el usuario hace click fuera del modal, este se cierra
+  // Cuando el usuario hace click fuera del modal, este se cierra:
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
   };
-  /**** END AVISO DE COOKIES ****/
+  /**** FIN AVISO DE COOKIES ****/
 
   /***** RESETEO DE ESTILOS DEL NAV *****/
   let options = document
@@ -70,7 +70,7 @@ function start() {
   let optionsList = Array.prototype.slice.call(options);
   optionsList.forEach(removeActiveClass);
 
-  /***** END RESETEO ESTILOS NAV *****/
+  /***** FIN RESETEO ESTILOS NAV *****/
 
   // Scripts propios de las diferentes páginas:
   if (window.location.href.indexOf("personajes") > -1) {
@@ -234,9 +234,6 @@ function activarTransicion() {
 }
 
 /**** control aceptación aviso de cookies ****/
-//FORMATO cookies
-/* document.cookie =
-  "username=avisoCookies; expires=Thu, 29 Nov 2020 12:00:00 UTC; path=/;"; */
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -265,4 +262,4 @@ function getCookie(cname) {
   }
   return false;
 }
-/**** END control aceptación aviso de cookies ****/
+/**** FIN control aceptación aviso de cookies ****/
