@@ -243,6 +243,7 @@ Para desarrollar estas páginas hemos consultado diversos juegos de estrategia o
 * https://www.wesnoth.org/
 * http://www.freeciv.org/
 * https://play0ad.com/
+
 Si bien no nos hemos basado en ninguno de estos juegos en concreto, hemos tomado detalles de inspiración de prácticamente todas las consultas: en unos hemos observado el tono oscuro de la mayor parte de los fondos, en otros los botones de información de la versión del juego, etc.
 
 ### Problemas encontrados en el diseño de las páginas iniciales 😣 :
@@ -295,15 +296,15 @@ document
 ### Detalles de las pantallas 'básicas':
 
 ### Pantalla Home:
-La pantalla principal, la home, se ha desarrollado con Grid y Flexbox principalmente. Se ha modificado ligeramente el diseño original planteado en los wireframes, lo hemos justificado en el siguiente punto  del README: __*Modificaciones de sketch a wireframe y a prototipo*__.
+La pantalla principal, *home*, se ha desarrollado con Grid y Flexbox principalmente. Se ha modificado ligeramente el diseño original planteado en los wireframes, lo hemos justificado en el siguiente punto  del README: __*Modificaciones de sketch a wireframe y a prototipo*__.
 
-Los enlaces a las diferentes secciones de la web, de los tres elementos *button* de la segunda section de la Home (ver en YouTube, Consultar Personajes, Jugar YA), se han cargado como un evento onclick directamente en el HTML, no tienen ningún evento más asociado, son como elementos *a*.
+Los enlaces a las diferentes secciones de la web, de los tres elementos *button* de la segunda section de la Home (ver en YouTube, Consultar Personajes, Jugar YA), se han cargado como un evento onclick directamente en el HTML; son como elementos *a* y no tienen ningún evento más asociado.
 
 #### Header / footer:
-Para 'importar' tanto el header como el footer hemos partido de las explicaciones enlazadas en el classroom de la asignatura, partiendo de la comprensión del código explicativo original en github.
+Para 'importar' tanto el header como el footer hemos partido de las explicaciones enlazadas en el classroom de la asignatura, en base a la comprensión del código explicativo original en github.
 
 #### Head:
-Quisimos crear un archivo para agrupar los elementos del head comunes en todas las pantallas, pero daba conflictos ya que había elementos propios de cada pantalla y se machacaban. Finalmente esta opción no se ha implementado y se ha dejado comentada en js/scripts.js
+Quisimos crear un archivo para agrupar los elementos del head comunes en todas las pantallas, pero daba conflictos ya que había elementos propios de cada pantalla y se machacaban. Finalmente esta opción no se ha implementado y se ha dejado comentada en js/scripts.js.
 
 ~~~
 >$(document).ready(() => {
