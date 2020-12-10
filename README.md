@@ -601,4 +601,4 @@ En definitiva, hemos trabajado en equipo intentando utilizar el mismo estilo y f
 ## Releases 📅 :
 * [Versión 1.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v1.0): 16 de noviembre de 2021
 * [Versión 2.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v2.0): 28 de noviembre de 2021
-* [Versión 3.0]((https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v3.0): 10 de diciembre de 2021
+* [Versión 3.0](https://github.com/victoriapenasmiro/BalearicBuild_2021/releases/tag/v3.0): 10 de diciembre de 2021
