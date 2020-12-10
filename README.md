@@ -243,6 +243,7 @@ Para desarrollar estas páginas hemos consultado diversos juegos de estrategia o
 * https://www.wesnoth.org/
 * http://www.freeciv.org/
 * https://play0ad.com/
+Si bien no nos hemos basado en ninguno de estos juegos en concreto, hemos tomado detalles de inspiración de prácticamente todas las consultas: en unos hemos observado el tono oscuro de la mayor parte de los fondos, en otros los botones de información de la versión del juego, etc.
 
 ### Problemas encontrados en el diseño de las páginas iniciales 😣 :
 1. Una de las dificultades que nos hemos encontrado ha sido trabajar con las pseudoclases *:first-child, :nth-child(), :last-child*, no conseguíamos seleccionar los elementos que esperábamos y finalmente, enocntramos que la mejor opción es utilizar las siguientes para evitar estos problema *:first-of-type,:nth-of-type(), :last-of-type*.
@@ -268,7 +269,7 @@ Finalmente, la solución de ambos problemas vino de la mano. Mediante la siguien
 >});
 ~~~
 
-3. Hemos tenido problemas para añadir propiedades de css con llevas un guión intermedio mediante js, el siguiente código daba error:
+3. Hemos tenido problemas para añadir via javascript propiedades de css cuando estas llevan habitualmente un guión intermedio; el siguiente código, por ejemplo, daba error:
 
 ~~~
 document
@@ -277,9 +278,9 @@ document
 .getElementsByTagName("aside")[0].style.align-items = "flex-end";
 ~~~
 
-Finalmente, hemos encontrado una solución en: [stackoverflow](https://stackoverflow.com/questions/58699722/using-javascript-to-change-css-style-in-flexbox)
+Tras buscar opciones para resolver el problema hemos encontrado una solución en: [stackoverflow](https://stackoverflow.com/questions/58699722/using-javascript-to-change-css-style-in-flexbox): cuando la propiedad lleva un guión (por ejemplo, *box-sizing*) quitamos el guión y cambiamos la primera letra de la segunda palabra por una mayúscula (en este caso *boxSizing*).
 
-Ha quedado de la siguiente forma:
+Así, este mismo código ha quedado de la siguiente forma:
 
 ~~~
 document
