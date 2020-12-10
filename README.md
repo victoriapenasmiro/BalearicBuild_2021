@@ -430,44 +430,52 @@ Cuando se produce algún cambio en el dinero del jugador, sea porque gana (por e
 
 Esto se ha desarrollado fundamentalmente mediante la siguiente función:
 
->function mostrarEventosDinero(texto) {
->  let infoDinero = document.getElementById("eventoDinero");
->  infoDinero.innerHTML = texto;
->  infoDinero.style.display = "block";
->  ocultarEventosDinero(6000);
->}
+~~~
+function mostrarEventosDinero(texto) {
+  let infoDinero = document.getElementById("eventoDinero");
+  infoDinero.innerHTML = texto;
+  infoDinero.style.display = "block";
+  ocultarEventosDinero(6000);
+}
+~~~
 
 Esta función recibe el texto que queremos que se muestre por pantalla (por ejemplo, '+renta casa: 250'), lo mete en el elemento correspondiente del DOM, y fuerza que el style.display de este elemento se muestre. Por último llama a una función que establece un timer (en este ejemplo de 6 segundos), al final del cual el elemento deja de mostrarse en la página con display = 'none'.
 
->function ocultarEventosDinero(tiempo) {
->  setTimeout(
->    () => (document.getElementById("eventoDinero").style.display = "none"),
->    tiempo
->  );
->}
+~~~
+function ocultarEventosDinero(tiempo) {
+  setTimeout(
+    () => (document.getElementById("eventoDinero").style.display = "none"),
+    tiempo
+  );
+}
+~~~
 
 Para facilitar su cancelación cuando se da el caso de GameOver, estas funciones se han incluido dentro de atributos del objeto Juego; esto nos permite hacer, si procede, un *clear*.
 
 Aparte, queremos destacar el tratamiento dado al icono de *soborno*, que aparece iluminado con un fondo dorado cuando todavía no se ha hecho un soborno y hay fondos para hacerlo. Esto se ha conseguido jugando con el elemento concreto del icono y la clase *iluminado*. El código que controla esta funcionalidad es el siguiente:
 
->juego.animarSoborno = function () {
->  let botonSoborno = document.getElementById("soborno");
->  if (!this.soborno) {
->    botonSoborno.classList.add("iluminado");
->  } else {
->    botonSoborno.classList.remove("iluminado");
->  }
->};
+~~~
+juego.animarSoborno = function () {
+  let botonSoborno = document.getElementById("soborno");
+  if (!this.soborno) {
+    botonSoborno.classList.add("iluminado");
+  } else {
+    botonSoborno.classList.remove("iluminado");
+  }
+};
+~~~
 
 #### Sonidos:
 Para incluir sonidos al realizar determinadas acciones en el juego (por ejemplo, que suene una caja registradora al cobrar alquileres o que un martillo golpee varias veces una superficie al construir un edificio) hemos investigado varias opciones, hasta finalmente decidirnos por la solución encontrada en [el apartado de sonidos de juegos de w3s](https://www.w3schools.com/graphics/game_sound.asp). Se basa en desarrollar una función (en nuestro caso llamada sound(src)) para llevar a cabo las diferentes acciones de un posible sonido: que comience, que se pare...
 
 Cuando se desea llamar a un sonido en una función concreta, primero se instancia el nuevo sonido, pasándole por parámetro dónde se encuentra el archivo de sonido correspondiente, y luego se llama a la función apropiada. A título de ejemplo puede ver el siguiente fragmento de código:
 
->if (ganancias != 0) {
->    let sonidoDinero = new sound("src/sound/cash.mp3");
->    sonidoDinero.play();
->}
+~~~
+if (ganancias != 0) {
+    let sonidoDinero = new sound("src/sound/cash.mp3");
+    sonidoDinero.play();
+}
+~~~
 
 Respecto a los sonidos, todos los que hemos empleado en este juego se encuentran en el dominio público o son gratuitos. Los hemos obtenido de https://freesound.org/ y se pueden encontrar en la carpeta *src/sound/* del proyecto.
 
@@ -549,33 +557,33 @@ Si cabe señalar algo, es que en el último momento nos ha faltado un día o dos
 También hemos dejado pendiente el tema de 'gulp'. Se ha intentado generar la versión de producción con Gulp, siguiendo los pasos marcados en el repositorio [guide-gulp-minify](https://github.com/classicoman2/guide-gulp-minify), pero no lo hemos podido completar por distintos motivos:
 
 1. La instalación de Gulp con el siguiente comando nos ha fallado en ambos equipos:
-~
+~~~
 npm install gulp
-~
+~~~
 
 Encontramos otra forma de instalar gulp en [https://gulpjs.com/docs/en/getting-started/quick-start/](https://gulpjs.com/docs/en/getting-started/quick-start/) y solo pudimos instalarlo en uno de los ordenadores, ya que en el otro nos devolvía (entre otros) este error:
 
-~
+~~~
 npm ERR! code EACCES
 npm ERR! syscall access
 npm ERR! path /usr/local/lib/node_modules
 npm ERR! errno -13
 npm ERR! Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
-~
+~~~
 
 Aparentemente este error es debido a la instalación de [STYLELINT](https://github.com/classicoman2/snippets-css-and-js/tree/master/stylelint) para refactorizar el CSS
 
 2. En el ordenador donde conseguimos instalar Gulp, no funcionó la generación de la versión de producción, al realizar
 
-~
+~~~
 gulp build
-~
+~~~
 
 obteníamos el siguiente error:
 
-~
+~~~
 'build' errored after 1.91s
-~
+~~~
 
 Revisando el código del fichero gulpfile.js, creemos que es posible que falle debido a que en nuestro proyecto tenemos dos ficheros principales de js, scripts.js y main.js, por lo que se tendrían que incluir ambos y en el fichero actual solo se contempla uno y además, con un nombre diferente al nuestro, está como script.js. Además, tenemos un fichero .ico, que también se debería incluir en el gulpfile.js.
 
