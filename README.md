@@ -379,16 +379,18 @@ Una vez el flujo de juego era el correcto en el mapa de Palma, desarrollamos el 
 
 Después pasamos a Puigpunyent, que combina zona urbanizable con zona verde. El desarrollo del aspecto visual del mapa fue análogo al del mapa anterior, pero hizo falta programar la reconversión de terrenos como Empresario Ecológico, cosa que hicimos al cambiar el badge con el fragmento de código:
 
-> if (this.contarEdificios("hotel") >= 2) {
->    this.badge = "Empresari Ecològic";
->    for (let i = 0; i < filasJuego; i++) {
->      for (let j = 0; j < columnasJuego; j++) {
->        if (this.tablero[i][j].terreno == "zonaverda") {
->          this.tablero[i][j].terreno = "urbanitzable";
->        }
->      }
->    }
-> }
+~~~
+ if (this.contarEdificios("hotel") >= 2) {
+    this.badge = "Empresari Ecològic";
+    for (let i = 0; i < filasJuego; i++) {
+      for (let j = 0; j < columnasJuego; j++) {
+        if (this.tablero[i][j].terreno == "zonaverda") {
+          this.tablero[i][j].terreno = "urbanitzable";
+        }
+      }
+    }
+ }
+~~~
 
 Con todo lo anterior solucionado, pudimos permitirnos crear el mapa de Es Trenc, que combina perfectamente todos los aspectos del juego.
 
@@ -406,8 +408,10 @@ El desarrollo de la construcción y de la demolición, por contraste, fueron bas
 #### Eventos de tiempo:
 Existen dos tipos de eventos de tiempo: los de actualización de datos y pantalla y los de eventos sorpresa. Ambos tipos tienen sus tiempos guardados en el archivo *game_configuracion.js*, y ambos se llaman desde la función de inicio del juego de la siguiente manera:
 
-> setInterval(() => { this.actualizar(); }, tiempoRenta);
-> setInterval(() => { this.manejarSorpresa(); }, tiempoSorpresa);
+~~~
+setInterval(() => { this.actualizar(); }, tiempoRenta);
+setInterval(() => { this.manejarSorpresa(); }, tiempoSorpresa);
+~~~
 
 Los eventos de actualización de datos implican tanto la actualización de dinero y títulos como el control de los botones inactivos. Esto implica que cada vez que transcurre el tiempo definido en *tiempoRenta* llamaremos a las funciones *contabilizarGanancias()*, que sumará todas las rentas obtenidas durante el periodo por los edificios que ha construido el jugador, y *manejarInactivos()*, que analizará si se cumplen las condiciones para que se puedan construir los distintos tipos de edificios y, en función de esto, activará o desactivará los botones pertinentes.
 
