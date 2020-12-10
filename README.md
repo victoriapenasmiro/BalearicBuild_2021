@@ -546,6 +546,41 @@ Estamos muy satisfechas con el trabajo entregado, dado que hemos sido capaces de
 
 Si cabe señalar algo, es que en el último momento nos ha faltado un día o dos para refactorizar adecuadamente el tratamiento de los mapas en el archivo *game_canvas.js*. Si bien el código es adecuado y no sobra una sola línea, nos hubiera gustado haber podido mejorarlo todavía más.
 
+También hemos dejado pendiente el tema de 'gulp'. Se ha intentado generar la versión de producción con Gulp, siguiendo los pasos marcados en el repositorio [guide-gulp-minify](https://github.com/classicoman2/guide-gulp-minify), pero no lo hemos podido completar por distintos motivos:
+
+1. La instalación de Gulp con el siguiente comando nos ha fallado en ambos equipos:
+~
+npm install gulp
+~
+
+Encontramos otra forma de instalar gulp en [https://gulpjs.com/docs/en/getting-started/quick-start/](https://gulpjs.com/docs/en/getting-started/quick-start/) y solo pudimos instalarlo en uno de los ordenadores, ya que en el otro nos devolvía (entre otros) este error:
+
+~
+npm ERR! code EACCES
+npm ERR! syscall access
+npm ERR! path /usr/local/lib/node_modules
+npm ERR! errno -13
+npm ERR! Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
+~
+
+Aparentemente este error es debido a la instalación de [STYLELINT](https://github.com/classicoman2/snippets-css-and-js/tree/master/stylelint) para refactorizar el CSS
+
+2. En el ordenador donde conseguimos instalar Gulp, no funcionó la generación de la versión de producción, al realizar
+
+~
+gulp build
+~
+
+obteníamos el siguiente error:
+
+~
+'build' errored after 1.91s
+~
+
+Revisando el código del fichero gulpfile.js, creemos que es posible que falle debido a que en nuestro proyecto tenemos dos ficheros principales de js, scripts.js y main.js, por lo que se tendrían que incluir ambos y en el fichero actual solo se contempla uno y además, con un nombre diferente al nuestro, está como script.js. Además, tenemos un fichero .ico, que también se debería incluir en el gulpfile.js.
+
+De todas maneras, en la versión subida finalmente se incluyen todas las dependencias del proceso de *gulp*.
+
 ## Consideraciones finales 💫 :
 Ha sido genial trabajar en equipo; consideramos que nos hemos complementado muy bien. La comunicación y la agilidad de trabajo ha ido incrementando y mejorando cada dia. Además, cada una nos hemos enfocado principalmente a la parte que más nos atrae de este área, lo que nos ha ayudado a disfrutar más de la práctica, aunque sin dejar de lado los aspectos que menos controlamos.
 
